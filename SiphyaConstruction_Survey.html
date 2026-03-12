@@ -1,0 +1,1353 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>แบบสำรวจความต้องการใช้ AI - บริษัท สี่พระยาก่อสร้าง จำกัด</title>
+    <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #1565C0;
+            --dark-color: #0D47A1;
+            --dark-gray: #2D2D2D;
+            --medium-gray: #5A5A5A;
+            --light-gray: #E8E8E8;
+            --white: #FFFFFF;
+            --bg-gray: #F5F5F5;
+            --accent-light: #E3F2FD;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Prompt', sans-serif;
+            background: var(--bg-gray);
+            color: var(--dark-gray);
+            line-height: 1.4;
+            font-size: 14px;
+        }
+
+        .container { max-width: 950px; margin: 0 auto; padding: 10px; }
+
+        .header {
+            background: linear-gradient(135deg, #1565C0 0%, #0D47A1 50%, #1B2838 100%);
+            color: var(--white);
+            padding: 15px 20px;
+            border-radius: 12px;
+            margin-bottom: 15px;
+            text-align: center;
+        }
+        .header h1 { font-size: 1.3rem; font-weight: 600; }
+        .header p { font-size: 0.85rem; opacity: 0.9; }
+        .header .company-name { font-size: 0.95rem; font-weight: 500; margin-top: 5px; }
+        .header .objective { font-size: 0.75rem; opacity: 0.85; margin-top: 5px; line-height: 1.4; }
+
+        .survey-container { display: block; }
+
+        .section {
+            background: var(--white);
+            border-radius: 12px;
+            padding: 15px;
+            margin-bottom: 15px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.06);
+        }
+
+        .section-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 12px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid var(--light-gray);
+        }
+
+        .section-letter {
+            width: 32px; height: 32px;
+            background: var(--primary-color);
+            color: var(--white);
+            border-radius: 8px;
+            display: flex; align-items: center; justify-content: center;
+            font-weight: 600; font-size: 1rem;
+            margin-right: 10px; flex-shrink: 0;
+        }
+
+        .section-title { font-size: 1rem; font-weight: 600; color: var(--dark-gray); }
+        .section-subtitle { font-size: 0.75rem; color: var(--primary-color); font-weight: 600; margin-left: auto; }
+
+        .question { margin-bottom: 15px; }
+        .question:last-child { margin-bottom: 0; }
+
+        .question-label {
+            font-weight: 500; color: var(--dark-gray);
+            margin-bottom: 8px; display: block; font-size: 0.9rem;
+        }
+
+        .question-sublabel {
+            font-size: 0.75rem; color: var(--medium-gray);
+            margin-bottom: 10px; line-height: 1.5;
+        }
+
+        input[type="text"], textarea {
+            width: 100%; padding: 10px 12px;
+            border: 2px solid var(--light-gray);
+            border-radius: 8px;
+            font-family: inherit; font-size: 0.9rem;
+            transition: all 0.3s ease;
+        }
+        input[type="text"]:focus, textarea:focus {
+            outline: none; border-color: var(--primary-color);
+        }
+        textarea { min-height: 70px; resize: vertical; }
+
+        .dotted-input {
+            border: none;
+            border-bottom: 2px dotted var(--light-gray);
+            border-radius: 0; padding: 8px 5px; background: transparent;
+        }
+        .dotted-input::placeholder { color: #ccc; font-style: italic; }
+        .dotted-input:focus { border-bottom-color: var(--primary-color); box-shadow: none; }
+
+        .option-group { display: flex; flex-direction: column; gap: 6px; }
+
+        .option {
+            display: flex; align-items: center;
+            padding: 10px 12px;
+            background: var(--bg-gray);
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            border: 2px solid transparent;
+        }
+        .option:hover { background: var(--light-gray); }
+        .option.selected { background: var(--accent-light); border-color: var(--primary-color); }
+
+        .option .checkmark {
+            width: 18px; height: 18px;
+            border: 2px solid var(--medium-gray);
+            border-radius: 50%;
+            margin-right: 10px; flex-shrink: 0;
+            display: flex; align-items: center; justify-content: center;
+            transition: all 0.2s ease;
+        }
+        .option.checkbox .checkmark { border-radius: 4px; }
+        .option.selected .checkmark { background: var(--primary-color); border-color: var(--primary-color); }
+        .option.selected .checkmark::after { content: "✓"; color: white; font-size: 11px; font-weight: bold; }
+        .option-title { font-size: 0.85rem; color: var(--dark-gray); }
+
+        .option.has-input { flex-wrap: wrap; }
+        .option.has-input .other-input { pointer-events: none; }
+        .option.has-input.selected .other-input { pointer-events: auto; }
+        .option.has-input .other-input {
+            width: 100%; margin-top: 8px; padding: 8px;
+            border: 1px dashed var(--light-gray);
+            border-radius: 6px; font-family: inherit;
+            font-size: 0.85rem; display: none;
+        }
+        .option.has-input.selected .other-input { display: block; }
+
+        .level-options { display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px; }
+        .level-option {
+            display: flex; align-items: center;
+            padding: 10px 12px;
+            background: var(--bg-gray);
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            border: 2px solid transparent;
+        }
+        .level-option:hover { background: var(--light-gray); }
+        .level-option.selected { background: var(--accent-light); border-color: var(--primary-color); }
+        .level-badge {
+            width: 36px; height: 36px;
+            background: var(--medium-gray); color: var(--white);
+            border-radius: 8px;
+            display: flex; align-items: center; justify-content: center;
+            font-weight: 600; margin-right: 10px;
+            font-size: 0.75rem; flex-shrink: 0;
+        }
+        .level-option.selected .level-badge { background: var(--primary-color); }
+        .level-option .option-content { flex: 1; min-width: 0; }
+        .level-option .option-title { font-size: 0.8rem; line-height: 1.3; }
+
+        .tool-grid { display: flex; flex-wrap: wrap; gap: 6px; }
+        .tool-option {
+            padding: 8px 12px;
+            background: var(--bg-gray);
+            border-radius: 6px; cursor: pointer;
+            transition: all 0.2s ease;
+            border: 2px solid transparent;
+            font-size: 0.8rem;
+        }
+        .tool-option:hover { background: var(--light-gray); }
+        .tool-option.selected { background: var(--accent-light); border-color: var(--primary-color); color: var(--primary-color); font-weight: 500; }
+        .tool-option.other-tool { border-style: dashed; border-color: var(--light-gray); }
+        .tool-option.other-tool.selected { border-style: solid; }
+        .other-tool-input { display: none; margin-top: 8px; padding: 8px 12px; border: 1px dashed var(--light-gray); border-radius: 6px; font-size: 0.85rem; width: 100%; }
+        .other-tool-input.show { display: block; }
+
+        .freq-options { display: flex; flex-wrap: wrap; gap: 6px; }
+        .freq-option {
+            padding: 8px 14px; background: var(--bg-gray);
+            border-radius: 6px; cursor: pointer;
+            transition: all 0.2s ease; border: 2px solid transparent; font-size: 0.8rem;
+        }
+        .freq-option:hover { background: var(--light-gray); }
+        .freq-option.selected { background: var(--accent-light); border-color: var(--primary-color); color: var(--primary-color); font-weight: 500; }
+
+        .rating-grid { display: grid; gap: 6px; }
+        .rating-row {
+            display: flex; align-items: center;
+            padding: 8px 10px; background: var(--bg-gray);
+            border-radius: 8px; gap: 10px;
+        }
+        .rating-label { flex: 1; font-size: 0.8rem; min-width: 0; }
+        .rating-buttons { display: flex; gap: 4px; flex-shrink: 0; }
+        .rating-btn {
+            width: 32px; height: 32px;
+            border: 2px solid var(--light-gray);
+            border-radius: 6px; background: var(--white);
+            cursor: pointer; font-weight: 500; font-size: 0.85rem;
+            transition: all 0.2s ease;
+        }
+        .rating-btn:hover { border-color: var(--primary-color); }
+        .rating-btn.selected { background: var(--primary-color); border-color: var(--primary-color); color: var(--white); }
+
+        .dynamic-inputs { display: flex; flex-direction: column; gap: 6px; }
+        .dynamic-input-row { display: flex; align-items: center; gap: 8px; }
+        .dynamic-input-row input { flex: 1; }
+
+        .add-btn, .remove-btn {
+            width: 32px; height: 32px; border-radius: 8px;
+            border: none; cursor: pointer; font-size: 1rem;
+            transition: all 0.2s ease; flex-shrink: 0;
+        }
+        .add-btn { background: var(--primary-color); color: var(--white); }
+        .add-btn:hover { background: var(--dark-color); }
+        .remove-btn { background: var(--light-gray); color: var(--medium-gray); }
+        .remove-btn:hover { background: #e53935; color: var(--white); }
+
+        .checkbox-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 6px; }
+        .checkbox-grid .option { padding: 8px 10px; }
+        .checkbox-grid .option-title { font-size: 0.8rem; line-height: 1.3; }
+
+        .work-category { margin-bottom: 15px; }
+        .work-category:last-child { margin-bottom: 0; }
+        .work-category-title {
+            font-size: 0.85rem; font-weight: 600; color: var(--dark-gray);
+            margin-bottom: 8px; padding-bottom: 4px;
+            border-bottom: 2px solid var(--primary-color);
+            display: inline-block;
+        }
+
+        .progress-container {
+            position: fixed; top: 0; left: 0; right: 0;
+            height: 3px; background: var(--light-gray); z-index: 100;
+        }
+        .progress-bar { height: 100%; background: var(--primary-color); transition: width 0.3s ease; }
+
+        .nav-buttons { display: flex; justify-content: space-between; margin-top: 15px; gap: 10px; }
+        .nav-btn {
+            padding: 12px 24px; border-radius: 10px;
+            font-family: inherit; font-size: 0.9rem; font-weight: 500;
+            cursor: pointer; transition: all 0.3s ease; border: none;
+        }
+        .nav-btn.prev { background: var(--light-gray); color: var(--dark-gray); }
+        .nav-btn.prev:hover { background: var(--medium-gray); color: var(--white); }
+        .nav-btn.next { background: var(--primary-color); color: var(--white); flex: 1; max-width: 200px; }
+        .nav-btn.next:hover { background: var(--dark-color); }
+
+        .step-indicator { display: flex; justify-content: center; gap: 6px; margin-bottom: 15px; }
+        .step-dot {
+            width: 10px; height: 10px; border-radius: 50%;
+            background: var(--light-gray); transition: all 0.3s ease;
+        }
+        .step-dot.active { background: var(--primary-color); transform: scale(1.2); }
+        .step-dot.completed { background: var(--primary-color); }
+
+        .success-page { text-align: center; padding: 40px 20px; }
+        .success-icon {
+            width: 80px; height: 80px;
+            background: linear-gradient(135deg, #1565C0 0%, #0D47A1 100%);
+            border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            margin: 0 auto 20px; font-size: 2.5rem; color: var(--white);
+        }
+        .success-page h2 { font-size: 1.4rem; margin-bottom: 10px; color: var(--dark-gray); }
+        .success-page p { color: var(--medium-gray); margin-bottom: 20px; font-size: 0.9rem; }
+
+        .footer { text-align: center; padding: 15px; color: var(--medium-gray); font-size: 0.75rem; }
+
+        .location-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 6px; }
+
+        @media (max-width: 600px) {
+            .level-options { grid-template-columns: 1fr; }
+            .checkbox-grid { grid-template-columns: 1fr; }
+            .location-grid { grid-template-columns: 1fr; }
+            .rating-row { flex-direction: column; align-items: flex-start; gap: 8px; }
+            .rating-buttons { width: 100%; justify-content: space-between; }
+        }
+    </style>
+</head>
+<body>
+    <div class="progress-container">
+        <div class="progress-bar" id="progressBar" style="width: 0%"></div>
+    </div>
+
+    <div class="container">
+        <div class="header">
+            <h1>แบบสำรวจความต้องการใช้ AI ในการทำงาน</h1>
+            <div class="company-name">🏗️ บริษัท สี่พระยาก่อสร้าง จำกัด (Siphya Construction Company Limited)</div>
+            <p>⏱️ ใช้เวลาประมาณ 10-15 นาที | ข้อมูลจะถูกเก็บเป็นความลับ</p>
+            <div class="objective">วัตถุประสงค์: เพื่อสำรวจปัญหาในการทำงานและความต้องการใช้ AI เพื่อออกแบบ Solution และหลักสูตรอบรมที่เหมาะสม</div>
+        </div>
+
+        <div class="survey-container" id="surveyContainer">
+            <div class="step-indicator" id="stepIndicator"></div>
+
+            <!-- Step 1: Section A - ข้อมูลทั่วไป -->
+            <div class="step" data-step="1">
+                <div class="section">
+                    <div class="section-header">
+                        <div class="section-letter">A</div>
+                        <div class="section-title">ข้อมูลทั่วไป</div>
+                    </div>
+
+                    <div class="question">
+                        <label class="question-label">A1. ชื่อ-นามสกุล</label>
+                        <input type="text" id="name" placeholder="กรอกชื่อ-นามสกุล">
+                    </div>
+
+                    <div class="question">
+                        <label class="question-label">A2. ตำแหน่ง</label>
+                        <input type="text" id="position" placeholder="กรอกตำแหน่งงาน">
+                    </div>
+
+                    <div class="question">
+                        <label class="question-label">A3. แผนก/ทีม (เลือกได้ 1 ข้อ)</label>
+                        <div class="option-group" id="departmentGroup">
+                            <label class="option" onclick="selectOption(this, 'department')">
+                                <input type="radio" name="department" value="project-engineering" style="display:none;">
+                                <span class="checkmark"></span>
+                                <span class="option-title">📐 วิศวกรโครงการ (Project Engineering)</span>
+                            </label>
+                            <label class="option" onclick="selectOption(this, 'department')">
+                                <input type="radio" name="department" value="architecture" style="display:none;">
+                                <span class="checkmark"></span>
+                                <span class="option-title">🏛️ สถาปัตยกรรม/ออกแบบ (Architecture/Design)</span>
+                            </label>
+                            <label class="option" onclick="selectOption(this, 'department')">
+                                <input type="radio" name="department" value="qs-boq" style="display:none;">
+                                <span class="checkmark"></span>
+                                <span class="option-title">💰 ประมาณการ/ถอดแบบ (QS/BOQ)</span>
+                            </label>
+                            <label class="option" onclick="selectOption(this, 'department')">
+                                <input type="radio" name="department" value="site-supervision" style="display:none;">
+                                <span class="checkmark"></span>
+                                <span class="option-title">👷 ควบคุมงาน/โฟร์แมน (Site Supervision/Foreman)</span>
+                            </label>
+                            <label class="option" onclick="selectOption(this, 'department')">
+                                <input type="radio" name="department" value="pre-construction" style="display:none;">
+                                <span class="checkmark"></span>
+                                <span class="option-title">📋 แผนก Pre-Construction</span>
+                            </label>
+                            <label class="option" onclick="selectOption(this, 'department')">
+                                <input type="radio" name="department" value="procurement" style="display:none;">
+                                <span class="checkmark"></span>
+                                <span class="option-title">🛒 จัดซื้อจัดจ้าง (Procurement)</span>
+                            </label>
+                            <label class="option" onclick="selectOption(this, 'department')">
+                                <input type="radio" name="department" value="warehouse" style="display:none;">
+                                <span class="checkmark"></span>
+                                <span class="option-title">📦 คลังสินค้า/สโตร์ (Warehouse/Store)</span>
+                            </label>
+                            <label class="option" onclick="selectOption(this, 'department')">
+                                <input type="radio" name="department" value="rebar-factory" style="display:none;">
+                                <span class="checkmark"></span>
+                                <span class="option-title">🏭 โรงงานผลิตเหล็ก-สระบุรี (Rebar Factory)</span>
+                            </label>
+                            <label class="option" onclick="selectOption(this, 'department')">
+                                <input type="radio" name="department" value="logistics" style="display:none;">
+                                <span class="checkmark"></span>
+                                <span class="option-title">🚚 ขนส่ง/โลจิสติกส์ (Logistics)</span>
+                            </label>
+                            <label class="option" onclick="selectOption(this, 'department')">
+                                <input type="radio" name="department" value="accounting" style="display:none;">
+                                <span class="checkmark"></span>
+                                <span class="option-title">💵 บัญชี/การเงิน (Accounting/Finance)</span>
+                            </label>
+                            <label class="option" onclick="selectOption(this, 'department')">
+                                <input type="radio" name="department" value="hr" style="display:none;">
+                                <span class="checkmark"></span>
+                                <span class="option-title">👥 ทรัพยากรบุคคล (HR)</span>
+                            </label>
+                            <label class="option" onclick="selectOption(this, 'department')">
+                                <input type="radio" name="department" value="safety" style="display:none;">
+                                <span class="checkmark"></span>
+                                <span class="option-title">🦺 ความปลอดภัย (Safety/จป.)</span>
+                            </label>
+                            <label class="option" onclick="selectOption(this, 'department')">
+                                <input type="radio" name="department" value="qcqa" style="display:none;">
+                                <span class="checkmark"></span>
+                                <span class="option-title">✅ ควบคุมคุณภาพ (QC/QA)</span>
+                            </label>
+                            <label class="option" onclick="selectOption(this, 'department')">
+                                <input type="radio" name="department" value="rd-lab" style="display:none;">
+                                <span class="checkmark"></span>
+                                <span class="option-title">🔬 ศูนย์วิจัยและพัฒนา (R&D/Lab)</span>
+                            </label>
+                            <label class="option" onclick="selectOption(this, 'department')">
+                                <input type="radio" name="department" value="survey" style="display:none;">
+                                <span class="checkmark"></span>
+                                <span class="option-title">📍 ช่างสำรวจ (Survey)</span>
+                            </label>
+                            <label class="option" onclick="selectOption(this, 'department')">
+                                <input type="radio" name="department" value="me" style="display:none;">
+                                <span class="checkmark"></span>
+                                <span class="option-title">⚡ ช่างเทคนิค/ระบบไฟฟ้า-เครื่องกล (M&E)</span>
+                            </label>
+                            <label class="option" onclick="selectOption(this, 'department')">
+                                <input type="radio" name="department" value="ie" style="display:none;">
+                                <span class="checkmark"></span>
+                                <span class="option-title">⚙️ วิศวกรรมอุตสาหการ (Industrial Engineering)</span>
+                            </label>
+                            <label class="option" onclick="selectOption(this, 'department')">
+                                <input type="radio" name="department" value="admin" style="display:none;">
+                                <span class="checkmark"></span>
+                                <span class="option-title">📋 ธุรการ/สำนักงาน (Admin)</span>
+                            </label>
+                            <label class="option" onclick="selectOption(this, 'department')">
+                                <input type="radio" name="department" value="it" style="display:none;">
+                                <span class="checkmark"></span>
+                                <span class="option-title">💻 IT/สารสนเทศ</span>
+                            </label>
+                            <label class="option" onclick="selectOption(this, 'department')">
+                                <input type="radio" name="department" value="management" style="display:none;">
+                                <span class="checkmark"></span>
+                                <span class="option-title">👔 ผู้บริหาร/Management</span>
+                            </label>
+                            <label class="option" onclick="selectOption(this, 'department')">
+                                <input type="radio" name="department" value="interior" style="display:none;">
+                                <span class="checkmark"></span>
+                                <span class="option-title">🛋️ งานตกแต่งภายใน/เฟอร์นิเจอร์ (Interior/Furniture)</span>
+                            </label>
+                            <label class="option has-input" onclick="selectOption(this, 'department')" id="deptOtherOption">
+                                <input type="radio" name="department" value="other" style="display:none;">
+                                <span class="checkmark"></span>
+                                <span class="option-title">อื่นๆ</span>
+                                <input type="text" class="other-input" id="deptOtherInput" placeholder="ระบุแผนก..." onclick="event.stopPropagation()">
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="question">
+                        <label class="question-label">A4. โครงการที่รับผิดชอบปัจจุบัน (ถ้ามี)</label>
+                        <input type="text" id="currentProject" placeholder="ระบุชื่อโครงการ...">
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step 2: Section B - ประสบการณ์และความพร้อมด้าน AI -->
+            <div class="step" data-step="2" style="display:none;">
+                <div class="section">
+                    <div class="section-header">
+                        <div class="section-letter">B</div>
+                        <div class="section-title">ประสบการณ์และความพร้อมด้าน AI</div>
+                    </div>
+
+                    <div class="question">
+                        <label class="question-label">B1. ระดับประสบการณ์การใช้ AI (เช่น ChatGPT, Gemini, Claude)</label>
+                        <div class="level-options">
+                            <div class="level-option" onclick="selectLevel(this, 0)">
+                                <div class="level-badge">L0</div>
+                                <div class="option-content"><div class="option-title">ไม่เคยใช้เลย (0)</div></div>
+                            </div>
+                            <div class="level-option" onclick="selectLevel(this, 1)">
+                                <div class="level-badge">L1</div>
+                                <div class="option-content"><div class="option-title">เคยลองใช้บ้าง 1-2 ครั้ง (1)</div></div>
+                            </div>
+                            <div class="level-option" onclick="selectLevel(this, 2)">
+                                <div class="level-badge">L2</div>
+                                <div class="option-content"><div class="option-title">ใช้เป็นครั้งคราว ไม่ประจำ (2)</div></div>
+                            </div>
+                            <div class="level-option" onclick="selectLevel(this, 3)">
+                                <div class="level-badge">L3</div>
+                                <div class="option-content"><div class="option-title">ใช้ประจำสัปดาห์ละ 1-2 ครั้ง (3)</div></div>
+                            </div>
+                            <div class="level-option" onclick="selectLevel(this, 4)">
+                                <div class="level-badge">L4</div>
+                                <div class="option-content"><div class="option-title">ใช้เป็นประจำทุกวัน (4)</div></div>
+                            </div>
+                            <div class="level-option" onclick="selectLevel(this, 5)">
+                                <div class="level-badge">L5</div>
+                                <div class="option-content"><div class="option-title">ใช้เป็นเครื่องมือหลักในการทำงาน (5)</div></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="question">
+                        <label class="question-label">B2. เครื่องมือ AI ที่เคยใช้ (เลือกได้หลายข้อ)</label>
+                        <div class="tool-grid">
+                            <div class="tool-option" onclick="toggleTool(this)">ChatGPT (OpenAI)</div>
+                            <div class="tool-option" onclick="toggleTool(this)">Google Gemini / Bard</div>
+                            <div class="tool-option" onclick="toggleTool(this)">Claude (Anthropic)</div>
+                            <div class="tool-option" onclick="toggleTool(this)">Microsoft Copilot</div>
+                            <div class="tool-option" onclick="toggleTool(this)">LINE AI / OA</div>
+                            <div class="tool-option" onclick="toggleTool(this)">โปรแกรม BIM/Revit AI</div>
+                            <div class="tool-option" onclick="toggleTool(this)">AI อ่านเอกสาร/OCR</div>
+                            <div class="tool-option" onclick="toggleTool(this)">ไม่เคยใช้เครื่องมือใดเลย</div>
+                            <div class="tool-option other-tool" onclick="toggleOtherTool(this, 'tools')">อื่นๆ...</div>
+                        </div>
+                        <input type="text" class="other-tool-input" id="tools-other" placeholder="ระบุเครื่องมือ AI อื่นๆ...">
+                    </div>
+
+                    <div class="question">
+                        <label class="question-label">B3. ความถี่ในการใช้ AI เพื่อช่วยงาน</label>
+                        <div class="freq-options">
+                            <div class="freq-option" onclick="selectFreq(this)">ไม่เคยใช้</div>
+                            <div class="freq-option" onclick="selectFreq(this)">นานๆ ครั้ง (เดือนละ 1-2 ครั้ง)</div>
+                            <div class="freq-option" onclick="selectFreq(this)">สัปดาห์ละครั้ง</div>
+                            <div class="freq-option" onclick="selectFreq(this)">หลายครั้งต่อสัปดาห์</div>
+                            <div class="freq-option" onclick="selectFreq(this)">ทุกวัน</div>
+                            <div class="freq-option other-tool" onclick="toggleOtherTool(this, 'freq')">อื่นๆ...</div>
+                        </div>
+                        <input type="text" class="other-tool-input" id="freq-other" placeholder="ระบุความถี่...">
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step 3: Section C - ลักษณะงานประจำวัน -->
+            <div class="step" data-step="3" style="display:none;">
+                <div class="section">
+                    <div class="section-header">
+                        <div class="section-letter">C</div>
+                        <div class="section-title">ลักษณะงานประจำวัน</div>
+                        <span class="section-subtitle">เลือกได้หลายข้อ</span>
+                    </div>
+
+                    <div class="question" id="c1Question">
+                        <label class="question-label">C1. งานที่ทำเป็นประจำ</label>
+
+                        <div class="work-category">
+                            <div class="work-category-title">📐 งานวิศวกรรมและควบคุมงาน</div>
+                            <div class="checkbox-grid">
+                                <label class="option checkbox" onclick="toggleCheckbox(this)"><span class="checkmark"></span><span class="option-title">ตรวจสอบ/ทบทวนแบบก่อสร้าง (Shop Drawing/BIM)</span></label>
+                                <label class="option checkbox" onclick="toggleCheckbox(this)"><span class="checkmark"></span><span class="option-title">คำนวณโครงสร้าง/ปริมาณงาน</span></label>
+                                <label class="option checkbox" onclick="toggleCheckbox(this)"><span class="checkmark"></span><span class="option-title">ควบคุมงานหน้าไซต์/ตรวจรับงาน</span></label>
+                                <label class="option checkbox" onclick="toggleCheckbox(this)"><span class="checkmark"></span><span class="option-title">ประสานงานกับผู้รับเหมา/Subcontractor</span></label>
+                                <label class="option checkbox" onclick="toggleCheckbox(this)"><span class="checkmark"></span><span class="option-title">รายงานความคืบหน้าโครงการ</span></label>
+                                <label class="option checkbox" onclick="toggleCheckbox(this)"><span class="checkmark"></span><span class="option-title">ถ่ายรูปบันทึกหน้างาน</span></label>
+                                <label class="option checkbox" onclick="toggleCheckbox(this)"><span class="checkmark"></span><span class="option-title">ตรวจสอบคุณภาพงาน (QC) — งานโครงสร้าง/งาน Finishing</span></label>
+                                <label class="option checkbox" onclick="toggleCheckbox(this)"><span class="checkmark"></span><span class="option-title">จัดการด้านความปลอดภัย (Safety Patrol/ตรวจ PPE)</span></label>
+                                <label class="option checkbox has-input" onclick="toggleCheckbox(this)"><span class="checkmark"></span><span class="option-title">อื่นๆ...</span><input type="text" class="other-input" placeholder="ระบุ..." onclick="event.stopPropagation()"></label>
+                            </div>
+                        </div>
+
+                        <div class="work-category">
+                            <div class="work-category-title">💰 งานประมาณการและจัดซื้อ</div>
+                            <div class="checkbox-grid">
+                                <label class="option checkbox" onclick="toggleCheckbox(this)"><span class="checkmark"></span><span class="option-title">ถอดแบบ/ทำ BOQ</span></label>
+                                <label class="option checkbox" onclick="toggleCheckbox(this)"><span class="checkmark"></span><span class="option-title">ประมาณราคางาน/เสนอราคาโครงการ</span></label>
+                                <label class="option checkbox" onclick="toggleCheckbox(this)"><span class="checkmark"></span><span class="option-title">เปรียบเทียบราคาวัสดุ/Supplier</span></label>
+                                <label class="option checkbox" onclick="toggleCheckbox(this)"><span class="checkmark"></span><span class="option-title">ขอใบเสนอราคาจาก Supplier</span></label>
+                                <label class="option checkbox" onclick="toggleCheckbox(this)"><span class="checkmark"></span><span class="option-title">ตรวจสอบราคาซื้อกับราคาตลาด (สมาคมเหล็ก/ห้างวัสดุ)</span></label>
+                                <label class="option checkbox" onclick="toggleCheckbox(this)"><span class="checkmark"></span><span class="option-title">ประเมิน/ให้คะแนน Supplier</span></label>
+                                <label class="option checkbox has-input" onclick="toggleCheckbox(this)"><span class="checkmark"></span><span class="option-title">อื่นๆ...</span><input type="text" class="other-input" placeholder="ระบุ..." onclick="event.stopPropagation()"></label>
+                            </div>
+                        </div>
+
+                        <div class="work-category">
+                            <div class="work-category-title">📦 งานคลังสินค้าและโลจิสติกส์</div>
+                            <div class="checkbox-grid">
+                                <label class="option checkbox" onclick="toggleCheckbox(this)"><span class="checkmark"></span><span class="option-title">รับ-จ่ายวัสดุ/อุปกรณ์</span></label>
+                                <label class="option checkbox" onclick="toggleCheckbox(this)"><span class="checkmark"></span><span class="option-title">นับสต็อก/ตรวจนับวัสดุ (เหล็กเส้น, นั่งร้าน, แบบหล่อ)</span></label>
+                                <label class="option checkbox" onclick="toggleCheckbox(this)"><span class="checkmark"></span><span class="option-title">บันทึกการเบิก-คืนวัสดุ</span></label>
+                                <label class="option checkbox" onclick="toggleCheckbox(this)"><span class="checkmark"></span><span class="option-title">ติดตามการจัดส่ง</span></label>
+                                <label class="option checkbox" onclick="toggleCheckbox(this)"><span class="checkmark"></span><span class="option-title">ตรวจสอบสภาพวัสดุ (ชำรุด/สมบูรณ์)</span></label>
+                                <label class="option checkbox" onclick="toggleCheckbox(this)"><span class="checkmark"></span><span class="option-title">ควบคุม Automated Warehouse System (AS/RS) / สแกนบาร์โค้ด</span></label>
+                                <label class="option checkbox" onclick="toggleCheckbox(this)"><span class="checkmark"></span><span class="option-title">ควบคุมการผลิตตัด-ดัดเหล็กเส้น (โรงงานสระบุรี)</span></label>
+                                <label class="option checkbox has-input" onclick="toggleCheckbox(this)"><span class="checkmark"></span><span class="option-title">อื่นๆ...</span><input type="text" class="other-input" placeholder="ระบุ..." onclick="event.stopPropagation()"></label>
+                            </div>
+                        </div>
+
+                        <div class="work-category">
+                            <div class="work-category-title">📝 งานบัญชีและการเงิน</div>
+                            <div class="checkbox-grid">
+                                <label class="option checkbox" onclick="toggleCheckbox(this)"><span class="checkmark"></span><span class="option-title">กรอกข้อมูลเข้าระบบ ERP</span></label>
+                                <label class="option checkbox" onclick="toggleCheckbox(this)"><span class="checkmark"></span><span class="option-title">คีย์ใบเบิก/ใบวางบิล/PO</span></label>
+                                <label class="option checkbox" onclick="toggleCheckbox(this)"><span class="checkmark"></span><span class="option-title">คำนวณงวดจ่ายเงินผู้รับเหมาช่วง (Payment)</span></label>
+                                <label class="option checkbox" onclick="toggleCheckbox(this)"><span class="checkmark"></span><span class="option-title">ตรวจสอบเอกสารเบิกจ่าย</span></label>
+                                <label class="option checkbox" onclick="toggleCheckbox(this)"><span class="checkmark"></span><span class="option-title">ทำรายงานการเงิน</span></label>
+                                <label class="option checkbox" onclick="toggleCheckbox(this)"><span class="checkmark"></span><span class="option-title">ตรวจสอบการเบิกซ้ำซ้อน</span></label>
+                                <label class="option checkbox has-input" onclick="toggleCheckbox(this)"><span class="checkmark"></span><span class="option-title">อื่นๆ...</span><input type="text" class="other-input" placeholder="ระบุ..." onclick="event.stopPropagation()"></label>
+                            </div>
+                        </div>
+
+                        <div class="work-category">
+                            <div class="work-category-title">📋 งานเอกสารและการบริหาร</div>
+                            <div class="checkbox-grid">
+                                <label class="option checkbox" onclick="toggleCheckbox(this)"><span class="checkmark"></span><span class="option-title">จัดทำรายงานประจำวัน/สัปดาห์ (Daily/Weekly Report)</span></label>
+                                <label class="option checkbox" onclick="toggleCheckbox(this)"><span class="checkmark"></span><span class="option-title">สรุปการประชุม/บันทึกข้อตกลง (MOM)</span></label>
+                                <label class="option checkbox" onclick="toggleCheckbox(this)"><span class="checkmark"></span><span class="option-title">ติดตามเอกสารที่ยังไม่ครบ</span></label>
+                                <label class="option checkbox" onclick="toggleCheckbox(this)"><span class="checkmark"></span><span class="option-title">ประสานงานระหว่างแผนก</span></label>
+                                <label class="option checkbox" onclick="toggleCheckbox(this)"><span class="checkmark"></span><span class="option-title">ตอบคำถามผ่าน LINE กลุ่ม</span></label>
+                                <label class="option checkbox" onclick="toggleCheckbox(this)"><span class="checkmark"></span><span class="option-title">จัดการอนุมัติเอกสาร</span></label>
+                                <label class="option checkbox" onclick="toggleCheckbox(this)"><span class="checkmark"></span><span class="option-title">จัดเก็บ/ค้นหาเอกสาร ISO / As-built</span></label>
+                                <label class="option checkbox" onclick="toggleCheckbox(this)"><span class="checkmark"></span><span class="option-title">ติดตาม To-do list/งานค้าง</span></label>
+                                <label class="option checkbox has-input" onclick="toggleCheckbox(this)"><span class="checkmark"></span><span class="option-title">อื่นๆ...</span><input type="text" class="other-input" placeholder="ระบุ..." onclick="event.stopPropagation()"></label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="question">
+                        <label class="question-label">C2. งานที่ต้องทำซ้ำๆ เป็นประจำทุกวัน หรือเกิดขึ้นบ่อยๆ</label>
+                        <p class="question-sublabel">กรุณาเรียงลำดับจากมากไปน้อย (1 คือมากที่สุด)<br>💡 การระบุขั้นตอนและบริบทอย่างละเอียด คือกุญแจสำคัญที่ทำให้ AI เข้าใจงานของท่านได้อย่างสมบูรณ์</p>
+                        <div class="dynamic-inputs" id="repeatWorkInputs">
+                            <div class="dynamic-input-row">
+                                <input type="text" class="dotted-input" placeholder="อันดับ 1: .....................................................">
+                                <button class="add-btn" onclick="addDynamicInput('repeatWorkInputs', 5, 'อันดับ')">+</button>
+                            </div>
+                            <div class="dynamic-input-row">
+                                <input type="text" class="dotted-input" placeholder="อันดับ 2: .....................................................">
+                                <button class="remove-btn" onclick="removeDynamicInput(this)">×</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step 4: Section D - ปัญหาและความท้าทาย -->
+            <div class="step" data-step="4" style="display:none;">
+                <div class="section">
+                    <div class="section-header">
+                        <div class="section-letter">D</div>
+                        <div class="section-title">ปัญหาและความท้าทาย</div>
+                    </div>
+
+                    <div class="question" id="d1Question">
+                        <label class="question-label">D1. ปัญหาที่พบบ่อยในการทำงาน (เลือกได้หลายข้อ)</label>
+
+                        <div class="work-category">
+                            <div class="work-category-title">🔗 ปัญหาการเชื่อมต่อข้อมูล (Silo)</div>
+                            <div class="checkbox-grid">
+                                <label class="option checkbox" onclick="toggleCheckbox(this)"><span class="checkmark"></span><span class="option-title">ข้อมูลระหว่างแผนกไม่เชื่อมกัน ต้องรอนาน 5-7 วัน</span></label>
+                                <label class="option checkbox" onclick="toggleCheckbox(this)"><span class="checkmark"></span><span class="option-title">ต้องโทรถาม/ส่ง LINE หลายคนกว่าจะได้ข้อมูล</span></label>
+                                <label class="option checkbox" onclick="toggleCheckbox(this)"><span class="checkmark"></span><span class="option-title">ข้อมูลกระจายอยู่หลายระบบ (ERP, Excel, LINE, กระดาษ)</span></label>
+                                <label class="option checkbox" onclick="toggleCheckbox(this)"><span class="checkmark"></span><span class="option-title">ไม่มีข้อมูล Real-time สำหรับตัดสินใจ (สต็อก/ราคา/สถานะโครงการ)</span></label>
+                                <label class="option checkbox" onclick="toggleCheckbox(this)"><span class="checkmark"></span><span class="option-title">ข้อมูลระหว่างสำนักงานใหญ่กับหน่วยงานก่อสร้างไม่ sync กัน</span></label>
+                                <label class="option checkbox has-input" onclick="toggleCheckbox(this)"><span class="checkmark"></span><span class="option-title">อื่นๆ...</span><input type="text" class="other-input" placeholder="ระบุ..." onclick="event.stopPropagation()"></label>
+                            </div>
+                        </div>
+
+                        <div class="work-category">
+                            <div class="work-category-title">📄 ปัญหาเอกสารและการกรอกข้อมูล</div>
+                            <div class="checkbox-grid">
+                                <label class="option checkbox" onclick="toggleCheckbox(this)"><span class="checkmark"></span><span class="option-title">ต้องกรอกข้อมูลซ้ำๆ ในหลายระบบ</span></label>
+                                <label class="option checkbox" onclick="toggleCheckbox(this)"><span class="checkmark"></span><span class="option-title">เอกสารหน้างานส่งไม่ครบ/ไม่ทันเวลา</span></label>
+                                <label class="option checkbox" onclick="toggleCheckbox(this)"><span class="checkmark"></span><span class="option-title">อ่านลายมือในเอกสารไม่ออก</span></label>
+                                <label class="option checkbox" onclick="toggleCheckbox(this)"><span class="checkmark"></span><span class="option-title">คีย์ข้อมูลผิดพลาดบ่อย (ต้องแก้ Credit Note)</span></label>
+                                <label class="option checkbox" onclick="toggleCheckbox(this)"><span class="checkmark"></span><span class="option-title">ติดตามเอกสารค้างยาก ไม่มีระบบเตือน</span></label>
+                                <label class="option checkbox" onclick="toggleCheckbox(this)"><span class="checkmark"></span><span class="option-title">เอกสาร ISO/As-built จำนวนมาก จัดเก็บ-สืบค้นยาก</span></label>
+                                <label class="option checkbox has-input" onclick="toggleCheckbox(this)"><span class="checkmark"></span><span class="option-title">อื่นๆ...</span><input type="text" class="other-input" placeholder="ระบุ..." onclick="event.stopPropagation()"></label>
+                            </div>
+                        </div>
+
+                        <div class="work-category">
+                            <div class="work-category-title">💵 ปัญหาการจัดซื้อและควบคุมต้นทุน</div>
+                            <div class="checkbox-grid">
+                                <label class="option checkbox" onclick="toggleCheckbox(this)"><span class="checkmark"></span><span class="option-title">ไม่มีระบบเปรียบเทียบราคากับประวัติการซื้อ</span></label>
+                                <label class="option checkbox" onclick="toggleCheckbox(this)"><span class="checkmark"></span><span class="option-title">ตรวจสอบความผิดปกติของราคา/ปริมาณยาก</span></label>
+                                <label class="option checkbox" onclick="toggleCheckbox(this)"><span class="checkmark"></span><span class="option-title">Supplier ส่งช้า/คุณภาพไม่คงที่ แต่ไม่มีข้อมูลประเมิน</span></label>
+                                <label class="option checkbox" onclick="toggleCheckbox(this)"><span class="checkmark"></span><span class="option-title">สั่งซื้อเกินแผน BOQ แต่ตรวจสอบยาก</span></label>
+                                <label class="option checkbox" onclick="toggleCheckbox(this)"><span class="checkmark"></span><span class="option-title">ไม่มีข้อมูลราคาตลาดอ้างอิง (สมาคมเหล็ก/ห้างวัสดุ)</span></label>
+                                <label class="option checkbox" onclick="toggleCheckbox(this)"><span class="checkmark"></span><span class="option-title">การขอราคาจาก Supplier หลายรายใช้เวลานาน (โทร/Fax/Email ทีละราย)</span></label>
+                                <label class="option checkbox has-input" onclick="toggleCheckbox(this)"><span class="checkmark"></span><span class="option-title">อื่นๆ...</span><input type="text" class="other-input" placeholder="ระบุ..." onclick="event.stopPropagation()"></label>
+                            </div>
+                        </div>
+
+                        <div class="work-category">
+                            <div class="work-category-title">📸 ปัญหาการบันทึกข้อมูลหน้างาน</div>
+                            <div class="checkbox-grid">
+                                <label class="option checkbox" onclick="toggleCheckbox(this)"><span class="checkmark"></span><span class="option-title">ถ่ายรูปหน้างานแต่ไม่ลงวันที่/สถานที่</span></label>
+                                <label class="option checkbox" onclick="toggleCheckbox(this)"><span class="checkmark"></span><span class="option-title">ยากที่จะบังคับให้ถ่ายรูปสด (ไม่ใช่รูปจาก Gallery)</span></label>
+                                <label class="option checkbox" onclick="toggleCheckbox(this)"><span class="checkmark"></span><span class="option-title">นับวัสดุ (เหล็กเส้น, นั่งร้าน, แบบหล่อ) ใช้เวลานาน</span></label>
+                                <label class="option checkbox" onclick="toggleCheckbox(this)"><span class="checkmark"></span><span class="option-title">ไม่มีระบบตรวจสอบว่าวัสดุชำรุดหรือสมบูรณ์</span></label>
+                                <label class="option checkbox" onclick="toggleCheckbox(this)"><span class="checkmark"></span><span class="option-title">รายงานหน้างานยังเป็นกระดาษ ข้อมูลล่าช้า 2-7 วัน</span></label>
+                                <label class="option checkbox has-input" onclick="toggleCheckbox(this)"><span class="checkmark"></span><span class="option-title">อื่นๆ...</span><input type="text" class="other-input" placeholder="ระบุ..." onclick="event.stopPropagation()"></label>
+                            </div>
+                        </div>
+
+                        <div class="work-category">
+                            <div class="work-category-title">🔒 ปัญหาความปลอดภัยข้อมูล</div>
+                            <div class="checkbox-grid">
+                                <label class="option checkbox" onclick="toggleCheckbox(this)"><span class="checkmark"></span><span class="option-title">กังวลเรื่องข้อมูลราคาต้นทุน/ข้อมูลลูกค้ารั่วไหลหากใช้ AI</span></label>
+                                <label class="option checkbox" onclick="toggleCheckbox(this)"><span class="checkmark"></span><span class="option-title">ระบบปัจจุบันเป็นระบบปิด ยากต่อการเชื่อมต่อ</span></label>
+                                <label class="option checkbox" onclick="toggleCheckbox(this)"><span class="checkmark"></span><span class="option-title">ไม่แน่ใจว่า AI จะเก็บข้อมูลไปเทรนหรือไม่</span></label>
+                                <label class="option checkbox" onclick="toggleCheckbox(this)"><span class="checkmark"></span><span class="option-title">ต้องการระบบแบ่งสิทธิ์การเข้าถึงข้อมูลตามตำแหน่ง (Role-Based Access)</span></label>
+                                <label class="option checkbox has-input" onclick="toggleCheckbox(this)"><span class="checkmark"></span><span class="option-title">อื่นๆ...</span><input type="text" class="other-input" placeholder="ระบุ..." onclick="event.stopPropagation()"></label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="question">
+                        <label class="question-label">D2. กรุณาระบุขั้นตอนการทำงานที่อาจจะสร้างความลำบาก (Pain Points)</label>
+                        <p class="question-sublabel">หรือการทำงานที่เรารู้สึกว่า "น่าจะมีวิธีที่ดีกว่านี้"<br>💡 การระบุขั้นตอนและบริบทอย่างละเอียด คือกุญแจสำคัญที่ทำให้ AI เข้าใจงานของท่านได้อย่างสมบูรณ์</p>
+                        <div class="dynamic-inputs" id="painPointInputs">
+                            <div class="dynamic-input-row">
+                                <input type="text" class="dotted-input" placeholder="อันดับ 1: .....................................................">
+                                <button class="add-btn" onclick="addDynamicInput('painPointInputs', 5, 'อันดับ')">+</button>
+                            </div>
+                            <div class="dynamic-input-row">
+                                <input type="text" class="dotted-input" placeholder="อันดับ 2: .....................................................">
+                                <button class="remove-btn" onclick="removeDynamicInput(this)">×</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="question">
+                        <label class="question-label">D3. ปัญหาที่อยากให้ AI ช่วยมากที่สุด 3 อันดับแรก</label>
+                        <div class="dynamic-inputs">
+                            <div class="dynamic-input-row"><input type="text" id="aiHelp1" class="dotted-input" placeholder="อันดับ 1: ....................................................."></div>
+                            <div class="dynamic-input-row"><input type="text" id="aiHelp2" class="dotted-input" placeholder="อันดับ 2: ....................................................."></div>
+                            <div class="dynamic-input-row"><input type="text" id="aiHelp3" class="dotted-input" placeholder="อันดับ 3: ....................................................."></div>
+                        </div>
+                    </div>
+
+                    <div class="question" id="d4Question">
+                        <label class="question-label">D4. ฟีเจอร์ AI ที่สนใจ (เลือกได้หลายข้อ)</label>
+
+                        <div class="work-category">
+                            <div class="work-category-title">📝 AI ช่วยงานเอกสาร</div>
+                            <div class="checkbox-grid">
+                                <label class="option checkbox" onclick="toggleCheckbox(this)"><span class="checkmark"></span><span class="option-title">สแกน/ถ่ายรูปเอกสาร แล้ว AI กรอกเข้า ERP อัตโนมัติ</span></label>
+                                <label class="option checkbox" onclick="toggleCheckbox(this)"><span class="checkmark"></span><span class="option-title">อ่านลายมือแล้วแปลงเป็นข้อความ</span></label>
+                                <label class="option checkbox" onclick="toggleCheckbox(this)"><span class="checkmark"></span><span class="option-title">ตรวจสอบเอกสารครบ/ไม่ครบ ก่อนส่ง</span></label>
+                                <label class="option checkbox" onclick="toggleCheckbox(this)"><span class="checkmark"></span><span class="option-title">สรุปการประชุมยาวๆ เป็น To-do list</span></label>
+                                <label class="option checkbox" onclick="toggleCheckbox(this)"><span class="checkmark"></span><span class="option-title">แจ้งเตือนเอกสารค้าง (7/15/30 วัน) ผ่าน LINE</span></label>
+                                <label class="option checkbox has-input" onclick="toggleCheckbox(this)"><span class="checkmark"></span><span class="option-title">อื่นๆ...</span><input type="text" class="other-input" placeholder="ระบุ..." onclick="event.stopPropagation()"></label>
+                            </div>
+                        </div>
+
+                        <div class="work-category">
+                            <div class="work-category-title">💰 AI ช่วยงานประมาณการและจัดซื้อ</div>
+                            <div class="checkbox-grid">
+                                <label class="option checkbox" onclick="toggleCheckbox(this)"><span class="checkmark"></span><span class="option-title">เปรียบเทียบราคากับประวัติการซื้อย้อนหลัง</span></label>
+                                <label class="option checkbox" onclick="toggleCheckbox(this)"><span class="checkmark"></span><span class="option-title">เปรียบเทียบราคากับราคาตลาด/สมาคมเหล็ก</span></label>
+                                <label class="option checkbox" onclick="toggleCheckbox(this)"><span class="checkmark"></span><span class="option-title">Alert เมื่อราคาผิดปกติ (Benchmark ± 10%)</span></label>
+                                <label class="option checkbox" onclick="toggleCheckbox(this)"><span class="checkmark"></span><span class="option-title">ให้คะแนน Supplier (ราคา, บริการ, ส่งตรงเวลา, คุณภาพวัสดุ)</span></label>
+                                <label class="option checkbox" onclick="toggleCheckbox(this)"><span class="checkmark"></span><span class="option-title">ตรวจจับการซื้อซ้ำจาก Supplier เดิมผิดปกติ (Bid Rigging Detection)</span></label>
+                                <label class="option checkbox" onclick="toggleCheckbox(this)"><span class="checkmark"></span><span class="option-title">ช่วยถอดแบบ/คำนวณ BOQ</span></label>
+                                <label class="option checkbox" onclick="toggleCheckbox(this)"><span class="checkmark"></span><span class="option-title">กระจาย BOQ ขอราคาจาก Supplier หลายรายพร้อมกัน (LINE/Email)</span></label>
+                                <label class="option checkbox" onclick="toggleCheckbox(this)"><span class="checkmark"></span><span class="option-title">เช็คราคาตลาดจากเว็บห้างวัสดุ (DoHome/HomePro/GlobalHouse) อัตโนมัติ</span></label>
+                                <label class="option checkbox has-input" onclick="toggleCheckbox(this)"><span class="checkmark"></span><span class="option-title">อื่นๆ...</span><input type="text" class="other-input" placeholder="ระบุ..." onclick="event.stopPropagation()"></label>
+                            </div>
+                        </div>
+
+                        <div class="work-category">
+                            <div class="work-category-title">📊 AI ช่วยติดตามโครงการ</div>
+                            <div class="checkbox-grid">
+                                <label class="option checkbox" onclick="toggleCheckbox(this)"><span class="checkmark"></span><span class="option-title">อัปเดตความคืบหน้าโครงการผ่าน LINE (พูด/พิมพ์/ถ่ายรูป) → Dashboard อัตโนมัติ</span></label>
+                                <label class="option checkbox" onclick="toggleCheckbox(this)"><span class="checkmark"></span><span class="option-title">ดึงข้อมูลจาก ERP มาตอบทันที (สต็อก, ราคา, สถานะ) ผ่าน LINE</span></label>
+                                <label class="option checkbox" onclick="toggleCheckbox(this)"><span class="checkmark"></span><span class="option-title">วิเคราะห์ว่าโครงการไหนล่าช้า/มีปัญหา พร้อมแจ้งเตือน PM</span></label>
+                                <label class="option checkbox" onclick="toggleCheckbox(this)"><span class="checkmark"></span><span class="option-title">เปรียบเทียบแผนกับงานจริง</span></label>
+                                <label class="option checkbox" onclick="toggleCheckbox(this)"><span class="checkmark"></span><span class="option-title">ดู Dashboard สรุปโครงการ</span></label>
+                                <label class="option checkbox has-input" onclick="toggleCheckbox(this)"><span class="checkmark"></span><span class="option-title">อื่นๆ...</span><input type="text" class="other-input" placeholder="ระบุ..." onclick="event.stopPropagation()"></label>
+                            </div>
+                        </div>
+
+                        <div class="work-category">
+                            <div class="work-category-title">📦 AI ช่วยงานคลังและวัสดุ</div>
+                            <div class="checkbox-grid">
+                                <label class="option checkbox" onclick="toggleCheckbox(this)"><span class="checkmark"></span><span class="option-title">นับวัสดุจากรูปถ่าย (เหล็กเส้น, นั่งร้าน, แบบหล่อ) — Computer Vision</span></label>
+                                <label class="option checkbox" onclick="toggleCheckbox(this)"><span class="checkmark"></span><span class="option-title">ตรวจสอบสภาพวัสดุ (ชำรุด/สมบูรณ์) จากรูป</span></label>
+                                <label class="option checkbox" onclick="toggleCheckbox(this)"><span class="checkmark"></span><span class="option-title">เตือนสต็อกต่ำ/ใกล้หมด</span></label>
+                                <label class="option checkbox" onclick="toggleCheckbox(this)"><span class="checkmark"></span><span class="option-title">บันทึกการรับ-จ่ายวัสดุโดยการถ่ายรูป</span></label>
+                                <label class="option checkbox" onclick="toggleCheckbox(this)"><span class="checkmark"></span><span class="option-title">ตรวจนับยอดรับจริงเทียบกับใบสั่งซื้อทันทีหน้างาน</span></label>
+                                <label class="option checkbox has-input" onclick="toggleCheckbox(this)"><span class="checkmark"></span><span class="option-title">อื่นๆ...</span><input type="text" class="other-input" placeholder="ระบุ..." onclick="event.stopPropagation()"></label>
+                            </div>
+                        </div>
+
+                        <div class="work-category">
+                            <div class="work-category-title">🛡️ AI ช่วยงานเทคนิคและคุณภาพ</div>
+                            <div class="checkbox-grid">
+                                <label class="option checkbox" onclick="toggleCheckbox(this)"><span class="checkmark"></span><span class="option-title">ถาม-ตอบข้อมูลทางเทคนิค (สูตร, มาตรฐาน, Lesson Learned)</span></label>
+                                <label class="option checkbox" onclick="toggleCheckbox(this)"><span class="checkmark"></span><span class="option-title">วิเคราะห์ภาพงานก่อสร้าง (ตรวจจุดบกพร่อง/รอยร้าว)</span></label>
+                                <label class="option checkbox" onclick="toggleCheckbox(this)"><span class="checkmark"></span><span class="option-title">ช่วยคำนวณปริมาณวัสดุ (พิมพ์ถามได้เลย)</span></label>
+                                <label class="option checkbox" onclick="toggleCheckbox(this)"><span class="checkmark"></span><span class="option-title">ช่วยเขียน/ตรวจรายงานเทคนิค</span></label>
+                                <label class="option checkbox" onclick="toggleCheckbox(this)"><span class="checkmark"></span><span class="option-title">ตรวจจับ PPE ไม่ครบ/เข้าพื้นที่อันตราย ผ่านกล้อง CCTV (AI Safety)</span></label>
+                                <label class="option checkbox" onclick="toggleCheckbox(this)"><span class="checkmark"></span><span class="option-title">ค้นหา Best Practices/คู่มือจากฐานข้อมูลองค์กร (Knowledge Base 80 ปี)</span></label>
+                                <label class="option checkbox has-input" onclick="toggleCheckbox(this)"><span class="checkmark"></span><span class="option-title">อื่นๆ...</span><input type="text" class="other-input" placeholder="ระบุ..." onclick="event.stopPropagation()"></label>
+                            </div>
+                        </div>
+
+                        <div class="work-category">
+                            <div class="work-category-title">💬 AI ช่วยการสื่อสาร</div>
+                            <div class="checkbox-grid">
+                                <label class="option checkbox" onclick="toggleCheckbox(this)"><span class="checkmark"></span><span class="option-title">AI เข้าไปใน LINE กลุ่ม ช่วยตอบคำถามพื้นฐาน (สต็อก/ราคา/สถานะ)</span></label>
+                                <label class="option checkbox" onclick="toggleCheckbox(this)"><span class="checkmark"></span><span class="option-title">จัดลำดับความสำคัญข้อความ (ด่วน/ปกติ)</span></label>
+                                <label class="option checkbox" onclick="toggleCheckbox(this)"><span class="checkmark"></span><span class="option-title">แยกแยะอารมณ์ลูกค้า/คู่ค้า (Sentiment Analysis)</span></label>
+                                <label class="option checkbox" onclick="toggleCheckbox(this)"><span class="checkmark"></span><span class="option-title">สรุปการสนทนายาวๆ ใน LINE</span></label>
+                                <label class="option checkbox" onclick="toggleCheckbox(this)"><span class="checkmark"></span><span class="option-title">แปลคลิปสอนงาน Safety/KM เป็นภาษาแรงงานต่างชาติ (พม่า/ลาว/กัมพูชา)</span></label>
+                                <label class="option checkbox" onclick="toggleCheckbox(this)"><span class="checkmark"></span><span class="option-title">เลขาส่วนตัว AI — จดบันทึก/ตั้งเตือน/สรุปงานจากเสียง/LINE/Zoom</span></label>
+                                <label class="option checkbox has-input" onclick="toggleCheckbox(this)"><span class="checkmark"></span><span class="option-title">อื่นๆ...</span><input type="text" class="other-input" placeholder="ระบุ..." onclick="event.stopPropagation()"></label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step 5: Section E - ความคาดหวังจากการอบรม -->
+            <div class="step" data-step="5" style="display:none;">
+                <div class="section">
+                    <div class="section-header">
+                        <div class="section-letter">E</div>
+                        <div class="section-title">ความคาดหวังจากการอบรม</div>
+                    </div>
+
+                    <div class="question">
+                        <label class="question-label">E1. ความสำคัญของแต่ละด้าน (1=น้อยที่สุด, 5=มากที่สุด)</label>
+                        <div class="rating-grid">
+                            <div class="rating-row">
+                                <span class="rating-label">เข้าใจว่า AI คืออะไร ทำอะไรได้บ้าง</span>
+                                <div class="rating-buttons">
+                                    <button class="rating-btn" onclick="selectRating(this)">1</button>
+                                    <button class="rating-btn" onclick="selectRating(this)">2</button>
+                                    <button class="rating-btn" onclick="selectRating(this)">3</button>
+                                    <button class="rating-btn" onclick="selectRating(this)">4</button>
+                                    <button class="rating-btn" onclick="selectRating(this)">5</button>
+                                </div>
+                            </div>
+                            <div class="rating-row">
+                                <span class="rating-label">ใช้ AI เพิ่มความเร็วในการทำงาน</span>
+                                <div class="rating-buttons">
+                                    <button class="rating-btn" onclick="selectRating(this)">1</button>
+                                    <button class="rating-btn" onclick="selectRating(this)">2</button>
+                                    <button class="rating-btn" onclick="selectRating(this)">3</button>
+                                    <button class="rating-btn" onclick="selectRating(this)">4</button>
+                                    <button class="rating-btn" onclick="selectRating(this)">5</button>
+                                </div>
+                            </div>
+                            <div class="rating-row">
+                                <span class="rating-label">ใช้ AI วิเคราะห์ข้อมูลที่กระจัดกระจาย</span>
+                                <div class="rating-buttons">
+                                    <button class="rating-btn" onclick="selectRating(this)">1</button>
+                                    <button class="rating-btn" onclick="selectRating(this)">2</button>
+                                    <button class="rating-btn" onclick="selectRating(this)">3</button>
+                                    <button class="rating-btn" onclick="selectRating(this)">4</button>
+                                    <button class="rating-btn" onclick="selectRating(this)">5</button>
+                                </div>
+                            </div>
+                            <div class="rating-row">
+                                <span class="rating-label">เรียนรู้การสื่อสารกับ AI (Prompt Engineering)</span>
+                                <div class="rating-buttons">
+                                    <button class="rating-btn" onclick="selectRating(this)">1</button>
+                                    <button class="rating-btn" onclick="selectRating(this)">2</button>
+                                    <button class="rating-btn" onclick="selectRating(this)">3</button>
+                                    <button class="rating-btn" onclick="selectRating(this)">4</button>
+                                    <button class="rating-btn" onclick="selectRating(this)">5</button>
+                                </div>
+                            </div>
+                            <div class="rating-row">
+                                <span class="rating-label">ใช้ AI เฉพาะทางก่อสร้าง (ถอดแบบ, ประมาณราคา, คำนวณ)</span>
+                                <div class="rating-buttons">
+                                    <button class="rating-btn" onclick="selectRating(this)">1</button>
+                                    <button class="rating-btn" onclick="selectRating(this)">2</button>
+                                    <button class="rating-btn" onclick="selectRating(this)">3</button>
+                                    <button class="rating-btn" onclick="selectRating(this)">4</button>
+                                    <button class="rating-btn" onclick="selectRating(this)">5</button>
+                                </div>
+                            </div>
+                            <div class="rating-row">
+                                <span class="rating-label">ความปลอดภัยของข้อมูลเมื่อใช้ AI</span>
+                                <div class="rating-buttons">
+                                    <button class="rating-btn" onclick="selectRating(this)">1</button>
+                                    <button class="rating-btn" onclick="selectRating(this)">2</button>
+                                    <button class="rating-btn" onclick="selectRating(this)">3</button>
+                                    <button class="rating-btn" onclick="selectRating(this)">4</button>
+                                    <button class="rating-btn" onclick="selectRating(this)">5</button>
+                                </div>
+                            </div>
+                            <div class="rating-row">
+                                <span class="rating-label">ลดงาน Manual เพื่อทำงานที่ใช้ความคิดมากขึ้น</span>
+                                <div class="rating-buttons">
+                                    <button class="rating-btn" onclick="selectRating(this)">1</button>
+                                    <button class="rating-btn" onclick="selectRating(this)">2</button>
+                                    <button class="rating-btn" onclick="selectRating(this)">3</button>
+                                    <button class="rating-btn" onclick="selectRating(this)">4</button>
+                                    <button class="rating-btn" onclick="selectRating(this)">5</button>
+                                </div>
+                            </div>
+                            <div class="rating-row">
+                                <span class="rating-label">ใช้ AI ช่วยทำรายงาน/สรุปข้อมูล</span>
+                                <div class="rating-buttons">
+                                    <button class="rating-btn" onclick="selectRating(this)">1</button>
+                                    <button class="rating-btn" onclick="selectRating(this)">2</button>
+                                    <button class="rating-btn" onclick="selectRating(this)">3</button>
+                                    <button class="rating-btn" onclick="selectRating(this)">4</button>
+                                    <button class="rating-btn" onclick="selectRating(this)">5</button>
+                                </div>
+                            </div>
+                            <div class="rating-row" id="expectationOtherRow">
+                                <div class="rating-label" style="display:flex; align-items:center; gap:8px;">
+                                    <span>อื่นๆ</span>
+                                    <input type="text" id="expectationOtherText" class="dotted-input" placeholder="โปรดระบุ..." style="flex:1; min-width:100px;">
+                                </div>
+                                <div class="rating-buttons">
+                                    <button class="rating-btn" onclick="selectRating(this)">1</button>
+                                    <button class="rating-btn" onclick="selectRating(this)">2</button>
+                                    <button class="rating-btn" onclick="selectRating(this)">3</button>
+                                    <button class="rating-btn" onclick="selectRating(this)">4</button>
+                                    <button class="rating-btn" onclick="selectRating(this)">5</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="question">
+                        <label class="question-label">E2. หัวข้อที่อยากเรียนรู้ (เลือกได้หลายข้อ)</label>
+                        <div class="checkbox-grid">
+                            <label class="option checkbox" onclick="toggleCheckbox(this)"><span class="checkmark"></span><span class="option-title">AI พื้นฐาน: ChatGPT, Gemini, Claude</span></label>
+                            <label class="option checkbox" onclick="toggleCheckbox(this)"><span class="checkmark"></span><span class="option-title">Prompt Engineering: วิธีสั่ง AI ให้ได้ผลลัพธ์ที่ต้องการ</span></label>
+                            <label class="option checkbox" onclick="toggleCheckbox(this)"><span class="checkmark"></span><span class="option-title">AI สำหรับงานเอกสาร (สรุป, แปลง, ตรวจสอบ)</span></label>
+                            <label class="option checkbox" onclick="toggleCheckbox(this)"><span class="checkmark"></span><span class="option-title">AI สำหรับงานบัญชี/การเงิน</span></label>
+                            <label class="option checkbox" onclick="toggleCheckbox(this)"><span class="checkmark"></span><span class="option-title">AI สำหรับงานวิศวกรรม/เทคนิค</span></label>
+                            <label class="option checkbox" onclick="toggleCheckbox(this)"><span class="checkmark"></span><span class="option-title">AI สำหรับถอดแบบ/BOQ</span></label>
+                            <label class="option checkbox" onclick="toggleCheckbox(this)"><span class="checkmark"></span><span class="option-title">AI สำหรับจัดซื้อ (เปรียบเทียบราคา, ประเมิน Supplier, Benchmark)</span></label>
+                            <label class="option checkbox" onclick="toggleCheckbox(this)"><span class="checkmark"></span><span class="option-title">AI สำหรับควบคุมต้นทุน</span></label>
+                            <label class="option checkbox" onclick="toggleCheckbox(this)"><span class="checkmark"></span><span class="option-title">AI สำหรับบริหารโครงการ (Schedule Tracking/Dashboard)</span></label>
+                            <label class="option checkbox" onclick="toggleCheckbox(this)"><span class="checkmark"></span><span class="option-title">AI สำหรับวิเคราะห์ภาพ (นับวัสดุ, ตรวจ PPE, ตรวจจุดบกพร่อง)</span></label>
+                            <label class="option checkbox" onclick="toggleCheckbox(this)"><span class="checkmark"></span><span class="option-title">AI สำหรับ Knowledge Management (องค์ความรู้บริษัท 80 ปี)</span></label>
+                            <label class="option checkbox" onclick="toggleCheckbox(this)"><span class="checkmark"></span><span class="option-title">AI แปลภาษา/พากย์เสียงคลิปสอนงาน (Auto Dubbing สำหรับแรงงานต่างชาติ)</span></label>
+                            <label class="option checkbox" onclick="toggleCheckbox(this)"><span class="checkmark"></span><span class="option-title">ความปลอดภัยข้อมูลเมื่อใช้ AI</span></label>
+                            <label class="option checkbox has-input" onclick="toggleCheckbox(this)"><span class="checkmark"></span><span class="option-title">อื่นๆ...</span><input type="text" class="other-input" placeholder="ระบุ..." onclick="event.stopPropagation()"></label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step 6: Section F - ข้อเสนอแนะเพิ่มเติม -->
+            <div class="step" data-step="6" style="display:none;">
+                <div class="section">
+                    <div class="section-header">
+                        <div class="section-letter">F</div>
+                        <div class="section-title">ข้อเสนอแนะเพิ่มเติม</div>
+                    </div>
+
+                    <div class="question">
+                        <label class="question-label">F1. กรุณาระบุการให้บริการ หรือเครื่องมือใดๆ ที่คิดว่าเป็นกุญแจสำคัญ (Key Success) ที่ทำให้ภารกิจสำเร็จได้</label>
+                        <p class="question-sublabel">เช่น เคล็ดลับ: "เมื่อส่งใบเสนอราคาให้ลูกค้าได้ภายใน 24 ชม. โอกาสได้งานสูงขึ้น 80%"<br>💡 การระบุขั้นตอนและบริบทอย่างละเอียด คือกุญแจสำคัญที่ทำให้ AI เข้าใจงานของท่านได้อย่างสมบูรณ์</p>
+                        <div class="dynamic-inputs" id="keySuccessInputs">
+                            <div class="dynamic-input-row">
+                                <input type="text" class="dotted-input" placeholder="อันดับ 1: .....................................................">
+                                <button class="add-btn" onclick="addDynamicInput('keySuccessInputs', 5, 'อันดับ')">+</button>
+                            </div>
+                            <div class="dynamic-input-row">
+                                <input type="text" class="dotted-input" placeholder="อันดับ 2: .....................................................">
+                                <button class="remove-btn" onclick="removeDynamicInput(this)">×</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="question">
+                        <label class="question-label">F2. ข้อเสนอแนะเชิงสร้างสรรค์ (Creativity)</label>
+                        <p class="question-sublabel">รบกวนเสนอแนะ หรือแนวคิดอะไรก็ได้ ที่ท่านต้องการนำเสนอ เพื่อให้มีเครื่องมือหรือตัวช่วยในการทำงาน โดยไม่จำกัดขอบเขต<br>(อาจจะเป็นไอเดียที่ท่านคิดไว้ หรือเห็นจากที่อื่นที่น่าสนใจก็ได้)</p>
+                        <div class="dynamic-inputs" id="creativityInputs">
+                            <div class="dynamic-input-row">
+                                <input type="text" class="dotted-input" placeholder="ข้อเสนอแนะที่ 1: .....................................................">
+                                <button class="add-btn" onclick="addDynamicInput('creativityInputs', 5, 'ข้อเสนอแนะที่')">+</button>
+                            </div>
+                            <div class="dynamic-input-row">
+                                <input type="text" class="dotted-input" placeholder="ข้อเสนอแนะที่ 2: .....................................................">
+                                <button class="remove-btn" onclick="removeDynamicInput(this)">×</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="question">
+                        <label class="question-label">F3. ข้อกังวลหรือคำถามเกี่ยวกับการใช้ AI</label>
+                        <textarea id="concerns" placeholder="ระบุข้อกังวลหรือคำถาม..."></textarea>
+                    </div>
+
+                    <div class="question">
+                        <label class="question-label">F4. ข้อความถึงวิทยากร / สิ่งที่อยากให้เน้นเป็นพิเศษ</label>
+                        <textarea id="speakerNotes" placeholder="ระบุหัวข้อหรือสิ่งที่อยากให้เน้นในการอบรม..."></textarea>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Success Page -->
+            <div class="step" data-step="7" style="display:none;">
+                <div class="section success-page">
+                    <div class="success-icon">✓</div>
+                    <h2>ขอบคุณที่สละเวลาตอบแบบสอบถามค่ะ</h2>
+                    <p>เราจะนำไปใช้ในการพัฒนาเพื่อสนับสนุนการทำงานของทุกท่านต่อไปค่ะ</p>
+                    <button class="nav-btn next" onclick="resetSurvey()">เริ่มใหม่</button>
+                </div>
+            </div>
+
+            <!-- Navigation -->
+            <div class="nav-buttons" id="navButtons">
+                <button class="nav-btn prev" onclick="prevStep()" id="prevBtn" style="visibility:hidden;">← ย้อนกลับ</button>
+                <button class="nav-btn next" onclick="nextStep()" id="nextBtn">ถัดไป →</button>
+            </div>
+        </div>
+
+        <div class="footer">
+            <strong>ONE SEVEN DISCOVERY CO., LTD</strong> x <strong>บริษัท สี่พระยาก่อสร้าง จำกัด (Siphya Construction)</strong> | Connected to Google Sheets
+        </div>
+    </div>
+
+    <script>
+        // ========== CONFIG ==========
+        // TODO: วาง Web App URL จาก Google Apps Script ตรงนี้
+        const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbw_XpQ0W0LDIGwscp-8Afo1nMQDy1dda93zX45kwfhtkKavl7y6PD6tuPVYFCl_jpAy/exec';
+
+        let currentStep = 1;
+        const totalSteps = 6;
+
+        // ========== NAVIGATION ==========
+        function updateStepIndicator() {
+            const indicator = document.getElementById('stepIndicator');
+            indicator.innerHTML = '';
+            for (let i = 1; i <= totalSteps; i++) {
+                const dot = document.createElement('div');
+                dot.className = 'step-dot';
+                if (i < currentStep) dot.classList.add('completed');
+                if (i === currentStep) dot.classList.add('active');
+                indicator.appendChild(dot);
+            }
+        }
+
+        function updateProgress() {
+            const progress = ((currentStep - 1) / totalSteps) * 100;
+            document.getElementById('progressBar').style.width = progress + '%';
+        }
+
+        function showStep(step) {
+            document.querySelectorAll('.step').forEach(s => s.style.display = 'none');
+            const stepEl = document.querySelector(`.step[data-step="${step}"]`);
+            if (stepEl) stepEl.style.display = 'block';
+            document.getElementById('prevBtn').style.visibility = step === 1 ? 'hidden' : 'visible';
+            if (step === totalSteps) {
+                document.getElementById('nextBtn').textContent = 'ส่ง ✓';
+            } else if (step === totalSteps + 1) {
+                document.getElementById('navButtons').style.display = 'none';
+            } else {
+                document.getElementById('nextBtn').textContent = 'ถัดไป →';
+            }
+        }
+
+        function nextStep() {
+            if (currentStep === totalSteps) {
+                submitSurvey();
+            } else if (currentStep < totalSteps) {
+                currentStep++;
+                showStep(currentStep);
+                updateStepIndicator();
+                updateProgress();
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            }
+        }
+
+        function prevStep() {
+            if (currentStep > 1) {
+                currentStep--;
+                showStep(currentStep);
+                updateStepIndicator();
+                updateProgress();
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            }
+        }
+
+        // ========== OPTION SELECTION ==========
+        function selectOption(element, name) {
+            document.querySelectorAll(`[name="${name}"]`).forEach(input => {
+                input.closest('.option').classList.remove('selected');
+            });
+            element.classList.add('selected');
+            element.querySelector('input[type="radio"]').checked = true;
+            if (name === 'department') {
+                const val = element.querySelector('input[type="radio"]').value;
+                if (val === 'other') setTimeout(() => document.getElementById('deptOtherInput').focus(), 100);
+            }
+        }
+
+        function selectLevel(element) {
+            document.querySelectorAll('.level-option').forEach(opt => opt.classList.remove('selected'));
+            element.classList.add('selected');
+        }
+
+        function toggleTool(element) { element.classList.toggle('selected'); }
+
+        function toggleOtherTool(element, category) {
+            element.classList.toggle('selected');
+            const input = document.getElementById(category + '-other');
+            if (element.classList.contains('selected')) { input.classList.add('show'); input.focus(); }
+            else { input.classList.remove('show'); input.value = ''; }
+        }
+
+        function selectFreq(element) {
+            document.querySelectorAll('.freq-option:not(.other-tool)').forEach(opt => opt.classList.remove('selected'));
+            element.classList.add('selected');
+        }
+
+        function toggleCheckbox(element) {
+            const wasSelected = element.classList.contains('selected');
+            element.classList.toggle('selected');
+            const isNowSelected = !wasSelected;
+            if (element.classList.contains('has-input')) {
+                const inp = element.querySelector('.other-input');
+                if (isNowSelected && inp) {
+                    setTimeout(() => inp.focus(), 50);
+                } else if (!isNowSelected && inp) {
+                    inp.value = '';
+                }
+            }
+        }
+
+        function selectRating(btn) {
+            const row = btn.closest('.rating-row');
+            const wasSelected = btn.classList.contains('selected');
+            row.querySelectorAll('.rating-btn').forEach(b => b.classList.remove('selected'));
+            if (!wasSelected) btn.classList.add('selected');
+        }
+
+        // ========== DYNAMIC INPUTS ==========
+        function addDynamicInput(containerId, maxInputs, prefix) {
+            const container = document.getElementById(containerId);
+            const inputs = container.querySelectorAll('.dynamic-input-row');
+            if (inputs.length < maxInputs) {
+                const newIndex = inputs.length + 1;
+                const newRow = document.createElement('div');
+                newRow.className = 'dynamic-input-row';
+                newRow.innerHTML = `
+                    <input type="text" class="dotted-input" placeholder="${prefix} ${newIndex}: .....................................................">
+                    <button class="remove-btn" onclick="removeDynamicInput(this)">×</button>
+                `;
+                container.appendChild(newRow);
+            }
+        }
+
+        function removeDynamicInput(btn) {
+            const container = btn.closest('.dynamic-inputs');
+            if (container.querySelectorAll('.dynamic-input-row').length > 1) {
+                btn.closest('.dynamic-input-row').remove();
+            }
+        }
+
+        // ===== Helper functions =====
+        function initOtherInputs() {
+            document.querySelectorAll('.option.has-input .other-input').forEach(function(inp) {
+                inp.addEventListener('click', function(e) { e.stopPropagation(); });
+                inp.addEventListener('mousedown', function(e) { e.stopPropagation(); });
+            });
+        }
+        initOtherInputs();
+
+        function getCheckedFromContainer(container) {
+            if (!container) return [];
+            const items = [];
+            container.querySelectorAll('.option.checkbox.selected').forEach(function(el) {
+                const titleEl = el.querySelector('.option-title');
+                const title = titleEl ? titleEl.textContent.trim() : '';
+                if (!title.startsWith('อื่นๆ')) {
+                    if (title) items.push(title);
+                } else {
+                    const o = el.querySelector('.other-input');
+                    const val = o ? o.value.trim() : '';
+                    items.push(val ? 'อื่นๆ: ' + val : 'อื่นๆ (ไม่ระบุ)');
+                }
+            });
+            return items;
+        }
+
+        function collectDynamicInputs(containerId) {
+            const items = [];
+            document.querySelectorAll('#' + containerId + ' input').forEach(function(input) {
+                if (input.value.trim()) items.push(input.value.trim());
+            });
+            return items;
+        }
+
+        function collectFormData() {
+            // ===== Section A =====
+            const name = document.getElementById('name').value.trim();
+            const position = document.getElementById('position').value.trim();
+            const currentProject = document.getElementById('currentProject').value.trim();
+
+            const deptRadio = document.querySelector('input[name="department"]:checked');
+            const department = deptRadio ? deptRadio.value : '';
+            const deptOtherEl = document.getElementById('deptOtherInput');
+            const departmentOther = deptOtherEl ? deptOtherEl.value.trim() : '';
+
+            // ===== Section B =====
+            const levelEl = document.querySelector('.level-option.selected .level-badge');
+            const experienceLevel = levelEl
+                ? parseInt(levelEl.textContent.replace('L', '')) : null;
+
+            const toolsUsed = [];
+            document.querySelectorAll('.step[data-step="2"] .tool-option.selected').forEach(el => {
+                const t = el.textContent.trim();
+                if (!t.startsWith('อื่นๆ')) toolsUsed.push(t);
+            });
+            const toolsOther = document.getElementById('tools-other');
+            if (toolsOther && toolsOther.value.trim()) toolsUsed.push('อื่นๆ: ' + toolsOther.value.trim());
+
+            const freqEl = document.querySelector('.freq-option.selected:not(.other-tool)');
+            let usageFrequency = freqEl ? freqEl.textContent.trim() : '';
+            const freqOther = document.getElementById('freq-other');
+            if (freqOther && freqOther.value.trim()) {
+                usageFrequency = usageFrequency
+                    ? usageFrequency + ' / อื่นๆ: ' + freqOther.value.trim()
+                    : 'อื่นๆ: ' + freqOther.value.trim();
+            }
+
+            // ===== Helper =====
+            function getChecked(container) {
+                return getCheckedFromContainer(container);
+            }
+
+            // ===== Section C1 =====
+            const c1 = document.getElementById('c1Question');
+            const c1Cats = c1 ? c1.querySelectorAll('.work-category') : [];
+            const dailyWork = {
+                engineering:  getChecked(c1Cats[0]),
+                estimation:   getChecked(c1Cats[1]),
+                warehouse:    getChecked(c1Cats[2]),
+                accounting:   getChecked(c1Cats[3]),
+                admin:        getChecked(c1Cats[4])
+            };
+            const repeatWork = collectDynamicInputs('repeatWorkInputs');
+
+            // ===== Section D1 =====
+            const d1 = document.getElementById('d1Question');
+            const d1Cats = d1 ? d1.querySelectorAll('.work-category') : [];
+            const problems = {
+                dataSilo:     getChecked(d1Cats[0]),
+                document:     getChecked(d1Cats[1]),
+                procurement:  getChecked(d1Cats[2]),
+                siteData:     getChecked(d1Cats[3]),
+                security:     getChecked(d1Cats[4])
+            };
+
+            const painPoints = collectDynamicInputs('painPointInputs');
+            const aiHelpTop3 = [
+                document.getElementById('aiHelp1').value.trim(),
+                document.getElementById('aiHelp2').value.trim(),
+                document.getElementById('aiHelp3').value.trim()
+            ].filter(Boolean);
+
+            // ===== Section D4 =====
+            const d4 = document.getElementById('d4Question');
+            const d4Cats = d4 ? d4.querySelectorAll('.work-category') : [];
+            const interestedFeatures = {
+                document:       getChecked(d4Cats[0]),
+                estimation:     getChecked(d4Cats[1]),
+                projectTrack:   getChecked(d4Cats[2]),
+                warehouse:      getChecked(d4Cats[3]),
+                technical:      getChecked(d4Cats[4]),
+                communication:  getChecked(d4Cats[5])
+            };
+
+            // ===== Section E1 =====
+            const expectKeys = [
+                'understandAI', 'speedUpWork', 'analyzeData', 'promptEngineering',
+                'constructionAI', 'dataSecurity', 'reduceManual', 'aiForReport'
+            ];
+            const expectationsScore = {};
+            document.querySelectorAll('.step[data-step="5"] .rating-grid .rating-row').forEach((row, idx) => {
+                if (idx < expectKeys.length) {
+                    const sel = row.querySelector('.rating-btn.selected');
+                    expectationsScore[expectKeys[idx]] = sel ? parseInt(sel.textContent) : 0;
+                }
+            });
+            expectationsScore.otherTopic = document.getElementById('expectationOtherText').value.trim();
+            const otherRow = document.getElementById('expectationOtherRow');
+            const otherSel = otherRow ? otherRow.querySelector('.rating-btn.selected') : null;
+            expectationsScore.otherScore = otherSel ? parseInt(otherSel.textContent) : 0;
+
+            // ===== Section E2 =====
+            const e2Container = document.querySelector('.step[data-step="5"] .checkbox-grid');
+            const interestedTopics = e2Container ? getCheckedFromContainer(e2Container.closest('.question') || e2Container.parentElement) : [];
+
+            // ===== Section F =====
+            const keySuccess = collectDynamicInputs('keySuccessInputs');
+            const creativity = collectDynamicInputs('creativityInputs');
+            const concerns = document.getElementById('concerns').value.trim();
+            const speakerNotes = document.getElementById('speakerNotes').value.trim();
+
+            return {
+                timestamp: new Date().toISOString(),
+                name, position, currentProject,
+                department, departmentOther,
+                experienceLevel,
+                toolsUsed, usageFrequency,
+                dailyWork, repeatWork,
+                problems, painPoints, aiHelpTop3,
+                interestedFeatures,
+                expectationsScore, interestedTopics,
+                keySuccess, creativity, concerns, speakerNotes
+            };
+        }
+
+        // ========== RESET ==========
+        function resetSurvey() {
+            currentStep = 1;
+            document.getElementById('navButtons').style.display = 'flex';
+            document.querySelectorAll('input[type="text"]').forEach(i => i.value = '');
+            document.querySelectorAll('input[type="radio"]').forEach(i => i.checked = false);
+            document.querySelectorAll('textarea').forEach(ta => ta.value = '');
+            document.querySelectorAll('.selected').forEach(el => el.classList.remove('selected'));
+            document.querySelectorAll('.other-tool-input').forEach(i => { i.classList.remove('show'); i.value = ''; });
+            showStep(1);
+            updateStepIndicator();
+            updateProgress();
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // ========== SUBMIT ==========
+        async function submitSurvey() {
+            const data = collectFormData();
+
+            if (!data.name) {
+                alert('กรุณากรอกชื่อ-นามสกุล');
+                currentStep = 1; showStep(1); updateStepIndicator(); updateProgress();
+                return;
+            }
+            if (data.department === 'other' && !data.departmentOther) {
+                alert('กรุณาระบุแผนก');
+                document.getElementById('deptOtherInput').focus();
+                return;
+            }
+
+            const btn = document.getElementById('nextBtn');
+            btn.disabled = true;
+            btn.textContent = 'กำลังส่ง...';
+
+            try {
+                if (GOOGLE_SCRIPT_URL && GOOGLE_SCRIPT_URL !== 'YOUR_GOOGLE_SCRIPT_URL_HERE') {
+                    await fetch(GOOGLE_SCRIPT_URL, {
+                        method: 'POST',
+                        mode: 'no-cors',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify(data)
+                    });
+                }
+                console.log('Submitted:', data);
+                currentStep = totalSteps + 1;
+                showStep(currentStep);
+                updateProgress();
+
+            } catch (err) {
+                console.error(err);
+                alert('เกิดข้อผิดพลาด กรุณาลองใหม่อีกครั้ง');
+                btn.disabled = false;
+                btn.textContent = 'ส่ง ✓';
+            }
+        }
+
+        // ========== INIT ==========
+        showStep(1);
+        updateStepIndicator();
+        updateProgress();
+    </script>
+</body>
+</html>
