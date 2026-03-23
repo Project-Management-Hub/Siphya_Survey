@@ -3,281 +3,140 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>แบบสำรวจความต้องการใช้ AI - บริษัท สี่พระยาก่อสร้าง จำกัด</title>
+    <title>แบบสำรวจความต้องการใช้ AI — บริษัท สี่พระยาก่อสร้าง จำกัด (v2)</title>
     <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
         :root {
-            --primary-color: #1565C0;
-            --dark-color: #0D47A1;
+            --primary-color: #1B4F72;
+            --dark-color: #154360;
             --dark-gray: #2D2D2D;
             --medium-gray: #5A5A5A;
             --light-gray: #E8E8E8;
             --white: #FFFFFF;
             --bg-gray: #F5F5F5;
-            --accent-light: #E3F2FD;
+            --accent-light: #D6EAF8;
+            --optional-bg: #FFFDE7;
+            --optional-border: #FFD54F;
         }
-
         * { margin: 0; padding: 0; box-sizing: border-box; }
-
-        body {
-            font-family: 'Prompt', sans-serif;
-            background: var(--bg-gray);
-            color: var(--dark-gray);
-            line-height: 1.4;
-            font-size: 14px;
-        }
-
+        body { font-family: 'Prompt', sans-serif; background: var(--bg-gray); color: var(--dark-gray); line-height: 1.4; font-size: 14px; }
         .container { max-width: 950px; margin: 0 auto; padding: 10px; }
-
         .header {
-            background: linear-gradient(135deg, #1565C0 0%, #0D47A1 50%, #1B2838 100%);
-            color: var(--white);
-            padding: 15px 20px;
-            border-radius: 12px;
-            margin-bottom: 15px;
-            text-align: center;
+            background: linear-gradient(135deg, #1B4F72 0%, #0E2F44 100%);
+            color: var(--white); padding: 15px 20px; border-radius: 12px; margin-bottom: 15px; text-align: center;
         }
         .header h1 { font-size: 1.3rem; font-weight: 600; }
         .header p { font-size: 0.85rem; opacity: 0.9; }
         .header .company-name { font-size: 0.95rem; font-weight: 500; margin-top: 5px; }
         .header .objective { font-size: 0.75rem; opacity: 0.85; margin-top: 5px; line-height: 1.4; }
-
-        .survey-container { display: block; }
-
-        .section {
-            background: var(--white);
-            border-radius: 12px;
-            padding: 15px;
-            margin-bottom: 15px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.06);
-        }
-
-        .section-header {
-            display: flex;
-            align-items: center;
-            margin-bottom: 12px;
-            padding-bottom: 10px;
-            border-bottom: 2px solid var(--light-gray);
-        }
-
-        .section-letter {
-            width: 32px; height: 32px;
-            background: var(--primary-color);
-            color: var(--white);
-            border-radius: 8px;
-            display: flex; align-items: center; justify-content: center;
-            font-weight: 600; font-size: 1rem;
-            margin-right: 10px; flex-shrink: 0;
-        }
-
+        .header .section-flow { font-size: 0.7rem; opacity: 0.7; margin-top: 8px; letter-spacing: 0.5px; }
+        .section { background: var(--white); border-radius: 12px; padding: 15px; margin-bottom: 15px; box-shadow: 0 2px 10px rgba(0,0,0,0.06); }
+        .section-header { display: flex; align-items: center; margin-bottom: 12px; padding-bottom: 10px; border-bottom: 2px solid var(--light-gray); }
+        .section-letter { width: 32px; height: 32px; background: var(--primary-color); color: var(--white); border-radius: 8px; display: flex; align-items: center; justify-content: center; font-weight: 600; font-size: 1rem; margin-right: 10px; flex-shrink: 0; }
         .section-title { font-size: 1rem; font-weight: 600; color: var(--dark-gray); }
         .section-subtitle { font-size: 0.75rem; color: var(--primary-color); font-weight: 600; margin-left: auto; }
-
         .question { margin-bottom: 15px; }
         .question:last-child { margin-bottom: 0; }
-
-        .question-label {
-            font-weight: 500; color: var(--dark-gray);
-            margin-bottom: 8px; display: block; font-size: 0.9rem;
-        }
-
-        .question-sublabel {
-            font-size: 0.75rem; color: var(--medium-gray);
-            margin-bottom: 10px; line-height: 1.5;
-        }
-
-        input[type="text"], textarea {
-            width: 100%; padding: 10px 12px;
-            border: 2px solid var(--light-gray);
-            border-radius: 8px;
-            font-family: inherit; font-size: 0.9rem;
-            transition: all 0.3s ease;
-        }
-        input[type="text"]:focus, textarea:focus {
-            outline: none; border-color: var(--primary-color);
-        }
+        .question-label { font-weight: 500; color: var(--dark-gray); margin-bottom: 8px; display: block; font-size: 0.9rem; }
+        .question-sublabel { font-size: 0.75rem; color: var(--medium-gray); margin-bottom: 10px; line-height: 1.5; }
+        input[type="text"], textarea { width: 100%; padding: 10px 12px; border: 2px solid var(--light-gray); border-radius: 8px; font-family: inherit; font-size: 0.9rem; transition: all 0.3s ease; }
+        input[type="text"]:focus, textarea:focus { outline: none; border-color: var(--primary-color); }
         textarea { min-height: 70px; resize: vertical; }
-
-        .dotted-input {
-            border: none;
-            border-bottom: 2px dotted var(--light-gray);
-            border-radius: 0; padding: 8px 5px; background: transparent;
-        }
+        .dotted-input { border: none; border-bottom: 2px dotted var(--light-gray); border-radius: 0; padding: 8px 5px; background: transparent; }
         .dotted-input::placeholder { color: #ccc; font-style: italic; }
         .dotted-input:focus { border-bottom-color: var(--primary-color); box-shadow: none; }
-
         .option-group { display: flex; flex-direction: column; gap: 6px; }
-
-        .option {
-            display: flex; align-items: center;
-            padding: 10px 12px;
-            background: var(--bg-gray);
-            border-radius: 8px;
-            cursor: pointer;
-            transition: all 0.2s ease;
-            border: 2px solid transparent;
-        }
+        .option { display: flex; align-items: center; padding: 10px 12px; background: var(--bg-gray); border-radius: 8px; cursor: pointer; transition: all 0.2s ease; border: 2px solid transparent; }
         .option:hover { background: var(--light-gray); }
         .option.selected { background: var(--accent-light); border-color: var(--primary-color); }
-
-        .option .checkmark {
-            width: 18px; height: 18px;
-            border: 2px solid var(--medium-gray);
-            border-radius: 50%;
-            margin-right: 10px; flex-shrink: 0;
-            display: flex; align-items: center; justify-content: center;
-            transition: all 0.2s ease;
-        }
+        .option .checkmark { width: 18px; height: 18px; border: 2px solid var(--medium-gray); border-radius: 50%; margin-right: 10px; flex-shrink: 0; display: flex; align-items: center; justify-content: center; transition: all 0.2s ease; }
         .option.checkbox .checkmark { border-radius: 4px; }
         .option.selected .checkmark { background: var(--primary-color); border-color: var(--primary-color); }
         .option.selected .checkmark::after { content: "✓"; color: white; font-size: 11px; font-weight: bold; }
         .option-title { font-size: 0.85rem; color: var(--dark-gray); }
-
         .option.has-input { flex-wrap: wrap; }
         .option.has-input .other-input { pointer-events: none; }
         .option.has-input.selected .other-input { pointer-events: auto; }
-        .option.has-input .other-input {
-            width: 100%; margin-top: 8px; padding: 8px;
-            border: 1px dashed var(--light-gray);
-            border-radius: 6px; font-family: inherit;
-            font-size: 0.85rem; display: none;
-        }
+        .option.has-input .other-input { width: 100%; margin-top: 8px; padding: 8px; border: 1px dashed var(--light-gray); border-radius: 6px; font-family: inherit; font-size: 0.85rem; display: none; }
         .option.has-input.selected .other-input { display: block; }
-
         .level-options { display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px; }
-        .level-option {
-            display: flex; align-items: center;
-            padding: 10px 12px;
-            background: var(--bg-gray);
-            border-radius: 8px;
-            cursor: pointer;
-            transition: all 0.2s ease;
-            border: 2px solid transparent;
-        }
+        .level-option { display: flex; align-items: center; padding: 10px 12px; background: var(--bg-gray); border-radius: 8px; cursor: pointer; transition: all 0.2s ease; border: 2px solid transparent; }
         .level-option:hover { background: var(--light-gray); }
         .level-option.selected { background: var(--accent-light); border-color: var(--primary-color); }
-        .level-badge {
-            width: 36px; height: 36px;
-            background: var(--medium-gray); color: var(--white);
-            border-radius: 8px;
-            display: flex; align-items: center; justify-content: center;
-            font-weight: 600; margin-right: 10px;
-            font-size: 0.75rem; flex-shrink: 0;
-        }
+        .level-badge { width: 36px; height: 36px; background: var(--medium-gray); color: var(--white); border-radius: 8px; display: flex; align-items: center; justify-content: center; font-weight: 600; margin-right: 10px; font-size: 0.75rem; flex-shrink: 0; }
         .level-option.selected .level-badge { background: var(--primary-color); }
         .level-option .option-content { flex: 1; min-width: 0; }
         .level-option .option-title { font-size: 0.8rem; line-height: 1.3; }
-
-        .tool-grid { display: flex; flex-wrap: wrap; gap: 6px; }
-        .tool-option {
-            padding: 8px 12px;
-            background: var(--bg-gray);
-            border-radius: 6px; cursor: pointer;
-            transition: all 0.2s ease;
-            border: 2px solid transparent;
-            font-size: 0.8rem;
-        }
-        .tool-option:hover { background: var(--light-gray); }
-        .tool-option.selected { background: var(--accent-light); border-color: var(--primary-color); color: var(--primary-color); font-weight: 500; }
-        .tool-option.other-tool { border-style: dashed; border-color: var(--light-gray); }
-        .tool-option.other-tool.selected { border-style: solid; }
-        .other-tool-input { display: none; margin-top: 8px; padding: 8px 12px; border: 1px dashed var(--light-gray); border-radius: 6px; font-size: 0.85rem; width: 100%; }
-        .other-tool-input.show { display: block; }
-
         .freq-options { display: flex; flex-wrap: wrap; gap: 6px; }
-        .freq-option {
-            padding: 8px 14px; background: var(--bg-gray);
-            border-radius: 6px; cursor: pointer;
-            transition: all 0.2s ease; border: 2px solid transparent; font-size: 0.8rem;
-        }
+        .freq-option { padding: 8px 14px; background: var(--bg-gray); border-radius: 6px; cursor: pointer; transition: all 0.2s ease; border: 2px solid transparent; font-size: 0.8rem; }
         .freq-option:hover { background: var(--light-gray); }
         .freq-option.selected { background: var(--accent-light); border-color: var(--primary-color); color: var(--primary-color); font-weight: 500; }
-
+        .freq-option.other-tool { border-style: dashed; border-color: var(--light-gray); }
+        .freq-option.other-tool.selected { border-style: solid; }
         .rating-grid { display: grid; gap: 6px; }
-        .rating-row {
-            display: flex; align-items: center;
-            padding: 8px 10px; background: var(--bg-gray);
-            border-radius: 8px; gap: 10px;
-        }
+        .rating-row { display: flex; align-items: center; padding: 8px 10px; background: var(--bg-gray); border-radius: 8px; gap: 10px; }
         .rating-label { flex: 1; font-size: 0.8rem; min-width: 0; }
         .rating-buttons { display: flex; gap: 4px; flex-shrink: 0; }
-        .rating-btn {
-            width: 32px; height: 32px;
-            border: 2px solid var(--light-gray);
-            border-radius: 6px; background: var(--white);
-            cursor: pointer; font-weight: 500; font-size: 0.85rem;
-            transition: all 0.2s ease;
-        }
+        .rating-btn { width: 32px; height: 32px; border: 2px solid var(--light-gray); border-radius: 6px; background: var(--white); cursor: pointer; font-weight: 500; font-size: 0.85rem; transition: all 0.2s ease; }
         .rating-btn:hover { border-color: var(--primary-color); }
         .rating-btn.selected { background: var(--primary-color); border-color: var(--primary-color); color: var(--white); }
-
         .dynamic-inputs { display: flex; flex-direction: column; gap: 6px; }
         .dynamic-input-row { display: flex; align-items: center; gap: 8px; }
         .dynamic-input-row input { flex: 1; }
-
-        .add-btn, .remove-btn {
-            width: 32px; height: 32px; border-radius: 8px;
-            border: none; cursor: pointer; font-size: 1rem;
-            transition: all 0.2s ease; flex-shrink: 0;
-        }
+        .add-btn, .remove-btn { width: 32px; height: 32px; border-radius: 8px; border: none; cursor: pointer; font-size: 1rem; transition: all 0.2s ease; flex-shrink: 0; }
         .add-btn { background: var(--primary-color); color: var(--white); }
         .add-btn:hover { background: var(--dark-color); }
         .remove-btn { background: var(--light-gray); color: var(--medium-gray); }
         .remove-btn:hover { background: #e53935; color: var(--white); }
-
         .checkbox-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 6px; }
         .checkbox-grid .option { padding: 8px 10px; }
         .checkbox-grid .option-title { font-size: 0.8rem; line-height: 1.3; }
 
-        .work-category { margin-bottom: 15px; }
-        .work-category:last-child { margin-bottom: 0; }
-        .work-category-title {
-            font-size: 0.85rem; font-weight: 600; color: var(--dark-gray);
-            margin-bottom: 8px; padding-bottom: 4px;
-            border-bottom: 2px solid var(--primary-color);
-            display: inline-block;
-        }
+        /* ===== COLLAPSIBLE DROPDOWN ===== */
+        .collapsible-category { margin-bottom: 10px; border: 1px solid var(--light-gray); border-radius: 10px; overflow: hidden; transition: all 0.3s ease; }
+        .collapsible-category.filter-dimmed { opacity: 0.5; order: 100; } /* V5: จางแต่ยังกดได้ */
+        .collapsible-category.filter-dimmed .collapsible-header { background: #f5f5f5; cursor: pointer; }
+        /* V5: ลบ 🔒 — แถบไม่ตรงแผนกยังกดได้ */
+        .collapsible-header { display: flex; align-items: center; padding: 10px 14px; background: var(--bg-gray); cursor: pointer; user-select: none; transition: background 0.2s; gap: 8px; }
+        .collapsible-header:hover { background: var(--light-gray); }
+        .collapsible-header .arrow { font-size: 0.7rem; transition: transform 0.3s; flex-shrink: 0; color: var(--primary-color); }
+        .collapsible-header .arrow.open { transform: rotate(90deg); }
+        .collapsible-header .cat-icon { font-size: 1rem; flex-shrink: 0; }
+        .collapsible-header .cat-label { font-size: 0.85rem; font-weight: 600; color: var(--dark-gray); flex: 1; }
+        .collapsible-header .cat-count { font-size: 0.7rem; color: var(--medium-gray); background: var(--white); padding: 2px 8px; border-radius: 10px; flex-shrink: 0; }
+        .collapsible-body { display: none; padding: 8px 12px 12px; }
+        .collapsible-body.open { display: block; }
+        .collapsible-header .filter-hint { font-size: 0.65rem; color: var(--primary-color); opacity: 0.7; margin-left: 4px; }
 
-        .progress-container {
-            position: fixed; top: 0; left: 0; right: 0;
-            height: 3px; background: var(--light-gray); z-index: 100;
-        }
+        /* ===== HR Sub-groups ===== */
+        .sub-group-title { font-size: 0.78rem; font-weight: 600; color: var(--primary-color); margin: 10px 0 6px; padding-bottom: 3px; border-bottom: 1px dashed var(--primary-color); display: inline-block; }
+        .sub-group-title:first-child { margin-top: 0; }
+
+        /* ===== Optional Section G ===== */
+        .optional-banner { background: linear-gradient(135deg, #FFEBEE 0%, #FFCDD2 100%); border: 2px solid #EF5350; border-radius: 12px; padding: 12px 16px; margin-bottom: 15px; text-align: center; }
+        .optional-banner h3 { font-size: 0.95rem; color: #D32F2F; margin-bottom: 4px; }
+        .optional-banner p { font-size: 0.78rem; color: var(--medium-gray); }
+
+        .progress-container { position: fixed; top: 0; left: 0; right: 0; height: 3px; background: var(--light-gray); z-index: 100; }
         .progress-bar { height: 100%; background: var(--primary-color); transition: width 0.3s ease; }
-
         .nav-buttons { display: flex; justify-content: space-between; margin-top: 15px; gap: 10px; }
-        .nav-btn {
-            padding: 12px 24px; border-radius: 10px;
-            font-family: inherit; font-size: 0.9rem; font-weight: 500;
-            cursor: pointer; transition: all 0.3s ease; border: none;
-        }
+        .nav-btn { padding: 12px 24px; border-radius: 10px; font-family: inherit; font-size: 0.9rem; font-weight: 500; cursor: pointer; transition: all 0.3s ease; border: none; }
         .nav-btn.prev { background: var(--light-gray); color: var(--dark-gray); }
         .nav-btn.prev:hover { background: var(--medium-gray); color: var(--white); }
         .nav-btn.next { background: var(--primary-color); color: var(--white); flex: 1; max-width: 200px; }
         .nav-btn.next:hover { background: var(--dark-color); }
-
         .step-indicator { display: flex; justify-content: center; gap: 6px; margin-bottom: 15px; }
-        .step-dot {
-            width: 10px; height: 10px; border-radius: 50%;
-            background: var(--light-gray); transition: all 0.3s ease;
-        }
+        .step-dot { width: 10px; height: 10px; border-radius: 50%; background: var(--light-gray); transition: all 0.3s ease; }
         .step-dot.active { background: var(--primary-color); transform: scale(1.2); }
         .step-dot.completed { background: var(--primary-color); }
-
         .success-page { text-align: center; padding: 40px 20px; }
-        .success-icon {
-            width: 80px; height: 80px;
-            background: linear-gradient(135deg, #1565C0 0%, #0D47A1 100%);
-            border-radius: 50%;
-            display: flex; align-items: center; justify-content: center;
-            margin: 0 auto 20px; font-size: 2.5rem; color: var(--white);
-        }
+        .success-icon { width: 80px; height: 80px; background: linear-gradient(135deg, #1B4F72 0%, #0E2F44 100%); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 20px; font-size: 2.5rem; color: var(--white); }
         .success-page h2 { font-size: 1.4rem; margin-bottom: 10px; color: var(--dark-gray); }
         .success-page p { color: var(--medium-gray); margin-bottom: 20px; font-size: 0.9rem; }
-
         .footer { text-align: center; padding: 15px; color: var(--medium-gray); font-size: 0.75rem; }
-
         .location-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 6px; }
-
+        .other-tool-input { display: none; margin-top: 8px; padding: 8px 12px; border: 1px dashed var(--light-gray); border-radius: 6px; font-size: 0.85rem; width: 100%; }
+        .other-tool-input.show { display: block; }
         @media (max-width: 600px) {
             .level-options { grid-template-columns: 1fr; }
             .checkbox-grid { grid-template-columns: 1fr; }
@@ -285,1069 +144,857 @@
             .rating-row { flex-direction: column; align-items: flex-start; gap: 8px; }
             .rating-buttons { width: 100%; justify-content: space-between; }
         }
+
+        /* ===== V5: Smart Reorder — relevant categories ===== */
+        .collapsible-category.dept-relevant { order: -1; border: 2px solid var(--primary-color); border-radius: 10px; }
+        .collapsible-category.dept-relevant .collapsible-header { background: var(--accent-light); }
+        .collapsible-category.dept-relevant .collapsible-header::before { content: '▼'; font-size: 0.6rem; color: var(--primary-color); margin-right: 4px; }
+        .collapsible-category.dept-relevant .collapsible-header .click-hint { display: inline; }
+        /* handled by .filter-dimmed */
+        .collapsible-category.filter-dimmed:hover { opacity: 0.75; }
+        .click-hint { display: none; font-size: 0.6rem; color: var(--primary-color); margin-left: auto; padding: 2px 6px; background: var(--white); border-radius: 4px; border: 1px solid var(--primary-color); }
+        #b1Categories, #c1Categories, #gCategories { display: flex; flex-direction: column; }
+
+        /* ===== V5: E2 Search Box ===== */
+        .e2-search-wrap { display: flex; align-items: center; gap: 8px; margin-bottom: 12px; position: relative; }
+        .e2-search { width: 100%; padding: 10px 12px; border: 2px solid var(--light-gray); border-radius: 10px; font-family: inherit; font-size: 0.85rem; outline: none; transition: border-color 0.3s; }
+        .e2-search:focus { border-color: var(--primary-color); }
+        .e2-search::placeholder { color: #ccc; font-size: 0.75rem; font-weight: 300; }
+        .e2-search-icon { flex-shrink: 0; color: #888; display: flex; align-items: center; }
+        .e2-search-results { position: absolute; top: 100%; left: 0; right: 0; background: var(--white); border: 2px solid var(--primary-color); border-radius: 10px; margin-top: 4px; max-height: 250px; overflow-y: auto; z-index: 50; display: none; box-shadow: 0 4px 20px rgba(0,0,0,0.15); }
+        .e2-search-results.show { display: block; }
+        .e2-search-item { display: flex; align-items: center; padding: 8px 12px; cursor: pointer; gap: 8px; border-bottom: 1px solid var(--light-gray); }
+        .e2-search-item:last-child { border-bottom: none; }
+        .e2-search-item:hover { background: var(--accent-light); }
+        .e2-search-item .cat-name { font-size: 0.7rem; color: var(--primary-color); background: var(--accent-light); padding: 1px 6px; border-radius: 4px; border: 1px solid var(--primary-color); flex-shrink: 0; }
+        .e2-search-item .item-name { font-size: 0.82rem; flex: 1; }
+        .e2-search-item .item-check { width: 18px; height: 18px; border: 2px solid var(--primary-color); border-radius: 4px; flex-shrink: 0; display: flex; align-items: center; justify-content: center; font-size: 10px; color: var(--white); }
+        .e2-search-item.checked .item-check { background: var(--primary-color); }
+        .e2-search-item.checked .item-check::after { content: '✓'; }
+
+        /* ===== V5: E2 2-Column Layout ===== */
+        .e2-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px; }
+        @media (max-width: 600px) { .e2-grid { grid-template-columns: 1fr; } }
+
+        /* ===== V5: F1 Compact 2-Column ===== */
+        .f1-compact-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 6px; }
+        .f1-compact-row { display: flex; align-items: center; padding: 6px 8px; background: var(--bg-gray); border-radius: 8px; gap: 6px; }
+        .f1-compact-label { flex: 1; font-size: 0.75rem; min-width: 0; line-height: 1.3; }
+        .f1-compact-btns { display: flex; gap: 2px; flex-shrink: 0; }
+        .f1-compact-btn { width: 26px; height: 26px; border: 1.5px solid var(--light-gray); border-radius: 5px; background: var(--white); cursor: pointer; font-weight: 500; font-size: 0.75rem; transition: all 0.2s; }
+        .f1-compact-btn:hover { border-color: var(--primary-color); }
+        .f1-compact-btn.selected { background: var(--primary-color); border-color: var(--primary-color); color: var(--white); }
+        @media (max-width: 600px) { .f1-compact-grid { grid-template-columns: 1fr; } }
     </style>
 </head>
 <body>
-    <div class="progress-container">
-        <div class="progress-bar" id="progressBar" style="width: 0%"></div>
+<div class="progress-container"><div class="progress-bar" id="progressBar" style="width:0%"></div></div>
+<div class="container">
+    <div class="header">
+        <h1>แบบสำรวจความต้องการใช้ AI ในการทำงาน</h1>
+        <div class="company-name">🏗️ บริษัท สี่พระยาก่อสร้าง จำกัด (Siphya Construction)</div>
+        <p>⏱️ ใช้เวลาประมาณ 10-15 นาที | ข้อมูลจะถูกเก็บเป็นความลับ</p>
+        <div class="objective">วัตถุประสงค์: เพื่อสำรวจปัญหาในการทำงานและความต้องการใช้ AI เพื่อออกแบบ Solution และหลักสูตรอบรมที่เหมาะสม</div>
     </div>
 
-    <div class="container">
-        <div class="header">
-            <h1>แบบสำรวจความต้องการใช้ AI ในการทำงาน</h1>
-            <div class="company-name">🏗️ บริษัท สี่พระยาก่อสร้าง จำกัด (Siphya Construction Company Limited)</div>
-            <p>⏱️ ใช้เวลาประมาณ 10-15 นาที | ข้อมูลจะถูกเก็บเป็นความลับ</p>
-            <div class="objective">วัตถุประสงค์: เพื่อสำรวจปัญหาในการทำงานและความต้องการใช้ AI เพื่อออกแบบ Solution และหลักสูตรอบรมที่เหมาะสม</div>
-        </div>
+    <div id="surveyContainer">
+        <div class="step-indicator" id="stepIndicator"></div>
 
-        <div class="survey-container" id="surveyContainer">
-            <div class="step-indicator" id="stepIndicator"></div>
-
-            <!-- Step 1: Section A - ข้อมูลทั่วไป -->
-            <div class="step" data-step="1">
-                <div class="section">
-                    <div class="section-header">
-                        <div class="section-letter">A</div>
-                        <div class="section-title">ข้อมูลทั่วไป</div>
-                    </div>
-
-                    <div class="question">
-                        <label class="question-label">A1. ชื่อ-นามสกุล</label>
-                        <input type="text" id="name" placeholder="กรอกชื่อ-นามสกุล">
-                    </div>
-
-                    <div class="question">
-                        <label class="question-label">A2. ตำแหน่ง</label>
-                        <input type="text" id="position" placeholder="กรอกตำแหน่งงาน">
-                    </div>
-
-                    <div class="question">
-                        <label class="question-label">A3. แผนก/ทีม (เลือกได้ 1 ข้อ)</label>
-                        <div class="option-group" id="departmentGroup">
-                            <label class="option" onclick="selectOption(this, 'department')">
-                                <input type="radio" name="department" value="project-engineering" style="display:none;">
-                                <span class="checkmark"></span>
-                                <span class="option-title">📐 วิศวกรโครงการ (Project Engineering)</span>
-                            </label>
-                            <label class="option" onclick="selectOption(this, 'department')">
-                                <input type="radio" name="department" value="architecture" style="display:none;">
-                                <span class="checkmark"></span>
-                                <span class="option-title">🏛️ สถาปัตยกรรม/ออกแบบ (Architecture/Design)</span>
-                            </label>
-                            <label class="option" onclick="selectOption(this, 'department')">
-                                <input type="radio" name="department" value="qs-boq" style="display:none;">
-                                <span class="checkmark"></span>
-                                <span class="option-title">💰 ประมาณการ/ถอดแบบ (QS/BOQ)</span>
-                            </label>
-                            <label class="option" onclick="selectOption(this, 'department')">
-                                <input type="radio" name="department" value="site-supervision" style="display:none;">
-                                <span class="checkmark"></span>
-                                <span class="option-title">👷 ควบคุมงาน/โฟร์แมน (Site Supervision/Foreman)</span>
-                            </label>
-                            <label class="option" onclick="selectOption(this, 'department')">
-                                <input type="radio" name="department" value="pre-construction" style="display:none;">
-                                <span class="checkmark"></span>
-                                <span class="option-title">📋 แผนก Pre-Construction</span>
-                            </label>
-                            <label class="option" onclick="selectOption(this, 'department')">
-                                <input type="radio" name="department" value="procurement" style="display:none;">
-                                <span class="checkmark"></span>
-                                <span class="option-title">🛒 จัดซื้อจัดจ้าง (Procurement)</span>
-                            </label>
-                            <label class="option" onclick="selectOption(this, 'department')">
-                                <input type="radio" name="department" value="warehouse" style="display:none;">
-                                <span class="checkmark"></span>
-                                <span class="option-title">📦 คลังสินค้า/สโตร์ (Warehouse/Store)</span>
-                            </label>
-                            <label class="option" onclick="selectOption(this, 'department')">
-                                <input type="radio" name="department" value="rebar-factory" style="display:none;">
-                                <span class="checkmark"></span>
-                                <span class="option-title">🏭 โรงงานผลิตเหล็ก-สระบุรี (Rebar Factory)</span>
-                            </label>
-                            <label class="option" onclick="selectOption(this, 'department')">
-                                <input type="radio" name="department" value="logistics" style="display:none;">
-                                <span class="checkmark"></span>
-                                <span class="option-title">🚚 ขนส่ง/โลจิสติกส์ (Logistics)</span>
-                            </label>
-                            <label class="option" onclick="selectOption(this, 'department')">
-                                <input type="radio" name="department" value="accounting" style="display:none;">
-                                <span class="checkmark"></span>
-                                <span class="option-title">💵 บัญชี/การเงิน (Accounting/Finance)</span>
-                            </label>
-                            <label class="option" onclick="selectOption(this, 'department')">
-                                <input type="radio" name="department" value="hr" style="display:none;">
-                                <span class="checkmark"></span>
-                                <span class="option-title">👥 ทรัพยากรบุคคล (HR)</span>
-                            </label>
-                            <label class="option" onclick="selectOption(this, 'department')">
-                                <input type="radio" name="department" value="safety" style="display:none;">
-                                <span class="checkmark"></span>
-                                <span class="option-title">🦺 ความปลอดภัย (Safety/จป.)</span>
-                            </label>
-                            <label class="option" onclick="selectOption(this, 'department')">
-                                <input type="radio" name="department" value="qcqa" style="display:none;">
-                                <span class="checkmark"></span>
-                                <span class="option-title">✅ ควบคุมคุณภาพ (QC/QA)</span>
-                            </label>
-                            <label class="option" onclick="selectOption(this, 'department')">
-                                <input type="radio" name="department" value="rd-lab" style="display:none;">
-                                <span class="checkmark"></span>
-                                <span class="option-title">🔬 ศูนย์วิจัยและพัฒนา (R&D/Lab)</span>
-                            </label>
-                            <label class="option" onclick="selectOption(this, 'department')">
-                                <input type="radio" name="department" value="survey" style="display:none;">
-                                <span class="checkmark"></span>
-                                <span class="option-title">📍 ช่างสำรวจ (Survey)</span>
-                            </label>
-                            <label class="option" onclick="selectOption(this, 'department')">
-                                <input type="radio" name="department" value="me" style="display:none;">
-                                <span class="checkmark"></span>
-                                <span class="option-title">⚡ ช่างเทคนิค/ระบบไฟฟ้า-เครื่องกล (M&E)</span>
-                            </label>
-                            <label class="option" onclick="selectOption(this, 'department')">
-                                <input type="radio" name="department" value="ie" style="display:none;">
-                                <span class="checkmark"></span>
-                                <span class="option-title">⚙️ วิศวกรรมอุตสาหการ (Industrial Engineering)</span>
-                            </label>
-                            <label class="option" onclick="selectOption(this, 'department')">
-                                <input type="radio" name="department" value="admin" style="display:none;">
-                                <span class="checkmark"></span>
-                                <span class="option-title">📋 ธุรการ/สำนักงาน (Admin)</span>
-                            </label>
-                            <label class="option" onclick="selectOption(this, 'department')">
-                                <input type="radio" name="department" value="it" style="display:none;">
-                                <span class="checkmark"></span>
-                                <span class="option-title">💻 IT/สารสนเทศ</span>
-                            </label>
-                            <label class="option" onclick="selectOption(this, 'department')">
-                                <input type="radio" name="department" value="management" style="display:none;">
-                                <span class="checkmark"></span>
-                                <span class="option-title">👔 ผู้บริหาร/Management</span>
-                            </label>
-                            <label class="option" onclick="selectOption(this, 'department')">
-                                <input type="radio" name="department" value="interior" style="display:none;">
-                                <span class="checkmark"></span>
-                                <span class="option-title">🛋️ งานตกแต่งภายใน/เฟอร์นิเจอร์ (Interior/Furniture)</span>
-                            </label>
-                            <label class="option has-input" onclick="selectOption(this, 'department')" id="deptOtherOption">
-                                <input type="radio" name="department" value="other" style="display:none;">
-                                <span class="checkmark"></span>
-                                <span class="option-title">อื่นๆ</span>
-                                <input type="text" class="other-input" id="deptOtherInput" placeholder="ระบุแผนก..." onclick="event.stopPropagation()">
-                            </label>
-                        </div>
-                    </div>
-
-                    <div class="question">
-                        <label class="question-label">A4. โครงการที่รับผิดชอบปัจจุบัน (ถ้ามี)</label>
-                        <input type="text" id="currentProject" placeholder="ระบุชื่อโครงการ...">
-                    </div>
-                </div>
-            </div>
-
-            <!-- Step 2: Section B - ประสบการณ์และความพร้อมด้าน AI -->
-            <div class="step" data-step="2" style="display:none;">
-                <div class="section">
-                    <div class="section-header">
-                        <div class="section-letter">B</div>
-                        <div class="section-title">ประสบการณ์และความพร้อมด้าน AI</div>
-                    </div>
-
-                    <div class="question">
-                        <label class="question-label">B1. ระดับประสบการณ์การใช้ AI (เช่น ChatGPT, Gemini, Claude)</label>
-                        <div class="level-options">
-                            <div class="level-option" onclick="selectLevel(this, 0)">
-                                <div class="level-badge">L0</div>
-                                <div class="option-content"><div class="option-title">ไม่เคยใช้เลย</div></div>
-                            </div>
-                            <div class="level-option" onclick="selectLevel(this, 1)">
-                                <div class="level-badge">L1</div>
-                                <div class="option-content"><div class="option-title">เคยลองใช้บ้าง 1-2 ครั้ง</div></div>
-                            </div>
-                            <div class="level-option" onclick="selectLevel(this, 2)">
-                                <div class="level-badge">L2</div>
-                                <div class="option-content"><div class="option-title">ใช้เป็นครั้งคราว ไม่ประจำ</div></div>
-                            </div>
-                            <div class="level-option" onclick="selectLevel(this, 3)">
-                                <div class="level-badge">L3</div>
-                                <div class="option-content"><div class="option-title">ใช้ประจำสัปดาห์ละ 1-2 ครั้ง</div></div>
-                            </div>
-                            <div class="level-option" onclick="selectLevel(this, 4)">
-                                <div class="level-badge">L4</div>
-                                <div class="option-content"><div class="option-title">ใช้เป็นประจำทุกวัน</div></div>
-                            </div>
-                            <div class="level-option" onclick="selectLevel(this, 5)">
-                                <div class="level-badge">L5</div>
-                                <div class="option-content"><div class="option-title">ใช้เป็นเครื่องมือหลักในการทำงาน</div></div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="question">
-                        <label class="question-label">B2. เครื่องมือ AI ที่เคยใช้ (เลือกได้หลายข้อ)</label>
-                        <div class="tool-grid">
-                            <div class="tool-option" onclick="toggleTool(this)">ChatGPT (OpenAI)</div>
-                            <div class="tool-option" onclick="toggleTool(this)">Google Gemini / Bard</div>
-                            <div class="tool-option" onclick="toggleTool(this)">Claude (Anthropic)</div>
-                            <div class="tool-option" onclick="toggleTool(this)">Microsoft Copilot</div>
-                            <div class="tool-option" onclick="toggleTool(this)">LINE AI / OA</div>
-                            <div class="tool-option" onclick="toggleTool(this)">โปรแกรม BIM/Revit AI</div>
-                            <div class="tool-option" onclick="toggleTool(this)">AI อ่านเอกสาร/OCR</div>
-                            <div class="tool-option" onclick="toggleTool(this)">ไม่เคยใช้เครื่องมือใดเลย</div>
-                            <div class="tool-option other-tool" onclick="toggleOtherTool(this, 'tools')">อื่นๆ...</div>
-                        </div>
-                        <input type="text" class="other-tool-input" id="tools-other" placeholder="ระบุเครื่องมือ AI อื่นๆ...">
-                    </div>
-
-                    <div class="question">
-                        <label class="question-label">B3. ความถี่ในการใช้ AI เพื่อช่วยงาน</label>
-                        <div class="freq-options">
-                            <div class="freq-option" onclick="selectFreq(this)">ไม่เคยใช้</div>
-                            <div class="freq-option" onclick="selectFreq(this)">นานๆ ครั้ง (เดือนละ 1-2 ครั้ง)</div>
-                            <div class="freq-option" onclick="selectFreq(this)">สัปดาห์ละครั้ง</div>
-                            <div class="freq-option" onclick="selectFreq(this)">หลายครั้งต่อสัปดาห์</div>
-                            <div class="freq-option" onclick="selectFreq(this)">ทุกวัน</div>
-                            <div class="freq-option other-tool" onclick="toggleOtherTool(this, 'freq')">อื่นๆ...</div>
-                        </div>
-                        <input type="text" class="other-tool-input" id="freq-other" placeholder="ระบุความถี่...">
-                    </div>
-                </div>
-            </div>
-
-            <!-- Step 3: Section C - ลักษณะงานประจำวัน -->
-            <div class="step" data-step="3" style="display:none;">
-                <div class="section">
-                    <div class="section-header">
-                        <div class="section-letter">C</div>
-                        <div class="section-title">ลักษณะงานประจำวัน</div>
-                        <span class="section-subtitle">เลือกได้หลายข้อ</span>
-                    </div>
-
-                    <div class="question" id="c1Question">
-                        <label class="question-label">C1. งานที่ทำเป็นประจำ</label>
-
-                        <div class="work-category">
-                            <div class="work-category-title">📐 งานวิศวกรรมและควบคุมงาน</div>
-                            <div class="checkbox-grid">
-                                <label class="option checkbox" onclick="toggleCheckbox(this)"><span class="checkmark"></span><span class="option-title">ตรวจสอบ/ทบทวนแบบก่อสร้าง (Shop Drawing/BIM)</span></label>
-                                <label class="option checkbox" onclick="toggleCheckbox(this)"><span class="checkmark"></span><span class="option-title">คำนวณโครงสร้าง/ปริมาณงาน</span></label>
-                                <label class="option checkbox" onclick="toggleCheckbox(this)"><span class="checkmark"></span><span class="option-title">ควบคุมงานหน้าไซต์/ตรวจรับงาน</span></label>
-                                <label class="option checkbox" onclick="toggleCheckbox(this)"><span class="checkmark"></span><span class="option-title">ประสานงานกับผู้รับเหมา/Subcontractor</span></label>
-                                <label class="option checkbox" onclick="toggleCheckbox(this)"><span class="checkmark"></span><span class="option-title">รายงานความคืบหน้าโครงการ</span></label>
-                                <label class="option checkbox" onclick="toggleCheckbox(this)"><span class="checkmark"></span><span class="option-title">ถ่ายรูปบันทึกหน้างาน</span></label>
-                                <label class="option checkbox" onclick="toggleCheckbox(this)"><span class="checkmark"></span><span class="option-title">ตรวจสอบคุณภาพงาน (QC) — งานโครงสร้าง/งาน Finishing</span></label>
-                                <label class="option checkbox" onclick="toggleCheckbox(this)"><span class="checkmark"></span><span class="option-title">จัดการด้านความปลอดภัย (Safety Patrol/ตรวจ PPE)</span></label>
-                                <label class="option checkbox has-input" onclick="toggleCheckbox(this)"><span class="checkmark"></span><span class="option-title">อื่นๆ...</span><input type="text" class="other-input" placeholder="ระบุ..." onclick="event.stopPropagation()"></label>
-                            </div>
-                        </div>
-
-                        <div class="work-category">
-                            <div class="work-category-title">💰 งานประมาณการและจัดซื้อ</div>
-                            <div class="checkbox-grid">
-                                <label class="option checkbox" onclick="toggleCheckbox(this)"><span class="checkmark"></span><span class="option-title">ถอดแบบ/ทำ BOQ</span></label>
-                                <label class="option checkbox" onclick="toggleCheckbox(this)"><span class="checkmark"></span><span class="option-title">ประมาณราคางาน/เสนอราคาโครงการ</span></label>
-                                <label class="option checkbox" onclick="toggleCheckbox(this)"><span class="checkmark"></span><span class="option-title">เปรียบเทียบราคาวัสดุ/Supplier</span></label>
-                                <label class="option checkbox" onclick="toggleCheckbox(this)"><span class="checkmark"></span><span class="option-title">ขอใบเสนอราคาจาก Supplier</span></label>
-                                <label class="option checkbox" onclick="toggleCheckbox(this)"><span class="checkmark"></span><span class="option-title">ตรวจสอบราคาซื้อกับราคาตลาด (สมาคมเหล็ก/ห้างวัสดุ)</span></label>
-                                <label class="option checkbox" onclick="toggleCheckbox(this)"><span class="checkmark"></span><span class="option-title">ประเมิน/ให้คะแนน Supplier</span></label>
-                                <label class="option checkbox has-input" onclick="toggleCheckbox(this)"><span class="checkmark"></span><span class="option-title">อื่นๆ...</span><input type="text" class="other-input" placeholder="ระบุ..." onclick="event.stopPropagation()"></label>
-                            </div>
-                        </div>
-
-                        <div class="work-category">
-                            <div class="work-category-title">📦 งานคลังสินค้าและโลจิสติกส์</div>
-                            <div class="checkbox-grid">
-                                <label class="option checkbox" onclick="toggleCheckbox(this)"><span class="checkmark"></span><span class="option-title">รับ-จ่ายวัสดุ/อุปกรณ์</span></label>
-                                <label class="option checkbox" onclick="toggleCheckbox(this)"><span class="checkmark"></span><span class="option-title">นับสต็อก/ตรวจนับวัสดุ (เหล็กเส้น, นั่งร้าน, แบบหล่อ)</span></label>
-                                <label class="option checkbox" onclick="toggleCheckbox(this)"><span class="checkmark"></span><span class="option-title">บันทึกการเบิก-คืนวัสดุ</span></label>
-                                <label class="option checkbox" onclick="toggleCheckbox(this)"><span class="checkmark"></span><span class="option-title">ติดตามการจัดส่ง</span></label>
-                                <label class="option checkbox" onclick="toggleCheckbox(this)"><span class="checkmark"></span><span class="option-title">ตรวจสอบสภาพวัสดุ (ชำรุด/สมบูรณ์)</span></label>
-                                <label class="option checkbox" onclick="toggleCheckbox(this)"><span class="checkmark"></span><span class="option-title">ควบคุม Automated Warehouse System (AS/RS) / สแกนบาร์โค้ด</span></label>
-                                <label class="option checkbox" onclick="toggleCheckbox(this)"><span class="checkmark"></span><span class="option-title">ควบคุมการผลิตตัด-ดัดเหล็กเส้น (โรงงานสระบุรี)</span></label>
-                                <label class="option checkbox has-input" onclick="toggleCheckbox(this)"><span class="checkmark"></span><span class="option-title">อื่นๆ...</span><input type="text" class="other-input" placeholder="ระบุ..." onclick="event.stopPropagation()"></label>
-                            </div>
-                        </div>
-
-                        <div class="work-category">
-                            <div class="work-category-title">📝 งานบัญชีและการเงิน</div>
-                            <div class="checkbox-grid">
-                                <label class="option checkbox" onclick="toggleCheckbox(this)"><span class="checkmark"></span><span class="option-title">กรอกข้อมูลเข้าระบบ ERP</span></label>
-                                <label class="option checkbox" onclick="toggleCheckbox(this)"><span class="checkmark"></span><span class="option-title">คีย์ใบเบิก/ใบวางบิล/PO</span></label>
-                                <label class="option checkbox" onclick="toggleCheckbox(this)"><span class="checkmark"></span><span class="option-title">คำนวณงวดจ่ายเงินผู้รับเหมาช่วง (Payment)</span></label>
-                                <label class="option checkbox" onclick="toggleCheckbox(this)"><span class="checkmark"></span><span class="option-title">ตรวจสอบเอกสารเบิกจ่าย</span></label>
-                                <label class="option checkbox" onclick="toggleCheckbox(this)"><span class="checkmark"></span><span class="option-title">ทำรายงานการเงิน</span></label>
-                                <label class="option checkbox" onclick="toggleCheckbox(this)"><span class="checkmark"></span><span class="option-title">ตรวจสอบการเบิกซ้ำซ้อน</span></label>
-                                <label class="option checkbox has-input" onclick="toggleCheckbox(this)"><span class="checkmark"></span><span class="option-title">อื่นๆ...</span><input type="text" class="other-input" placeholder="ระบุ..." onclick="event.stopPropagation()"></label>
-                            </div>
-                        </div>
-
-                        <div class="work-category">
-                            <div class="work-category-title">📋 งานเอกสารและการบริหาร</div>
-                            <div class="checkbox-grid">
-                                <label class="option checkbox" onclick="toggleCheckbox(this)"><span class="checkmark"></span><span class="option-title">จัดทำรายงานประจำวัน/สัปดาห์ (Daily/Weekly Report)</span></label>
-                                <label class="option checkbox" onclick="toggleCheckbox(this)"><span class="checkmark"></span><span class="option-title">สรุปการประชุม/บันทึกข้อตกลง (MOM)</span></label>
-                                <label class="option checkbox" onclick="toggleCheckbox(this)"><span class="checkmark"></span><span class="option-title">ติดตามเอกสารที่ยังไม่ครบ</span></label>
-                                <label class="option checkbox" onclick="toggleCheckbox(this)"><span class="checkmark"></span><span class="option-title">ประสานงานระหว่างแผนก</span></label>
-                                <label class="option checkbox" onclick="toggleCheckbox(this)"><span class="checkmark"></span><span class="option-title">ตอบคำถามผ่าน LINE กลุ่ม</span></label>
-                                <label class="option checkbox" onclick="toggleCheckbox(this)"><span class="checkmark"></span><span class="option-title">จัดการอนุมัติเอกสาร</span></label>
-                                <label class="option checkbox" onclick="toggleCheckbox(this)"><span class="checkmark"></span><span class="option-title">จัดเก็บ/ค้นหาเอกสาร ISO / As-built</span></label>
-                                <label class="option checkbox" onclick="toggleCheckbox(this)"><span class="checkmark"></span><span class="option-title">ติดตาม To-do list/งานค้าง</span></label>
-                                <label class="option checkbox has-input" onclick="toggleCheckbox(this)"><span class="checkmark"></span><span class="option-title">อื่นๆ...</span><input type="text" class="other-input" placeholder="ระบุ..." onclick="event.stopPropagation()"></label>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="question">
-                        <label class="question-label">C2. งานที่ต้องทำซ้ำๆ เป็นประจำทุกวัน หรือเกิดขึ้นบ่อยๆ</label>
-                        <p class="question-sublabel">กรุณาเรียงลำดับจากมากไปน้อย (1 คือมากที่สุด)<br>💡 การระบุขั้นตอนและบริบทอย่างละเอียด คือกุญแจสำคัญที่ทำให้ AI เข้าใจงานของท่านได้อย่างสมบูรณ์</p>
-                        <div class="dynamic-inputs" id="repeatWorkInputs">
-                            <div class="dynamic-input-row">
-                                <input type="text" class="dotted-input" placeholder="อันดับ 1: .....................................................">
-                                <button class="add-btn" onclick="addDynamicInput('repeatWorkInputs', 5, 'อันดับ')">+</button>
-                            </div>
-                            <div class="dynamic-input-row">
-                                <input type="text" class="dotted-input" placeholder="อันดับ 2: .....................................................">
-                                <button class="remove-btn" onclick="removeDynamicInput(this)">×</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Step 4: Section D - ปัญหาและความท้าทาย -->
-            <div class="step" data-step="4" style="display:none;">
-                <div class="section">
-                    <div class="section-header">
-                        <div class="section-letter">D</div>
-                        <div class="section-title">ปัญหาและความท้าทาย</div>
-                    </div>
-
-                    <div class="question" id="d1Question">
-                        <label class="question-label">D1. ปัญหาที่พบบ่อยในการทำงาน (เลือกได้หลายข้อ)</label>
-
-                        <div class="work-category">
-                            <div class="work-category-title">🔗 ปัญหาการเชื่อมต่อข้อมูล (Silo)</div>
-                            <div class="checkbox-grid">
-                                <label class="option checkbox" onclick="toggleCheckbox(this)"><span class="checkmark"></span><span class="option-title">ข้อมูลระหว่างแผนกไม่เชื่อมกัน ต้องรอนาน 5-7 วัน</span></label>
-                                <label class="option checkbox" onclick="toggleCheckbox(this)"><span class="checkmark"></span><span class="option-title">ต้องโทรถาม/ส่ง LINE หลายคนกว่าจะได้ข้อมูล</span></label>
-                                <label class="option checkbox" onclick="toggleCheckbox(this)"><span class="checkmark"></span><span class="option-title">ข้อมูลกระจายอยู่หลายระบบ (ERP, Excel, LINE, กระดาษ)</span></label>
-                                <label class="option checkbox" onclick="toggleCheckbox(this)"><span class="checkmark"></span><span class="option-title">ไม่มีข้อมูล Real-time สำหรับตัดสินใจ (สต็อก/ราคา/สถานะโครงการ)</span></label>
-                                <label class="option checkbox" onclick="toggleCheckbox(this)"><span class="checkmark"></span><span class="option-title">ข้อมูลระหว่างสำนักงานใหญ่กับหน่วยงานก่อสร้างไม่ sync กัน</span></label>
-                                <label class="option checkbox has-input" onclick="toggleCheckbox(this)"><span class="checkmark"></span><span class="option-title">อื่นๆ...</span><input type="text" class="other-input" placeholder="ระบุ..." onclick="event.stopPropagation()"></label>
-                            </div>
-                        </div>
-
-                        <div class="work-category">
-                            <div class="work-category-title">📄 ปัญหาเอกสารและการกรอกข้อมูล</div>
-                            <div class="checkbox-grid">
-                                <label class="option checkbox" onclick="toggleCheckbox(this)"><span class="checkmark"></span><span class="option-title">ต้องกรอกข้อมูลซ้ำๆ ในหลายระบบ</span></label>
-                                <label class="option checkbox" onclick="toggleCheckbox(this)"><span class="checkmark"></span><span class="option-title">เอกสารหน้างานส่งไม่ครบ/ไม่ทันเวลา</span></label>
-                                <label class="option checkbox" onclick="toggleCheckbox(this)"><span class="checkmark"></span><span class="option-title">อ่านลายมือในเอกสารไม่ออก</span></label>
-                                <label class="option checkbox" onclick="toggleCheckbox(this)"><span class="checkmark"></span><span class="option-title">คีย์ข้อมูลผิดพลาดบ่อย (ต้องแก้ Credit Note)</span></label>
-                                <label class="option checkbox" onclick="toggleCheckbox(this)"><span class="checkmark"></span><span class="option-title">ติดตามเอกสารค้างยาก ไม่มีระบบเตือน</span></label>
-                                <label class="option checkbox" onclick="toggleCheckbox(this)"><span class="checkmark"></span><span class="option-title">เอกสาร ISO/As-built จำนวนมาก จัดเก็บ-สืบค้นยาก</span></label>
-                                <label class="option checkbox has-input" onclick="toggleCheckbox(this)"><span class="checkmark"></span><span class="option-title">อื่นๆ...</span><input type="text" class="other-input" placeholder="ระบุ..." onclick="event.stopPropagation()"></label>
-                            </div>
-                        </div>
-
-                        <div class="work-category">
-                            <div class="work-category-title">💵 ปัญหาการจัดซื้อและควบคุมต้นทุน</div>
-                            <div class="checkbox-grid">
-                                <label class="option checkbox" onclick="toggleCheckbox(this)"><span class="checkmark"></span><span class="option-title">ไม่มีระบบเปรียบเทียบราคากับประวัติการซื้อ</span></label>
-                                <label class="option checkbox" onclick="toggleCheckbox(this)"><span class="checkmark"></span><span class="option-title">ตรวจสอบความผิดปกติของราคา/ปริมาณยาก</span></label>
-                                <label class="option checkbox" onclick="toggleCheckbox(this)"><span class="checkmark"></span><span class="option-title">Supplier ส่งช้า/คุณภาพไม่คงที่ แต่ไม่มีข้อมูลประเมิน</span></label>
-                                <label class="option checkbox" onclick="toggleCheckbox(this)"><span class="checkmark"></span><span class="option-title">สั่งซื้อเกินแผน BOQ แต่ตรวจสอบยาก</span></label>
-                                <label class="option checkbox" onclick="toggleCheckbox(this)"><span class="checkmark"></span><span class="option-title">ไม่มีข้อมูลราคาตลาดอ้างอิง (สมาคมเหล็ก/ห้างวัสดุ)</span></label>
-                                <label class="option checkbox" onclick="toggleCheckbox(this)"><span class="checkmark"></span><span class="option-title">การขอราคาจาก Supplier หลายรายใช้เวลานาน (โทร/Fax/Email ทีละราย)</span></label>
-                                <label class="option checkbox has-input" onclick="toggleCheckbox(this)"><span class="checkmark"></span><span class="option-title">อื่นๆ...</span><input type="text" class="other-input" placeholder="ระบุ..." onclick="event.stopPropagation()"></label>
-                            </div>
-                        </div>
-
-                        <div class="work-category">
-                            <div class="work-category-title">📸 ปัญหาการบันทึกข้อมูลหน้างาน</div>
-                            <div class="checkbox-grid">
-                                <label class="option checkbox" onclick="toggleCheckbox(this)"><span class="checkmark"></span><span class="option-title">ถ่ายรูปหน้างานแต่ไม่ลงวันที่/สถานที่</span></label>
-                                <label class="option checkbox" onclick="toggleCheckbox(this)"><span class="checkmark"></span><span class="option-title">ยากที่จะบังคับให้ถ่ายรูปสด (ไม่ใช่รูปจาก Gallery)</span></label>
-                                <label class="option checkbox" onclick="toggleCheckbox(this)"><span class="checkmark"></span><span class="option-title">นับวัสดุ (เหล็กเส้น, นั่งร้าน, แบบหล่อ) ใช้เวลานาน</span></label>
-                                <label class="option checkbox" onclick="toggleCheckbox(this)"><span class="checkmark"></span><span class="option-title">ไม่มีระบบตรวจสอบว่าวัสดุชำรุดหรือสมบูรณ์</span></label>
-                                <label class="option checkbox" onclick="toggleCheckbox(this)"><span class="checkmark"></span><span class="option-title">รายงานหน้างานยังเป็นกระดาษ ข้อมูลล่าช้า 2-7 วัน</span></label>
-                                <label class="option checkbox has-input" onclick="toggleCheckbox(this)"><span class="checkmark"></span><span class="option-title">อื่นๆ...</span><input type="text" class="other-input" placeholder="ระบุ..." onclick="event.stopPropagation()"></label>
-                            </div>
-                        </div>
-
-                        <div class="work-category">
-                            <div class="work-category-title">🔒 ปัญหาความปลอดภัยข้อมูล</div>
-                            <div class="checkbox-grid">
-                                <label class="option checkbox" onclick="toggleCheckbox(this)"><span class="checkmark"></span><span class="option-title">กังวลเรื่องข้อมูลราคาต้นทุน/ข้อมูลลูกค้ารั่วไหลหากใช้ AI</span></label>
-                                <label class="option checkbox" onclick="toggleCheckbox(this)"><span class="checkmark"></span><span class="option-title">ระบบปัจจุบันเป็นระบบปิด ยากต่อการเชื่อมต่อ</span></label>
-                                <label class="option checkbox" onclick="toggleCheckbox(this)"><span class="checkmark"></span><span class="option-title">ไม่แน่ใจว่า AI จะเก็บข้อมูลไปเทรนหรือไม่</span></label>
-                                <label class="option checkbox" onclick="toggleCheckbox(this)"><span class="checkmark"></span><span class="option-title">ต้องการระบบแบ่งสิทธิ์การเข้าถึงข้อมูลตามตำแหน่ง (Role-Based Access)</span></label>
-                                <label class="option checkbox has-input" onclick="toggleCheckbox(this)"><span class="checkmark"></span><span class="option-title">อื่นๆ...</span><input type="text" class="other-input" placeholder="ระบุ..." onclick="event.stopPropagation()"></label>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="question">
-                        <label class="question-label">D2. กรุณาระบุขั้นตอนการทำงานที่อาจจะสร้างความลำบาก (Pain Points)</label>
-                        <p class="question-sublabel">หรือการทำงานที่เรารู้สึกว่า "น่าจะมีวิธีที่ดีกว่านี้"<br>💡 การระบุขั้นตอนและบริบทอย่างละเอียด คือกุญแจสำคัญที่ทำให้ AI เข้าใจงานของท่านได้อย่างสมบูรณ์</p>
-                        <div class="dynamic-inputs" id="painPointInputs">
-                            <div class="dynamic-input-row">
-                                <input type="text" class="dotted-input" placeholder="อันดับ 1: .....................................................">
-                                <button class="add-btn" onclick="addDynamicInput('painPointInputs', 5, 'อันดับ')">+</button>
-                            </div>
-                            <div class="dynamic-input-row">
-                                <input type="text" class="dotted-input" placeholder="อันดับ 2: .....................................................">
-                                <button class="remove-btn" onclick="removeDynamicInput(this)">×</button>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="question">
-                        <label class="question-label">D3. ปัญหาที่อยากให้ AI ช่วยมากที่สุด 3 อันดับแรก</label>
-                        <div class="dynamic-inputs">
-                            <div class="dynamic-input-row"><input type="text" id="aiHelp1" class="dotted-input" placeholder="อันดับ 1: ....................................................."></div>
-                            <div class="dynamic-input-row"><input type="text" id="aiHelp2" class="dotted-input" placeholder="อันดับ 2: ....................................................."></div>
-                            <div class="dynamic-input-row"><input type="text" id="aiHelp3" class="dotted-input" placeholder="อันดับ 3: ....................................................."></div>
-                        </div>
-                    </div>
-
-                    <div class="question" id="d4Question">
-                        <label class="question-label">D4. ฟีเจอร์ AI ที่สนใจ (เลือกได้หลายข้อ)</label>
-
-                        <div class="work-category">
-                            <div class="work-category-title">📝 AI ช่วยงานเอกสาร</div>
-                            <div class="checkbox-grid">
-                                <label class="option checkbox" onclick="toggleCheckbox(this)"><span class="checkmark"></span><span class="option-title">สแกน/ถ่ายรูปเอกสาร แล้ว AI กรอกเข้า ERP อัตโนมัติ</span></label>
-                                <label class="option checkbox" onclick="toggleCheckbox(this)"><span class="checkmark"></span><span class="option-title">อ่านลายมือแล้วแปลงเป็นข้อความ</span></label>
-                                <label class="option checkbox" onclick="toggleCheckbox(this)"><span class="checkmark"></span><span class="option-title">ตรวจสอบเอกสารครบ/ไม่ครบ ก่อนส่ง</span></label>
-                                <label class="option checkbox" onclick="toggleCheckbox(this)"><span class="checkmark"></span><span class="option-title">สรุปการประชุมยาวๆ เป็น To-do list</span></label>
-                                <label class="option checkbox" onclick="toggleCheckbox(this)"><span class="checkmark"></span><span class="option-title">แจ้งเตือนเอกสารค้าง (7/15/30 วัน) ผ่าน LINE</span></label>
-                                <label class="option checkbox has-input" onclick="toggleCheckbox(this)"><span class="checkmark"></span><span class="option-title">อื่นๆ...</span><input type="text" class="other-input" placeholder="ระบุ..." onclick="event.stopPropagation()"></label>
-                            </div>
-                        </div>
-
-                        <div class="work-category">
-                            <div class="work-category-title">💰 AI ช่วยงานประมาณการและจัดซื้อ</div>
-                            <div class="checkbox-grid">
-                                <label class="option checkbox" onclick="toggleCheckbox(this)"><span class="checkmark"></span><span class="option-title">เปรียบเทียบราคากับประวัติการซื้อย้อนหลัง</span></label>
-                                <label class="option checkbox" onclick="toggleCheckbox(this)"><span class="checkmark"></span><span class="option-title">เปรียบเทียบราคากับราคาตลาด/สมาคมเหล็ก</span></label>
-                                <label class="option checkbox" onclick="toggleCheckbox(this)"><span class="checkmark"></span><span class="option-title">Alert เมื่อราคาผิดปกติ (Benchmark ± 10%)</span></label>
-                                <label class="option checkbox" onclick="toggleCheckbox(this)"><span class="checkmark"></span><span class="option-title">ให้คะแนน Supplier (ราคา, บริการ, ส่งตรงเวลา, คุณภาพวัสดุ)</span></label>
-                                <label class="option checkbox" onclick="toggleCheckbox(this)"><span class="checkmark"></span><span class="option-title">ตรวจจับการซื้อซ้ำจาก Supplier เดิมผิดปกติ (Bid Rigging Detection)</span></label>
-                                <label class="option checkbox" onclick="toggleCheckbox(this)"><span class="checkmark"></span><span class="option-title">ช่วยถอดแบบ/คำนวณ BOQ</span></label>
-                                <label class="option checkbox" onclick="toggleCheckbox(this)"><span class="checkmark"></span><span class="option-title">กระจาย BOQ ขอราคาจาก Supplier หลายรายพร้อมกัน (LINE/Email)</span></label>
-                                <label class="option checkbox" onclick="toggleCheckbox(this)"><span class="checkmark"></span><span class="option-title">เช็คราคาตลาดจากเว็บห้างวัสดุ (DoHome/HomePro/GlobalHouse) อัตโนมัติ</span></label>
-                                <label class="option checkbox has-input" onclick="toggleCheckbox(this)"><span class="checkmark"></span><span class="option-title">อื่นๆ...</span><input type="text" class="other-input" placeholder="ระบุ..." onclick="event.stopPropagation()"></label>
-                            </div>
-                        </div>
-
-                        <div class="work-category">
-                            <div class="work-category-title">📊 AI ช่วยติดตามโครงการ</div>
-                            <div class="checkbox-grid">
-                                <label class="option checkbox" onclick="toggleCheckbox(this)"><span class="checkmark"></span><span class="option-title">อัปเดตความคืบหน้าโครงการผ่าน LINE (พูด/พิมพ์/ถ่ายรูป) → Dashboard อัตโนมัติ</span></label>
-                                <label class="option checkbox" onclick="toggleCheckbox(this)"><span class="checkmark"></span><span class="option-title">ดึงข้อมูลจาก ERP มาตอบทันที (สต็อก, ราคา, สถานะ) ผ่าน LINE</span></label>
-                                <label class="option checkbox" onclick="toggleCheckbox(this)"><span class="checkmark"></span><span class="option-title">วิเคราะห์ว่าโครงการไหนล่าช้า/มีปัญหา พร้อมแจ้งเตือน PM</span></label>
-                                <label class="option checkbox" onclick="toggleCheckbox(this)"><span class="checkmark"></span><span class="option-title">เปรียบเทียบแผนกับงานจริง</span></label>
-                                <label class="option checkbox" onclick="toggleCheckbox(this)"><span class="checkmark"></span><span class="option-title">ดู Dashboard สรุปโครงการ</span></label>
-                                <label class="option checkbox has-input" onclick="toggleCheckbox(this)"><span class="checkmark"></span><span class="option-title">อื่นๆ...</span><input type="text" class="other-input" placeholder="ระบุ..." onclick="event.stopPropagation()"></label>
-                            </div>
-                        </div>
-
-                        <div class="work-category">
-                            <div class="work-category-title">📦 AI ช่วยงานคลังและวัสดุ</div>
-                            <div class="checkbox-grid">
-                                <label class="option checkbox" onclick="toggleCheckbox(this)"><span class="checkmark"></span><span class="option-title">นับวัสดุจากรูปถ่าย (เหล็กเส้น, นั่งร้าน, แบบหล่อ) — Computer Vision</span></label>
-                                <label class="option checkbox" onclick="toggleCheckbox(this)"><span class="checkmark"></span><span class="option-title">ตรวจสอบสภาพวัสดุ (ชำรุด/สมบูรณ์) จากรูป</span></label>
-                                <label class="option checkbox" onclick="toggleCheckbox(this)"><span class="checkmark"></span><span class="option-title">เตือนสต็อกต่ำ/ใกล้หมด</span></label>
-                                <label class="option checkbox" onclick="toggleCheckbox(this)"><span class="checkmark"></span><span class="option-title">บันทึกการรับ-จ่ายวัสดุโดยการถ่ายรูป</span></label>
-                                <label class="option checkbox" onclick="toggleCheckbox(this)"><span class="checkmark"></span><span class="option-title">ตรวจนับยอดรับจริงเทียบกับใบสั่งซื้อทันทีหน้างาน</span></label>
-                                <label class="option checkbox has-input" onclick="toggleCheckbox(this)"><span class="checkmark"></span><span class="option-title">อื่นๆ...</span><input type="text" class="other-input" placeholder="ระบุ..." onclick="event.stopPropagation()"></label>
-                            </div>
-                        </div>
-
-                        <div class="work-category">
-                            <div class="work-category-title">🛡️ AI ช่วยงานเทคนิคและคุณภาพ</div>
-                            <div class="checkbox-grid">
-                                <label class="option checkbox" onclick="toggleCheckbox(this)"><span class="checkmark"></span><span class="option-title">ถาม-ตอบข้อมูลทางเทคนิค (สูตร, มาตรฐาน, Lesson Learned)</span></label>
-                                <label class="option checkbox" onclick="toggleCheckbox(this)"><span class="checkmark"></span><span class="option-title">วิเคราะห์ภาพงานก่อสร้าง (ตรวจจุดบกพร่อง/รอยร้าว)</span></label>
-                                <label class="option checkbox" onclick="toggleCheckbox(this)"><span class="checkmark"></span><span class="option-title">ช่วยคำนวณปริมาณวัสดุ (พิมพ์ถามได้เลย)</span></label>
-                                <label class="option checkbox" onclick="toggleCheckbox(this)"><span class="checkmark"></span><span class="option-title">ช่วยเขียน/ตรวจรายงานเทคนิค</span></label>
-                                <label class="option checkbox" onclick="toggleCheckbox(this)"><span class="checkmark"></span><span class="option-title">ตรวจจับ PPE ไม่ครบ/เข้าพื้นที่อันตราย ผ่านกล้อง CCTV (AI Safety)</span></label>
-                                <label class="option checkbox" onclick="toggleCheckbox(this)"><span class="checkmark"></span><span class="option-title">ค้นหา Best Practices/คู่มือจากฐานข้อมูลองค์กร (Knowledge Base 80 ปี)</span></label>
-                                <label class="option checkbox has-input" onclick="toggleCheckbox(this)"><span class="checkmark"></span><span class="option-title">อื่นๆ...</span><input type="text" class="other-input" placeholder="ระบุ..." onclick="event.stopPropagation()"></label>
-                            </div>
-                        </div>
-
-                        <div class="work-category">
-                            <div class="work-category-title">💬 AI ช่วยการสื่อสาร</div>
-                            <div class="checkbox-grid">
-                                <label class="option checkbox" onclick="toggleCheckbox(this)"><span class="checkmark"></span><span class="option-title">AI เข้าไปใน LINE กลุ่ม ช่วยตอบคำถามพื้นฐาน (สต็อก/ราคา/สถานะ)</span></label>
-                                <label class="option checkbox" onclick="toggleCheckbox(this)"><span class="checkmark"></span><span class="option-title">จัดลำดับความสำคัญข้อความ (ด่วน/ปกติ)</span></label>
-                                <label class="option checkbox" onclick="toggleCheckbox(this)"><span class="checkmark"></span><span class="option-title">แยกแยะอารมณ์ลูกค้า/คู่ค้า (Sentiment Analysis)</span></label>
-                                <label class="option checkbox" onclick="toggleCheckbox(this)"><span class="checkmark"></span><span class="option-title">สรุปการสนทนายาวๆ ใน LINE</span></label>
-                                <label class="option checkbox" onclick="toggleCheckbox(this)"><span class="checkmark"></span><span class="option-title">แปลคลิปสอนงาน Safety/KM เป็นภาษาแรงงานต่างชาติ (พม่า/ลาว/กัมพูชา)</span></label>
-                                <label class="option checkbox" onclick="toggleCheckbox(this)"><span class="checkmark"></span><span class="option-title">เลขาส่วนตัว AI — จดบันทึก/ตั้งเตือน/สรุปงานจากเสียง/LINE/Zoom</span></label>
-                                <label class="option checkbox has-input" onclick="toggleCheckbox(this)"><span class="checkmark"></span><span class="option-title">อื่นๆ...</span><input type="text" class="other-input" placeholder="ระบุ..." onclick="event.stopPropagation()"></label>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Step 5: Section E - ความคาดหวังจากการอบรม -->
-            <div class="step" data-step="5" style="display:none;">
-                <div class="section">
-                    <div class="section-header">
-                        <div class="section-letter">E</div>
-                        <div class="section-title">ความคาดหวังจากการอบรม</div>
-                    </div>
-
-                    <div class="question">
-                        <label class="question-label">E1. ความสำคัญของแต่ละด้าน (1=น้อยที่สุด, 5=มากที่สุด)</label>
-                        <div class="rating-grid">
-                            <div class="rating-row">
-                                <span class="rating-label">เข้าใจว่า AI คืออะไร ทำอะไรได้บ้าง</span>
-                                <div class="rating-buttons">
-                                    <button class="rating-btn" onclick="selectRating(this)">1</button>
-                                    <button class="rating-btn" onclick="selectRating(this)">2</button>
-                                    <button class="rating-btn" onclick="selectRating(this)">3</button>
-                                    <button class="rating-btn" onclick="selectRating(this)">4</button>
-                                    <button class="rating-btn" onclick="selectRating(this)">5</button>
-                                </div>
-                            </div>
-                            <div class="rating-row">
-                                <span class="rating-label">ใช้ AI เพิ่มความเร็วในการทำงาน</span>
-                                <div class="rating-buttons">
-                                    <button class="rating-btn" onclick="selectRating(this)">1</button>
-                                    <button class="rating-btn" onclick="selectRating(this)">2</button>
-                                    <button class="rating-btn" onclick="selectRating(this)">3</button>
-                                    <button class="rating-btn" onclick="selectRating(this)">4</button>
-                                    <button class="rating-btn" onclick="selectRating(this)">5</button>
-                                </div>
-                            </div>
-                            <div class="rating-row">
-                                <span class="rating-label">ใช้ AI วิเคราะห์ข้อมูลที่กระจัดกระจาย</span>
-                                <div class="rating-buttons">
-                                    <button class="rating-btn" onclick="selectRating(this)">1</button>
-                                    <button class="rating-btn" onclick="selectRating(this)">2</button>
-                                    <button class="rating-btn" onclick="selectRating(this)">3</button>
-                                    <button class="rating-btn" onclick="selectRating(this)">4</button>
-                                    <button class="rating-btn" onclick="selectRating(this)">5</button>
-                                </div>
-                            </div>
-                            <div class="rating-row">
-                                <span class="rating-label">เรียนรู้การสื่อสารกับ AI (Prompt Engineering)</span>
-                                <div class="rating-buttons">
-                                    <button class="rating-btn" onclick="selectRating(this)">1</button>
-                                    <button class="rating-btn" onclick="selectRating(this)">2</button>
-                                    <button class="rating-btn" onclick="selectRating(this)">3</button>
-                                    <button class="rating-btn" onclick="selectRating(this)">4</button>
-                                    <button class="rating-btn" onclick="selectRating(this)">5</button>
-                                </div>
-                            </div>
-                            <div class="rating-row">
-                                <span class="rating-label">ใช้ AI เฉพาะทางก่อสร้าง (ถอดแบบ, ประมาณราคา, คำนวณ)</span>
-                                <div class="rating-buttons">
-                                    <button class="rating-btn" onclick="selectRating(this)">1</button>
-                                    <button class="rating-btn" onclick="selectRating(this)">2</button>
-                                    <button class="rating-btn" onclick="selectRating(this)">3</button>
-                                    <button class="rating-btn" onclick="selectRating(this)">4</button>
-                                    <button class="rating-btn" onclick="selectRating(this)">5</button>
-                                </div>
-                            </div>
-                            <div class="rating-row">
-                                <span class="rating-label">ความปลอดภัยของข้อมูลเมื่อใช้ AI</span>
-                                <div class="rating-buttons">
-                                    <button class="rating-btn" onclick="selectRating(this)">1</button>
-                                    <button class="rating-btn" onclick="selectRating(this)">2</button>
-                                    <button class="rating-btn" onclick="selectRating(this)">3</button>
-                                    <button class="rating-btn" onclick="selectRating(this)">4</button>
-                                    <button class="rating-btn" onclick="selectRating(this)">5</button>
-                                </div>
-                            </div>
-                            <div class="rating-row">
-                                <span class="rating-label">ลดงาน Manual เพื่อทำงานที่ใช้ความคิดมากขึ้น</span>
-                                <div class="rating-buttons">
-                                    <button class="rating-btn" onclick="selectRating(this)">1</button>
-                                    <button class="rating-btn" onclick="selectRating(this)">2</button>
-                                    <button class="rating-btn" onclick="selectRating(this)">3</button>
-                                    <button class="rating-btn" onclick="selectRating(this)">4</button>
-                                    <button class="rating-btn" onclick="selectRating(this)">5</button>
-                                </div>
-                            </div>
-                            <div class="rating-row">
-                                <span class="rating-label">ใช้ AI ช่วยทำรายงาน/สรุปข้อมูล</span>
-                                <div class="rating-buttons">
-                                    <button class="rating-btn" onclick="selectRating(this)">1</button>
-                                    <button class="rating-btn" onclick="selectRating(this)">2</button>
-                                    <button class="rating-btn" onclick="selectRating(this)">3</button>
-                                    <button class="rating-btn" onclick="selectRating(this)">4</button>
-                                    <button class="rating-btn" onclick="selectRating(this)">5</button>
-                                </div>
-                            </div>
-                            <div class="rating-row" id="expectationOtherRow">
-                                <div class="rating-label" style="display:flex; align-items:center; gap:8px;">
-                                    <span>อื่นๆ</span>
-                                    <input type="text" id="expectationOtherText" class="dotted-input" placeholder="โปรดระบุ..." style="flex:1; min-width:100px;">
-                                </div>
-                                <div class="rating-buttons">
-                                    <button class="rating-btn" onclick="selectRating(this)">1</button>
-                                    <button class="rating-btn" onclick="selectRating(this)">2</button>
-                                    <button class="rating-btn" onclick="selectRating(this)">3</button>
-                                    <button class="rating-btn" onclick="selectRating(this)">4</button>
-                                    <button class="rating-btn" onclick="selectRating(this)">5</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="question">
-                        <label class="question-label">E2. หัวข้อที่อยากเรียนรู้ (เลือกได้หลายข้อ)</label>
-                        <div class="checkbox-grid">
-                            <label class="option checkbox" onclick="toggleCheckbox(this)"><span class="checkmark"></span><span class="option-title">AI พื้นฐาน: ChatGPT, Gemini, Claude</span></label>
-                            <label class="option checkbox" onclick="toggleCheckbox(this)"><span class="checkmark"></span><span class="option-title">Prompt Engineering: วิธีสั่ง AI ให้ได้ผลลัพธ์ที่ต้องการ</span></label>
-                            <label class="option checkbox" onclick="toggleCheckbox(this)"><span class="checkmark"></span><span class="option-title">AI สำหรับงานเอกสาร (สรุป, แปลง, ตรวจสอบ)</span></label>
-                            <label class="option checkbox" onclick="toggleCheckbox(this)"><span class="checkmark"></span><span class="option-title">AI สำหรับงานบัญชี/การเงิน</span></label>
-                            <label class="option checkbox" onclick="toggleCheckbox(this)"><span class="checkmark"></span><span class="option-title">AI สำหรับงานวิศวกรรม/เทคนิค</span></label>
-                            <label class="option checkbox" onclick="toggleCheckbox(this)"><span class="checkmark"></span><span class="option-title">AI สำหรับถอดแบบ/BOQ</span></label>
-                            <label class="option checkbox" onclick="toggleCheckbox(this)"><span class="checkmark"></span><span class="option-title">AI สำหรับจัดซื้อ (เปรียบเทียบราคา, ประเมิน Supplier, Benchmark)</span></label>
-                            <label class="option checkbox" onclick="toggleCheckbox(this)"><span class="checkmark"></span><span class="option-title">AI สำหรับควบคุมต้นทุน</span></label>
-                            <label class="option checkbox" onclick="toggleCheckbox(this)"><span class="checkmark"></span><span class="option-title">AI สำหรับบริหารโครงการ (Schedule Tracking/Dashboard)</span></label>
-                            <label class="option checkbox" onclick="toggleCheckbox(this)"><span class="checkmark"></span><span class="option-title">AI สำหรับวิเคราะห์ภาพ (นับวัสดุ, ตรวจ PPE, ตรวจจุดบกพร่อง)</span></label>
-                            <label class="option checkbox" onclick="toggleCheckbox(this)"><span class="checkmark"></span><span class="option-title">AI สำหรับ Knowledge Management (องค์ความรู้บริษัท 80 ปี)</span></label>
-                            <label class="option checkbox" onclick="toggleCheckbox(this)"><span class="checkmark"></span><span class="option-title">AI แปลภาษา/พากย์เสียงคลิปสอนงาน (Auto Dubbing สำหรับแรงงานต่างชาติ)</span></label>
-                            <label class="option checkbox" onclick="toggleCheckbox(this)"><span class="checkmark"></span><span class="option-title">ความปลอดภัยข้อมูลเมื่อใช้ AI</span></label>
-                            <label class="option checkbox has-input" onclick="toggleCheckbox(this)"><span class="checkmark"></span><span class="option-title">อื่นๆ...</span><input type="text" class="other-input" placeholder="ระบุ..." onclick="event.stopPropagation()"></label>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Step 6: Section F - ข้อเสนอแนะเพิ่มเติม -->
-            <div class="step" data-step="6" style="display:none;">
-                <div class="section">
-                    <div class="section-header">
-                        <div class="section-letter">F</div>
-                        <div class="section-title">ข้อเสนอแนะเพิ่มเติม</div>
-                    </div>
-
-                    <div class="question">
-                        <label class="question-label">F1. กรุณาระบุการให้บริการ หรือเครื่องมือใดๆ ที่คิดว่าเป็นกุญแจสำคัญ (Key Success) ที่ทำให้ภารกิจสำเร็จได้</label>
-                        <p class="question-sublabel">เช่น เคล็ดลับ: "เมื่อส่งใบเสนอราคาให้ลูกค้าได้ภายใน 24 ชม. โอกาสได้งานสูงขึ้น 80%"<br>💡 การระบุขั้นตอนและบริบทอย่างละเอียด คือกุญแจสำคัญที่ทำให้ AI เข้าใจงานของท่านได้อย่างสมบูรณ์</p>
-                        <div class="dynamic-inputs" id="keySuccessInputs">
-                            <div class="dynamic-input-row">
-                                <input type="text" class="dotted-input" placeholder="อันดับ 1: .....................................................">
-                                <button class="add-btn" onclick="addDynamicInput('keySuccessInputs', 5, 'อันดับ')">+</button>
-                            </div>
-                            <div class="dynamic-input-row">
-                                <input type="text" class="dotted-input" placeholder="อันดับ 2: .....................................................">
-                                <button class="remove-btn" onclick="removeDynamicInput(this)">×</button>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="question">
-                        <label class="question-label">F2. ข้อเสนอแนะเชิงสร้างสรรค์ (Creativity)</label>
-                        <p class="question-sublabel">รบกวนเสนอแนะ หรือแนวคิดอะไรก็ได้ ที่ท่านต้องการนำเสนอ เพื่อให้มีเครื่องมือหรือตัวช่วยในการทำงาน โดยไม่จำกัดขอบเขต<br>(อาจจะเป็นไอเดียที่ท่านคิดไว้ หรือเห็นจากที่อื่นที่น่าสนใจก็ได้)</p>
-                        <div class="dynamic-inputs" id="creativityInputs">
-                            <div class="dynamic-input-row">
-                                <input type="text" class="dotted-input" placeholder="ข้อเสนอแนะที่ 1: .....................................................">
-                                <button class="add-btn" onclick="addDynamicInput('creativityInputs', 5, 'ข้อเสนอแนะที่')">+</button>
-                            </div>
-                            <div class="dynamic-input-row">
-                                <input type="text" class="dotted-input" placeholder="ข้อเสนอแนะที่ 2: .....................................................">
-                                <button class="remove-btn" onclick="removeDynamicInput(this)">×</button>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="question">
-                        <label class="question-label">F3. ข้อกังวลหรือคำถามเกี่ยวกับการใช้ AI</label>
-                        <textarea id="concerns" placeholder="ระบุข้อกังวลหรือคำถาม..."></textarea>
-                    </div>
-
-                    <div class="question">
-                        <label class="question-label">F4. ข้อความถึงวิทยากร / สิ่งที่อยากให้เน้นเป็นพิเศษ</label>
-                        <textarea id="speakerNotes" placeholder="ระบุหัวข้อหรือสิ่งที่อยากให้เน้นในการอบรม..."></textarea>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Success Page -->
-            <div class="step" data-step="7" style="display:none;">
-                <div class="section success-page">
-                    <div class="success-icon">✓</div>
-                    <h2>ขอบคุณที่สละเวลาตอบแบบสอบถามค่ะ</h2>
-                    <p>เราจะนำไปใช้ในการพัฒนาเพื่อสนับสนุนการทำงานของทุกท่านต่อไปค่ะ</p>
-                    <button class="nav-btn next" onclick="resetSurvey()">เริ่มใหม่</button>
-                </div>
-            </div>
-
-            <!-- Navigation -->
-            <div class="nav-buttons" id="navButtons">
-                <button class="nav-btn prev" onclick="prevStep()" id="prevBtn" style="visibility:hidden;">← ย้อนกลับ</button>
-                <button class="nav-btn next" onclick="nextStep()" id="nextBtn">ถัดไป →</button>
-            </div>
-        </div>
-
-        <div class="footer">
-            <strong>ONE SEVEN DISCOVERY CO., LTD</strong> x <strong>บริษัท สี่พระยาก่อสร้าง จำกัด (Siphya Construction)</strong> | Connected to Google Sheets
+<!-- ═══════════════ STEP 1: Section A ═══════════════ -->
+<div class="step" data-step="1">
+<div class="section">
+    <div class="section-header"><div class="section-letter">A</div><div class="section-title">ข้อมูลทั่วไป</div></div>
+    <div class="question"><label class="question-label">A1. ชื่อ-นามสกุล</label><input type="text" id="name" placeholder="กรอกชื่อ-นามสกุล"></div>
+    <div class="question"><label class="question-label">A2. ตำแหน่ง</label><input type="text" id="position" placeholder="กรอกตำแหน่งงาน"></div>
+    <div class="question">
+        <label class="question-label">A3. แผนก/ทีม (เลือกได้ 1 ข้อ)</label>
+        <div class="option-group" id="departmentGroup">
+            <label class="option" onclick="selectDept(this,'eng')"><input type="radio" name="department" value="eng" style="display:none"><span class="checkmark"></span><span class="option-title">⚙️ วิศวกรรมโครงสร้าง/งานระบบ (Structural/MEP Engineering)</span></label>
+            <label class="option" onclick="selectDept(this,'pm')"><input type="radio" name="department" value="pm" style="display:none"><span class="checkmark"></span><span class="option-title">📊 บริหารโครงการ (Project Management/PM)</span></label>
+            <label class="option" onclick="selectDept(this,'site')"><input type="radio" name="department" value="site" style="display:none"><span class="checkmark"></span><span class="option-title">🏗️ ก่อสร้าง/หน้างาน (Site Construction)</span></label>
+            <label class="option" onclick="selectDept(this,'est')"><input type="radio" name="department" value="est" style="display:none"><span class="checkmark"></span><span class="option-title">💰 ประมาณราคา/สัญญา (Estimation/Contract)</span></label>
+            <label class="option" onclick="selectDept(this,'procurement')"><input type="radio" name="department" value="procurement" style="display:none"><span class="checkmark"></span><span class="option-title">🛒 จัดซื้อจัดจ้าง (Procurement)</span></label>
+            <label class="option" onclick="selectDept(this,'warehouse')"><input type="radio" name="department" value="warehouse" style="display:none"><span class="checkmark"></span><span class="option-title">📦 คลังสินค้า/สโตร์ (Warehouse/Store)</span></label>
+            <label class="option" onclick="selectDept(this,'logistics')"><input type="radio" name="department" value="logistics" style="display:none"><span class="checkmark"></span><span class="option-title">🚚 ขนส่ง/โลจิสติกส์ (Logistics/Transport)</span></label>
+            <label class="option" onclick="selectDept(this,'qc')"><input type="radio" name="department" value="qc" style="display:none"><span class="checkmark"></span><span class="option-title">✅ ควบคุมคุณภาพ (QC/QA)</span></label>
+            <label class="option" onclick="selectDept(this,'safety')"><input type="radio" name="department" value="safety" style="display:none"><span class="checkmark"></span><span class="option-title">🦺 ความปลอดภัย (Safety/จป.)</span></label>
+            <label class="option" onclick="selectDept(this,'accounting')"><input type="radio" name="department" value="accounting" style="display:none"><span class="checkmark"></span><span class="option-title">💰 บัญชี/การเงิน (Accounting/Finance)</span></label>
+            <label class="option" onclick="selectDept(this,'hr')"><input type="radio" name="department" value="hr" style="display:none"><span class="checkmark"></span><span class="option-title">👥 ทรัพยากรบุคคล (HR)</span></label>
+            <label class="option" onclick="selectDept(this,'admin')"><input type="radio" name="department" value="admin" style="display:none"><span class="checkmark"></span><span class="option-title">📋 ธุรการ/สำนักงาน (Admin)</span></label>
+            <label class="option" onclick="selectDept(this,'it')"><input type="radio" name="department" value="it" style="display:none"><span class="checkmark"></span><span class="option-title">💻 IT/สารสนเทศ</span></label>
+            <label class="option" onclick="selectDept(this,'management')"><input type="radio" name="department" value="management" style="display:none"><span class="checkmark"></span><span class="option-title">👔 ผู้บริหาร/Management</span></label>
+            <label class="option has-input" onclick="selectDept(this,'other')" id="deptOtherOption"><input type="radio" name="department" value="other" style="display:none"><span class="checkmark"></span><span class="option-title">อื่นๆ</span><input type="text" class="other-input" id="deptOtherInput" placeholder="ระบุแผนก..." onclick="event.stopPropagation()"></label>
         </div>
     </div>
+    <div class="question">
+        <label class="question-label">A4. สถานที่ปฏิบัติงาน (เลือกได้ 1 ข้อ)</label>
+        <div class="option-group">
+            <label class="option" onclick="selectOption(this,'location')"><input type="radio" name="location" value="hq-samutprakarn" style="display:none"><span class="checkmark"></span><span class="option-title">🏢 สำนักงานใหญ่ สมุทรปราการ (อาคารบุษยมาส ถ.ปู่เจ้าสมิงพราย)</span></label>
+            <label class="option" onclick="selectOption(this,'location')"><input type="radio" name="location" value="bkk-office" style="display:none"><span class="checkmark"></span><span class="option-title">🏢 สำนักงาน กรุงเทพฯ (95 ถ.เสือป่า แขวงป้อมปราบ)</span></label>
+            <label class="option" onclick="selectOption(this,'location')"><input type="radio" name="location" value="saraburi-factory" style="display:none"><span class="checkmark"></span><span class="option-title">🏭 โรงงานตัด-ดัดเหล็ก สระบุรี (อ.แก่งคอย)</span></label>
+            <label class="option" onclick="selectOption(this,'location')"><input type="radio" name="location" value="site-bkk" style="display:none"><span class="checkmark"></span><span class="option-title">🏗️ ไซต์งานก่อสร้าง — กรุงเทพฯ/ปริมณฑล</span></label>
+            <label class="option" onclick="selectOption(this,'location')"><input type="radio" name="location" value="site-upcountry" style="display:none"><span class="checkmark"></span><span class="option-title">🏗️ ไซต์งานก่อสร้าง — ต่างจังหวัด</span></label>
+            <label class="option has-input" onclick="selectOption(this,'location')"><input type="radio" name="location" value="other-location" style="display:none"><span class="checkmark"></span><span class="option-title">อื่นๆ</span><input type="text" class="other-input" id="locationOtherInput" placeholder="ระบุสถานที่..." onclick="event.stopPropagation()"></label>
+        </div>
+    </div>
+</div>
+</div>
 
-    <script>
-        // ========== CONFIG ==========
-        // TODO: วาง Web App URL จาก Google Apps Script ตรงนี้
-        const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbw_XpQ0W0LDIGwscp-8Afo1nMQDy1dda93zX45kwfhtkKavl7y6PD6tuPVYFCl_jpAy/exec';
+<!-- ═══════════════ STEP 2: Section B — งานประจำวัน ═══════════════ -->
+<div class="step" data-step="2" style="display:none">
+<div class="section">
+    <div class="section-header"><div class="section-letter">B</div><div class="section-title">ลักษณะงานประจำวัน</div><span class="section-subtitle">เลือกได้หลายข้อ</span></div>
+    <div class="question" id="b1Question">
+        <label class="question-label">B1. งานที่ทำเป็นประจำ</label>
+        <div id="b1Categories"></div>
+    </div>
+    <div class="question">
+        <label class="question-label">B2. งานที่ต้องทำซ้ำๆ เป็นประจำทุกวัน หรือเกิดขึ้นบ่อยๆ</label>
+        <p class="question-sublabel">กรุณาเรียงลำดับจากมากไปน้อย (1 คือมากที่สุด)<br>💡 การระบุขั้นตอนและบริบทอย่างละเอียด คือกุญแจสำคัญที่ทำให้ AI เข้าใจงานของท่านได้อย่างสมบูรณ์</p>
+        <div class="dynamic-inputs" id="repeatWorkInputs">
+            <div class="dynamic-input-row"><input type="text" class="dotted-input" placeholder="อันดับ 1: ....................................................."><button class="add-btn" onclick="addDynamicInput('repeatWorkInputs',5,'อันดับ')">+</button></div>
+            <div class="dynamic-input-row"><input type="text" class="dotted-input" placeholder="อันดับ 2: ....................................................."><button class="remove-btn" onclick="removeDynamicInput(this)">×</button></div>
+        </div>
+    </div>
+</div>
+</div>
 
-        let currentStep = 1;
-        const totalSteps = 6;
+<!-- ═══════════════ STEP 3: Section C — ปัญหา ═══════════════ -->
+<div class="step" data-step="3" style="display:none">
+<div class="section">
+    <div class="section-header"><div class="section-letter">C</div><div class="section-title">ปัญหาและความท้าทาย</div></div>
+    <div class="question" id="c1Question">
+        <label class="question-label">C1. ปัญหาที่พบบ่อยในการทำงาน (เลือกได้หลายข้อ)</label>
+        <div id="c1Categories"></div>
+    </div>
+    <div class="question">
+        <label class="question-label">C2. กรุณาระบุขั้นตอนการทำงานที่อาจจะสร้างความลำบาก (Pain Points)</label>
+        <p class="question-sublabel">หรือการทำงานที่เรารู้สึกว่า "น่าจะมีวิธีที่ดีกว่านี้"<br>💡 การระบุขั้นตอนและบริบทอย่างละเอียด คือกุญแจสำคัญที่ทำให้ AI เข้าใจงานของท่านได้อย่างสมบูรณ์</p>
+        <div class="dynamic-inputs" id="painPointInputs">
+            <div class="dynamic-input-row"><input type="text" class="dotted-input" placeholder="อันดับ 1: ....................................................."><button class="add-btn" onclick="addDynamicInput('painPointInputs',5,'อันดับ')">+</button></div>
+            <div class="dynamic-input-row"><input type="text" class="dotted-input" placeholder="อันดับ 2: ....................................................."><button class="remove-btn" onclick="removeDynamicInput(this)">×</button></div>
+        </div>
+    </div>
+    <div class="question">
+        <label class="question-label">C3. ปัญหาที่อยากให้ AI ช่วยมากที่สุด 3 อันดับแรก</label>
+        <div class="dynamic-inputs">
+            <div class="dynamic-input-row"><input type="text" id="aiHelp1" class="dotted-input" placeholder="อันดับ 1: ....................................................."></div>
+            <div class="dynamic-input-row"><input type="text" id="aiHelp2" class="dotted-input" placeholder="อันดับ 2: ....................................................."></div>
+            <div class="dynamic-input-row"><input type="text" id="aiHelp3" class="dotted-input" placeholder="อันดับ 3: ....................................................."></div>
+        </div>
+    </div>
+</div>
+</div>
 
-        // ========== NAVIGATION ==========
-        function updateStepIndicator() {
-            const indicator = document.getElementById('stepIndicator');
-            indicator.innerHTML = '';
-            for (let i = 1; i <= totalSteps; i++) {
-                const dot = document.createElement('div');
-                dot.className = 'step-dot';
-                if (i < currentStep) dot.classList.add('completed');
-                if (i === currentStep) dot.classList.add('active');
-                indicator.appendChild(dot);
-            }
+<!-- ═══════════════ STEP 4: Section D — ข้อเสนอแนะ ═══════════════ -->
+<div class="step" data-step="4" style="display:none">
+<div class="section">
+    <div class="section-header"><div class="section-letter">D</div><div class="section-title">ข้อเสนอแนะเพิ่มเติม</div></div>
+    <div class="question">
+        <label class="question-label">D1. กรุณาระบุการให้บริการ หรือเครื่องมือใดๆ ที่คิดว่าเป็นกุญแจสำคัญ (Key Success) ที่ทำให้ภารกิจสำเร็จได้</label>
+        <p class="question-sublabel">เช่น เคล็ดลับ: "เมื่อส่งมอบงานโครงสร้างตรงเวลาทุกเฟส ลูกค้าจะให้งานต่อเนื่อง" / "เมื่อเช็คสต็อกเหล็กได้ทันทีระหว่างประชุม ดีลไม่หยุดชะงัก"<br>💡 การระบุขั้นตอนและบริบทอย่างละเอียด คือกุญแจสำคัญที่ทำให้ AI เข้าใจงานของท่านได้อย่างสมบูรณ์</p>
+        <div class="dynamic-inputs" id="keySuccessInputs">
+            <div class="dynamic-input-row"><input type="text" class="dotted-input" placeholder="อันดับ 1: ....................................................."><button class="add-btn" onclick="addDynamicInput('keySuccessInputs',5,'อันดับ')">+</button></div>
+            <div class="dynamic-input-row"><input type="text" class="dotted-input" placeholder="อันดับ 2: ....................................................."><button class="remove-btn" onclick="removeDynamicInput(this)">×</button></div>
+        </div>
+    </div>
+    <div class="question">
+        <label class="question-label">D2. ข้อเสนอแนะเชิงสร้างสรรค์ (Creativity)</label>
+        <p class="question-sublabel">รบกวนเสนอแนะ หรือแนวคิดอะไรก็ได้ ที่ท่านต้องการนำเสนอ เพื่อให้มีเครื่องมือหรือตัวช่วยในการทำงาน โดยไม่จำกัดขอบเขต</p>
+        <div class="dynamic-inputs" id="creativityInputs">
+            <div class="dynamic-input-row"><input type="text" class="dotted-input" placeholder="ข้อเสนอแนะที่ 1: ....................................................."><button class="add-btn" onclick="addDynamicInput('creativityInputs',5,'ข้อเสนอแนะที่')">+</button></div>
+            <div class="dynamic-input-row"><input type="text" class="dotted-input" placeholder="ข้อเสนอแนะที่ 2: ....................................................."><button class="remove-btn" onclick="removeDynamicInput(this)">×</button></div>
+        </div>
+    </div>
+    <div class="question"><label class="question-label">D3. ข้อกังวลหรือคำถามเกี่ยวกับการใช้ AI</label><textarea id="concerns" placeholder="ระบุข้อกังวลหรือคำถาม..."></textarea></div>
+    <div class="question"><label class="question-label">D4. ข้อความถึงวิทยากร / สิ่งที่อยากให้เน้นเป็นพิเศษ</label><textarea id="speakerNotes" placeholder="ระบุหัวข้อหรือสิ่งที่อยากให้เน้นในการอบรม..."></textarea></div>
+</div>
+</div>
+
+<!-- ═══════════════ STEP 5: Section E — ประสบการณ์ AI ═══════════════ -->
+<div class="step" data-step="5" style="display:none">
+<div class="section">
+    <div class="section-header"><div class="section-letter">E</div><div class="section-title">ประสบการณ์และความพร้อมด้าน AI</div></div>
+    <div class="question">
+        <label class="question-label">E1. ระดับประสบการณ์การใช้ AI (เช่น ChatGPT, Gemini, Claude)</label>
+        <div class="level-options">
+            <div class="level-option" onclick="selectLevel(this,0)"><div class="level-badge">L0</div><div class="option-content"><div class="option-title">ไม่เคยใช้เลย</div></div></div>
+            <div class="level-option" onclick="selectLevel(this,1)"><div class="level-badge">L1</div><div class="option-content"><div class="option-title">เคยลองใช้บ้าง 1-2 ครั้ง</div></div></div>
+            <div class="level-option" onclick="selectLevel(this,2)"><div class="level-badge">L2</div><div class="option-content"><div class="option-title">ใช้เป็นครั้งคราว ไม่ประจำ</div></div></div>
+            <div class="level-option" onclick="selectLevel(this,3)"><div class="level-badge">L3</div><div class="option-content"><div class="option-title">ใช้ประจำสัปดาห์ละ 1-2 ครั้ง</div></div></div>
+            <div class="level-option" onclick="selectLevel(this,4)"><div class="level-badge">L4</div><div class="option-content"><div class="option-title">ใช้เป็นประจำทุกวัน</div></div></div>
+            <div class="level-option" onclick="selectLevel(this,5)"><div class="level-badge">L5</div><div class="option-content"><div class="option-title">ใช้เป็นเครื่องมือหลักในการทำงาน</div></div></div>
+        </div>
+    </div>
+    <div class="question">
+        <label class="question-label">E2. เครื่องมือ AI ที่เคยใช้ (เลือกได้หลายข้อ — แต่ละตระกูลให้ติ๊กเฉพาะตัวที่เคยใช้)</label>
+        <div class="e2-search-wrap">
+            <svg class="e2-search-icon" xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#888" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+            <input type="text" class="e2-search" id="e2Search" placeholder=".................. พิมพ์ค้นหาเครื่องมือ AI เช่น NotebookLM, Nano Banana ................." oninput="searchE2(this.value)">
+            <div class="e2-search-results" id="e2SearchResults"></div>
+        </div>
+        <div id="e2Categories"></div>
+    </div>
+    <div class="question">
+        <label class="question-label">E3. ความถี่ในการใช้ AI เพื่อช่วยงาน</label>
+        <div class="freq-options">
+            <div class="freq-option" onclick="selectFreq(this)">ไม่เคยใช้</div>
+            <div class="freq-option" onclick="selectFreq(this)">นานๆ ครั้ง (เดือนละ 1-2 ครั้ง)</div>
+            <div class="freq-option" onclick="selectFreq(this)">สัปดาห์ละครั้ง</div>
+            <div class="freq-option" onclick="selectFreq(this)">หลายครั้งต่อสัปดาห์</div>
+            <div class="freq-option" onclick="selectFreq(this)">ทุกวัน</div>
+            <div class="freq-option other-tool" onclick="toggleOtherTool(this,'freq')">อื่นๆ...</div>
+        </div>
+        <input type="text" class="other-tool-input" id="freq-other" placeholder="ระบุความถี่...">
+    </div>
+</div>
+</div>
+
+<!-- ═══════════════ STEP 6: Section F — ความคาดหวังอบรม ═══════════════ -->
+<div class="step" data-step="6" style="display:none">
+<div class="section">
+    <div class="section-header"><div class="section-letter">F</div><div class="section-title">ความคาดหวังจากการอบรม</div></div>
+    <div class="question">
+        <label class="question-label">F1. ความสำคัญของแต่ละด้าน (1=น้อยที่สุด, 5=มากที่สุด)</label>
+        <div class="rating-grid" id="f1RatingGrid"></div>
+    </div>
+    <div class="question">
+        <label class="question-label">F2. หัวข้อที่อยากเรียนรู้ (เลือกได้หลายข้อ)</label>
+        <div class="checkbox-grid" id="f2Grid"></div>
+    </div>
+</div>
+</div>
+
+<!-- ═══════════════ STEP 7: Section G — ฟีเจอร์ AI (Optional) ═══════════════ -->
+<div class="step" data-step="7" style="display:none">
+<div class="optional-banner">
+    <h3>✨ ส่วนเพิ่มเติม (Optional)</h3>
+    <p>AI ที่ท่านสนใจ สามารถให้คำตอบเพิ่มเติมได้ — ตอบก็ได้ ไม่ตอบก็ได้</p>
+</div>
+<div class="section">
+    <div class="section-header"><div class="section-letter">G</div><div class="section-title">ฟีเจอร์ AI ที่สนใจ (Optional)</div><span class="section-subtitle">เลือกได้หลายข้อ</span></div>
+    <div class="question" id="gQuestion">
+        <div id="gCategories"></div>
+    </div>
+</div>
+</div>
+
+<!-- ═══════════════ SUCCESS ═══════════════ -->
+<div class="step" data-step="8" style="display:none">
+<div class="section success-page">
+    <div class="success-icon">✓</div>
+    <h2>ขอบคุณที่สละเวลาตอบแบบสำรวจครับ</h2>
+    <p>ข้อมูลจะถูกนำไปออกแบบ AI Solution และหลักสูตรอบรมที่ตรงกับความต้องการมากที่สุด</p>
+    <button class="nav-btn next" onclick="resetSurvey()">เริ่มใหม่</button>
+</div>
+</div>
+
+        <div class="nav-buttons" id="navButtons">
+            <button class="nav-btn prev" onclick="prevStep()" id="prevBtn" style="visibility:hidden">← ย้อนกลับ</button>
+            <button class="nav-btn next" onclick="nextStep()" id="nextBtn">ถัดไป →</button>
+        </div>
+    </div>
+    <div class="footer"><strong>ONE SEVEN DISCOVERY Co., Ltd.</strong> x <strong>บริษัท สี่พระยาก่อสร้าง จำกัด (Siphya Construction)</strong> | Connected to Google Sheets</div>
+</div>
+
+<script>
+// ═══════════════════════════════════════════════════════════════
+// CONFIG
+// ═══════════════════════════════════════════════════════════════
+const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxgo-EdWhhdqGWBFohtZ1D4xuDo7OAmujBPwK0CqRZdqLEc80mZgRmR-9BopjcFCPSFqA/exec';
+let currentStep = 1;
+const totalSteps = 7;
+let selectedDepartment = '';
+
+// ═══════════════════════════════════════════════════════════════
+// SMART FILTER MAPPING
+// ═══════════════════════════════════════════════════════════════
+const DEPT_TAGS = {
+    'eng':'วิศวกรรม','pm':'PM','site':'ก่อสร้าง','est':'ประมาณราคา',
+    'procurement':'จัดซื้อ','warehouse':'คลัง','logistics':'ขนส่ง',
+    'qc':'QC','safety':'Safety','accounting':'บัญชี','hr':'HR',
+    'admin':'Admin','it':'_ALL_','management':'_ALL_','other':'_ALL_'
+};
+
+// ═══════════════════════════════════════════════════════════════
+// DATA: B1 Categories
+// ═══════════════════════════════════════════════════════════════
+const B1_DATA = [
+    { icon:'🏗️', label:'งานวิศวกรรมและก่อสร้าง', filter:['วิศวกรรม','ก่อสร้าง','PM','QC'], items:[
+        'ควบคุมงานก่อสร้างหน้างาน (ดูแลช่าง/ผู้รับเหมาย่อย)','ตรวจสอบคุณภาพงานโครงสร้าง/งานสถาปัตย์','อ่านแบบ/ถอดแบบ/ตรวจสอบแบบก่อสร้าง','บันทึกข้อมูลความคืบหน้างาน (Daily Report)','ประสานงานกับ Sub-contractor/ที่ปรึกษา/เจ้าของโครงการ','ตรวจสอบ/บำรุงรักษาเครื่องจักรหนัก','ทำแผนงานก่อสร้าง (Master Schedule/Gantt Chart)','บริหารจัดการทรัพยากรหน้างาน (แรงงาน/เครื่องจักร/วัสดุ)']},
+    { icon:'💰', label:'งานประมาณราคาและสัญญา', filter:['ประมาณราคา','PM'], items:[
+        'ถอดปริมาณวัสดุจากแบบก่อสร้าง (BOQ)','ประมาณราคาค่าก่อสร้าง/จัดทำ Cost Estimate','จัดทำ/ตรวจสอบใบเสนอราคา','บริหารสัญญาก่อสร้าง/ติดตาม Variation Order','เปรียบเทียบต้นทุนจริงกับงบประมาณ']},
+    { icon:'🛒', label:'งานจัดซื้อจัดจ้างและซัพพลายเชน', filter:['จัดซื้อ','คลัง'], items:[
+        'ติดต่อ/ประสานงานกับ Supplier วัสดุก่อสร้าง','เปรียบเทียบราคาวัสดุ/Supplier','ออก PR/PO และติดตามสถานะการจัดส่ง','ตรวจรับวัสดุหน้างาน (เทียบ PO กับของจริง)','ตรวจสอบคุณภาพวัสดุก่อนรับเข้าไซต์','ประเมิน/ให้คะแนน Supplier']},
+    { icon:'📦', label:'งานคลังสินค้าและโลจิสติกส์', filter:['คลัง','ขนส่ง'], items:[
+        'รับ-จ่ายวัสดุก่อสร้าง/อุปกรณ์','นับสต็อก/ตรวจนับวัสดุประจำวัน','บันทึกการเบิก-จ่ายวัสดุ','จัดการขนส่งวัสดุไปหน้างาน','ติดตามสถานะรถขนส่ง/GPS','จัดเที่ยวรถ/Route Optimization']},
+    { icon:'📝', label:'งานบัญชีและการเงิน', filter:['บัญชี','จัดซื้อ'], items:[
+        'กรอกข้อมูลเข้าระบบ ERP/ระบบบัญชี','คีย์ใบเบิก/ใบวางบิล/PO','จับคู่ Bank Statement กับใบเสร็จ','ตรวจสอบเอกสารเบิกจ่าย/ใบแจ้งหนี้','ทำรายงานการเงิน/ต้นทุนโครงการ']},
+    { icon:'🔒', label:'งานความปลอดภัย', filter:['Safety','ก่อสร้าง','PM'], items:[
+        'ตรวจสอบการสวมใส่อุปกรณ์ PPE หน้างาน','จัดทำรายงานความปลอดภัยประจำวัน/สัปดาห์','สอบสวนอุบัติเหตุ/เหตุการณ์เกือบเกิดอุบัติเหตุ (Near Miss)','จัดอบรมความปลอดภัย/Safety Talk','ตรวจสอบพื้นที่เสี่ยง/กำหนด Danger Zone','จัดการเอกสารใบอนุญาตทำงาน (Work Permit)']},
+    { icon:'📋', label:'งานเอกสารและการบริหาร', filter:'_SHARED_', items:[
+        'จัดทำรายงานประจำวัน/สัปดาห์','สรุปการประชุม/บันทึกข้อตกลง','ติดตามเอกสารที่ยังไม่ครบ','ประสานงานระหว่างแผนก/ระหว่างไซต์งาน','ตอบคำถามผ่าน LINE กลุ่ม','จัดการอนุมัติเอกสาร','จัดเก็บ/ค้นหาเอกสาร','ติดตาม To-do list/งานค้าง']},
+    { icon:'👤', label:'งาน HR และทรัพยากรบุคคล', filter:['HR','Admin'], subGroups:[
+        { title:'สรรหาและคัดเลือก (Recruitment)', items:['คัดกรองใบสมัครงาน/เรซูเม่','เทียบคุณสมบัติผู้สมัครกับ Job Spec','นัดสัมภาษณ์/ประสานงานผู้สมัคร','สัมภาษณ์ผู้สมัคร/ใช้ Rubric ให้คะแนน']},
+        { title:'ดูแลพนักงานและสวัสดิการ (Employee Care)', items:['ตอบคำถาม HR พื้นฐานให้พนักงาน (สวัสดิการ, ลา, เบิกจ่าย)','จัดตารางกะ (Shift) ข้ามไซต์งาน','ดูแลพนักงานใหม่ (Onboarding)','ติดตามสถานะการฝึกอบรม Safety ของพนักงาน']},
+        { title:'พัฒนาบุคลากรและรักษาพนักงาน (Development & Retention)', items:['จัดทำแผนพัฒนาบุคลากร/หลักสูตรฝึกอบรม','วางเส้นทาง Career Path','วิเคราะห์ข้อมูลเพื่อรักษาพนักงาน (Retention Analytics)','ประเมินผลงานรายบุคคล']}
+    ]}
+];
+
+// ═══════════════════════════════════════════════════════════════
+// DATA: C1 Categories
+// ═══════════════════════════════════════════════════════════════
+const C1_DATA = [
+    { icon:'🔗', label:'ปัญหาการเชื่อมต่อข้อมูล (Silo)', filter:'_SHARED_', items:['ข้อมูลระหว่างแผนก/ระหว่างไซต์งานไม่เชื่อมกัน','ต้องโทรถาม/ส่ง LINE หลายคนกว่าจะได้ข้อมูล','ข้อมูลกระจายอยู่หลายระบบ (ERP, Excel, LINE)','ไม่มีข้อมูล Real-time สำหรับตัดสินใจ','ต้องเปิดหลายโปรแกรมเพื่อหาคำตอบเรื่องเดียว (Double Handling)']},
+    { icon:'📄', label:'ปัญหาเอกสารและการกรอกข้อมูล', filter:'_SHARED_', items:['ต้องกรอกข้อมูลซ้ำๆ ในหลายระบบ','เอกสารจากหน้างานส่งไม่ครบ/ไม่ทันเวลา','อ่านลายมือในเอกสารไม่ออก','คีย์ข้อมูลผิดพลาดบ่อย (ต้องแก้ไขภายหลัง)','ติดตามเอกสารค้างยาก ไม่มีระบบเตือน']},
+    { icon:'🛒', label:'ปัญหาจัดซื้อและวัสดุก่อสร้าง', filter:['จัดซื้อ','คลัง','PM','ก่อสร้าง'], items:['ขอราคา Supplier ใช้เวลานาน (โทร/Fax/อีเมลทีละราย)','เปรียบเทียบราคาวัสดุไม่มีระบบมาตรฐาน','ไม่มีข้อมูลราคาตลาดวัสดุก่อสร้างอ้างอิง','ตรวจสอบความผิดปกติของราคา/ปริมาณยาก','วัสดุมาไม่ทันตาม Schedule ทำให้งานหยุดชะงัก','รอผู้บริหารอนุมัติ PO นาน (บางทีไม่อยู่)']},
+    { icon:'🏗️', label:'ปัญหาการบริหารโครงการก่อสร้าง', filter:['PM','วิศวกรรม','ก่อสร้าง'], items:['ไม่รู้สถานะงานจริงหน้างาน ต้องเดินสำรวจเอง','ข้อมูลความคืบหน้าล่าช้า 2-7 วัน','หัวหน้าช่าง/โฟร์แมนใช้เวลาเขียน Daily Report นาน','ไม่มีระบบแจ้งเตือนเมื่องานล่าช้ากว่า Schedule','องค์ความรู้ติดตัวคน — คนย้ายงาน ความรู้หายไปด้วย']},
+    { icon:'🔒', label:'ปัญหาความปลอดภัยและข้อมูล', filter:'_SHARED_', items:['กังวลเรื่องข้อมูลรั่วไหลหากใช้ AI','ไม่แน่ใจว่า AI จะเก็บข้อมูลไปเทรนหรือไม่','ตรวจสอบ PPE ด้วยคนยังไม่ทั่วถึง','อุบัติเหตุหน้างานสร้างความเสียหายสูง']}
+];
+
+// ═══════════════════════════════════════════════════════════════
+// DATA: E2 Categories (AI Tools — no smart filter, all depts see all)
+// ═══════════════════════════════════════════════════════════════
+const E2_DATA = [
+    { icon:'💬', label:'Generative AI Chatbot พื้นฐาน', items:['ChatGPT (OpenAI)','Google Gemini / Bard','Claude (Anthropic)','Microsoft Copilot','LINE AI / OA','Perplexity AI','DeepSeek','Grok (xAI)']},
+    { icon:'🟢', label:'ChatGPT Advance', items:['Deep Research (ค้นคว้าเชิงลึก)','Canvas (เขียน/แก้เอกสารร่วมกับ AI)','GPTs (สร้าง Custom AI เฉพาะงาน)','Code Interpreter (วิเคราะห์ข้อมูล/รันโค้ด)','Custom Instructions (ตั้งค่าบุคลิก AI)']},
+    { icon:'🔵', label:'Gemini Advance', items:['Deep Research (Gemini ค้นคว้าเชิงลึก)','Google Workspace Extension (เชื่อม Gmail/Drive/Sheets)','Gems (สร้าง AI ผู้ช่วยเฉพาะทาง)','Schedule Task (ตั้งเวลาสั่งงาน AI อัตโนมัติ)','Google AI Studio / Imagen (สร้างภาพ)','Gemini Personal Intelligence (AI รู้จักคุณ)']},
+    { icon:'🟣', label:'Claude Advance', items:['Claude Code (Coding Agent สร้างระบบด้วย AI)','MCP — Model Context Protocol (เชื่อมระบบภายนอก)','Artifacts (สร้างเอกสาร/แอป/โค้ดในหน้าจอเดียว)','Projects (จัดการโปรเจกต์/คลังความรู้ส่วนตัว)','Claude Cowork / Computer Use (AI ควบคุมคอมพิวเตอร์)','Claude Research (ค้นคว้าเชิงลึก)']},
+    { icon:'🟠', label:'Perplexity Advance', items:['Deep Research (Perplexity ค้นคว้าเชิงลึก)','Perplexity Computer (Digital Worker — สั่ง AI ทำงานบนคอม)','Perplexity Chrome (Extension ค้นหาอัจฉริยะ)','Comet (Browser Automation + Messenger)']},
+    { icon:'🔷', label:'Microsoft Copilot Advance', items:['Copilot in Word / Excel / PowerPoint (ช่วยงานเอกสาร)','Copilot in Teams (สรุปประชุม/แชท)','Copilot in Outlook (สรุปอีเมล/ร่างตอบ)']},
+    { icon:'🤖', label:'AI Agent', items:['Browser Use (AI ควบคุม Browser)','OpenClaw (Personal AI Agent)','Manus AI (Computer Use & Data Extraction)','Grok Task (ตั้งเวลาให้ AI ทำงาน)','Claude Task / Schedule (ตั้งเวลาสั่งงาน Claude)']},
+    { icon:'💻', label:'AI Coding', items:['Claude Code','Cursor (AI Code Editor)','GitHub Copilot','Gemini CLI']},
+    { icon:'🧩', label:'No-Code AI App', items:['Lovable (Text-to-App)','Base44 (ระบบธุรกิจด้วยภาษาธรรมชาติ)','Google Stitch (No-Code UI Design)','Bubble','Glide','BaseRow','Google Sheets (ใช้เป็นแอปข้อมูล)']},
+    { icon:'⚙️', label:'AI Automation', items:['n8n','Make (Integromat)','Zapier','Google Apps Script','Google AppSheet','Google Workspace Studio']},
+    { icon:'🎨', label:'AI สร้างภาพ', items:['Midjourney','DALL-E (ChatGPT)','Google AI Studio / Imagen','Qwen (AI จีนสร้าง/แก้ภาพ)','Magic99.ai (Prompt กราฟิกสำเร็จรูป)','Nano Banana Gemini (แบนเนอร์โฆษณา)']},
+    { icon:'🎬', label:'AI สร้างวิดีโอ', items:['HeyGen (Video Agent / Avatar)','PD Autoflow (สร้างวิดีโอคลิกเดียว)','Triple Bot (วิดีโอขายสินค้ายาว)','Synthesia']},
+    { icon:'📚', label:'AI วิจัยและจัดการความรู้', items:['Google NotebookLM','Research Rabbit (วิเคราะห์งานวิจัย/Citation)','LM Arena (เปรียบเทียบ AI หลายโมเดล)']},
+    { icon:'💰', label:'AI บัญชีและการเงิน', items:['PEAK Accounting (บัญชีออนไลน์ SME)','Xynth AI (กุนซือการเงิน)']},
+    { icon:'🔧', label:'AI เฉพาะทางอื่นๆ', items:['AI วิเคราะห์ภาพ/Computer Vision (Meta SAM 3D ฯลฯ)','AI อ่านเอกสาร/OCR','Power BI / AI Dashboard','Sayonari AI (แปลซับไตเติ้ล)','Minus.ai (แก้ PDF/Slide)','TikTok Affiliate + AI Virtual Influencer','ไม่เคยใช้เครื่องมือใดเลย']}
+];
+
+// ═══════════════════════════════════════════════════════════════
+// DATA: F1 Likert Items
+// ═══════════════════════════════════════════════════════════════
+const F1_DATA = [
+    'เข้าใจว่า AI คืออะไร ทำอะไรได้บ้าง','ใช้ AI เพิ่มความเร็วในการทำงาน','ใช้ AI วิเคราะห์ข้อมูลที่กระจัดกระจาย',
+    'เรียนรู้การสื่อสารกับ AI (Prompt Engineering)','ใช้ AI เฉพาะทางอุตสาหกรรมก่อสร้าง (งานโครงสร้าง, จัดซื้อวัสดุ, Safety)',
+    'ความปลอดภัยของข้อมูลเมื่อใช้ AI','ลดงาน Manual เพื่อทำงานที่ใช้ความคิดมากขึ้น','ใช้ AI ช่วยทำรายงาน/สรุปข้อมูล',
+    'ใช้ AI เชื่อมระบบ ERP/Power BI ที่มีอยู่แล้ว','เข้าใจ AI Agent / Agentic Model — AI ทำงานแทนทั้งทีมได้',
+    'เข้าใจ AI ที่เข้ามาในคอมพิวเตอร์/มือถือ (On-device AI) ทำงานได้โดยไม่ต้องเชื่อมอินเทอร์เน็ต',
+    'เข้าใจ AI Automation — ตั้งเวลาให้ AI ทำงานอัตโนมัติ ลดงานซ้ำซ้อน'
+];
+
+// ═══════════════════════════════════════════════════════════════
+// DATA: F2 Topics
+// ═══════════════════════════════════════════════════════════════
+const F2_DATA = [
+    'AI พื้นฐาน: ChatGPT, Gemini, Claude — เข้าใจความสามารถและเลือกใช้ตามงาน',
+    'Prompt Engineering: วิธีสั่ง AI ให้ได้ผลลัพธ์ที่ต้องการ',
+    'เทคนิคแก้ปัญหา AI ให้ข้อมูลผิดพลาด (Anti-Hallucination)',
+    'AI สรุปเอกสาร/สร้างรายงาน/ถอดประชุม (NotebookLM, Gemini)',
+    'AI ทำสไลด์นำเสนอ (Nano Banana, NotebookLM Studio)',
+    'AI แก้ไข PDF/Slide ลบ Logo (Minus.ai)',
+    'AI ทำ Excel/Google Sheets เร็วขึ้น 10 เท่า (Gemini, Claude in Excel)',
+    'AI สร้างแบบฟอร์มอัตโนมัติ (Google Form + Gemini)',
+    'AI แปลซับไตเติ้ล/แปลภาษา (Sayonari AI)',
+    'AI จัดการความรู้องค์กร (NotebookLM + Gemini Strategy)',
+    'AI วิเคราะห์งานวิจัย/เปรียบเทียบข้อมูล (Research Rabbit, LM Arena)',
+    'AI Gem + Deep Research — ค้นคว้าเชิงลึกแบบมืออาชีพ',
+    'AI สร้างภาพ/กราฟิก (Google AI Studio, Nano Banana, Magic99, Qwen)',
+    'AI สร้างวิดีโอ/คลิปสอนงาน Safety (HeyGen, PD Autoflow, Triple Bot)',
+    'AI สร้างอินโฟกราฟิก (Gemini)',
+    'ตั้งค่า Gemini Advanced 6 เทคนิค (Custom Instructions, Extension, Schedule Task)',
+    'สร้าง AI ผู้ช่วยส่วนตัว (Gemini Gems, Custom Instructions)',
+    'Claude Cowork — AI Agent จัดการไฟล์/สร้างรายงาน/เลขา AI',
+    'AI Agent ทำงานแทน (OpenClaw, Browser Use, Manus AI)',
+    'AI Automation ตั้งเวลาสั่งงาน (Grok Task, Claude Schedule, Workspace Studio)',
+    'สร้างแอปธุรกิจไม่ต้องเขียนโค้ด (Lovable, Base44, Google Stitch)',
+    'AI สำหรับงานบัญชี/การเงิน (PEAK Accounting, Xynth AI)',
+    'AI วิเคราะห์เทรนด์ตลาด (Google Trends + Gemini)',
+    'AI แปลคลิปสอนงานหลายภาษา สำหรับแรงงานต่างชาติ (Auto Dubbing)',
+    'ความปลอดภัยข้อมูลเมื่อใช้ AI / Cybersecurity Automation',
+    'Perplexity AI ขั้นสูง 7 ฟีเจอร์ + Perplexity Computer'
+];
+
+// ═══════════════════════════════════════════════════════════════
+// DATA: G Categories (Features — with Smart Filter)
+// ═══════════════════════════════════════════════════════════════
+const G_DATA = [
+    { icon:'🏢', label:'Smart Operation — ผู้ช่วย ERP อัจฉริยะ', filter:['จัดซื้อ','บัญชี','PM'], items:['ผู้ช่วย ERP อัจฉริยะผ่าน LINE — สอบถามสต็อก/ราคา/สถานะโครงการ ได้ทันที','แจ้งเตือนอัตโนมัติเมื่อสต็อกต่ำ / ใบแจ้งหนี้ครบกำหนด / เอกสารค้าง','ดึงรายงานสรุปยอดขาย ต้นทุน กำไร แยกรายโครงการ ผ่าน LINE','ออกใบเสนอราคา/ใบเบิกสินค้าด้วยเสียงหรือพิมพ์ใน LINE ได้ทันที','ค้นหาวัสดุด้วยรูปภาพ (Image Search) — ถ่ายรูปส่งให้ AI ค้นหาในคลังสินค้า']},
+    { icon:'📊', label:'PM/Progress — ติดตามความคืบหน้างาน', filter:['PM','ก่อสร้าง','วิศวกรรม'], items:['AI Schedule Tracking ผ่าน LINE OA — หัวหน้าช่างพูด/พิมพ์/ถ่ายรูป อัปเดต Dashboard อัตโนมัติ','AI Progress Dashboard — เห็นสถานะงาน Real-time ทุกไซต์ในที่เดียว','แจ้งเตือน PM เมื่องานล่าช้ากว่า Baseline Schedule']},
+    { icon:'📚', label:'Knowledge Management — องค์ความรู้', filter:['PM','วิศวกรรม','QC','Safety'], items:['AI Knowledge Search (RAG) — ค้นหา Best Practices/คู่มือ/มาตรฐานจากฐานข้อมูลองค์กร','Lessons Learned Auto-Tagger — AI จัดหมวดหมู่บทเรียนจากหน้างานอัตโนมัติ','Site Problem Solver Chatbot — ถามปัญหาหน้างาน ได้คำแนะนำจากมาตรฐาน','AI Auto Dubbing — แปลคลิป Safety/KM เป็นหลายภาษา สำหรับแรงงานต่างชาติ']},
+    { icon:'🛒', label:'Procurement — จัดซื้อจัดจ้างอัจฉริยะ', filter:['จัดซื้อ','บัญชี','PM'], items:['AI ระบบขอราคา/เช็ค Stock ผ่าน LINE — ส่งคำขอไป Supplier หลายรายพร้อมกัน','AI OCR อ่านเอกสาร + Auto-fill PO — อ่านใบเสนอราคา/Invoice ทุกรูปแบบ กรอก PO อัตโนมัติ','AI Price Benchmark — เปรียบเทียบราคาซื้อกับราคาตลาด Flag หากเกิน 10%','AI ตรวจจับการฮั้วราคา (Bid Rigging Detection) — ตรวจสอบความผิดปกติในการเสนอราคา','AI Document Verification — ตรวจสอบ PR/QO/PO/DO/INV ครบถ้วนและถูกต้อง','AI Smart Approval — ส่งอนุมัติผ่าน LINE ตามลำดับชั้น Auto-escalate','AI เช็คราคาตลาดวัสดุก่อสร้างจากเว็บ DoHome/HomePro ทุกเช้า','AI ค้นหา Supplier ใหม่จากอินเทอร์เน็ตตามเขตพื้นที่ พร้อมรวบรวมเบอร์โทร/อีเมล','AI จับคู่ชื่อสินค้าที่ Supplier เรียกต่างกัน (เช่น เหล็ก 6 มิล = RB6) แจ้งยืนยันอัตโนมัติ']},
+    { icon:'🔒', label:'Safety — ความปลอดภัยหน้างาน', filter:['Safety','ก่อสร้าง','PM','HR'], items:['AI Safety Monitoring — ตรวจจับ PPE/หมวกนิรภัย/เสื้อสะท้อนแสง จากกล้อง CCTV Real-time','Automated Inventory Count (Computer Vision) — นับเหล็กเส้น/วัสดุจากภาพถ่าย','Housekeeping AI — ตรวจจับสิ่งกีดขวาง/น้ำขัง/พื้นลื่น อัตโนมัติ','Safety Dashboard + Reporting — รายงาน Daily/3-Day/Weekly อัตโนมัติ','Robot Patrol — ระบบตรวจ Backlog อัตโนมัติทุก 1-3 ชั่วโมง','Guardian AI Dashboard — ศูนย์บัญชาการ Safety พื้นที่ไซต์ก่อสร้าง','AI สแกนใบหน้าบันทึกเวลาเข้างาน + ตรวจสอบสิทธิ์เข้าพื้นที่','AI วิเคราะห์พฤติกรรมการทำงานคนงาน (Workforce Analytics) ตรวจสอบประสิทธิภาพ']},
+    { icon:'🤖', label:'อื่นๆ — ฟีเจอร์เสริม', filter:'_SHARED_', items:['AI Sentiment Analysis — อ่านอารมณ์ลูกค้า/คู่ค้าในกลุ่ม LINE แจ้งเตือนเมื่อพบปัญหา','AI เลขาส่วนตัว — จดบันทึกคำสั่งงานจากเสียง/ประชุม/LINE ตั้งเวลาแจ้งเตือน','AI GPS ขนส่ง — สอบถามตำแหน่งรถขนส่ง/เวลาถึงไซต์ ผ่าน LINE','AI Sales Report — สร้างรายงานขาย/ต้นทุนโครงการ เป็น PDF/Excel/กราฟ ด้วยเสียง']}
+];
+
+// ═══════════════════════════════════════════════════════════════
+// BUILD FUNCTIONS
+// ═══════════════════════════════════════════════════════════════
+
+function buildCollapsibleCategories(data, containerId, useSmartFilter, useE2Grid) {
+    const container = document.getElementById(containerId);
+    container.innerHTML = '';
+    data.forEach((cat, idx) => {
+        const div = document.createElement('div');
+        div.className = 'collapsible-category';
+        if (useSmartFilter) {
+            div.dataset.filter = cat.filter === '_SHARED_' ? '_SHARED_' : JSON.stringify(cat.filter);
         }
-
-        function updateProgress() {
-            const progress = ((currentStep - 1) / totalSteps) * 100;
-            document.getElementById('progressBar').style.width = progress + '%';
-        }
-
-        function showStep(step) {
-            document.querySelectorAll('.step').forEach(s => s.style.display = 'none');
-            const stepEl = document.querySelector(`.step[data-step="${step}"]`);
-            if (stepEl) stepEl.style.display = 'block';
-            document.getElementById('prevBtn').style.visibility = step === 1 ? 'hidden' : 'visible';
-            if (step === totalSteps) {
-                document.getElementById('nextBtn').textContent = 'ส่ง ✓';
-            } else if (step === totalSteps + 1) {
-                document.getElementById('navButtons').style.display = 'none';
-            } else {
-                document.getElementById('nextBtn').textContent = 'ถัดไป →';
-            }
-        }
-
-        function nextStep() {
-            if (currentStep === totalSteps) {
-                submitSurvey();
-            } else if (currentStep < totalSteps) {
-                currentStep++;
-                showStep(currentStep);
-                updateStepIndicator();
-                updateProgress();
-                window.scrollTo({ top: 0, behavior: 'smooth' });
-            }
-        }
-
-        function prevStep() {
-            if (currentStep > 1) {
-                currentStep--;
-                showStep(currentStep);
-                updateStepIndicator();
-                updateProgress();
-                window.scrollTo({ top: 0, behavior: 'smooth' });
-            }
-        }
-
-        // ========== OPTION SELECTION ==========
-        function selectOption(element, name) {
-            document.querySelectorAll(`[name="${name}"]`).forEach(input => {
-                input.closest('.option').classList.remove('selected');
+        let bodyHTML = '';
+        if (cat.subGroups) {
+            cat.subGroups.forEach(sg => {
+                bodyHTML += `<div class="sub-group-title">— ${sg.title} —</div><div class="checkbox-grid">`;
+                sg.items.forEach(item => {
+                    bodyHTML += `<label class="option checkbox" onclick="toggleCheckbox(this)"><span class="checkmark"></span><span class="option-title">${item}</span></label>`;
+                });
+                bodyHTML += `</div>`;
             });
-            element.classList.add('selected');
-            element.querySelector('input[type="radio"]').checked = true;
-            if (name === 'department') {
-                const val = element.querySelector('input[type="radio"]').value;
-                if (val === 'other') setTimeout(() => document.getElementById('deptOtherInput').focus(), 100);
-            }
-        }
-
-        function selectLevel(element) {
-            document.querySelectorAll('.level-option').forEach(opt => opt.classList.remove('selected'));
-            element.classList.add('selected');
-        }
-
-        function toggleTool(element) { element.classList.toggle('selected'); }
-
-        function toggleOtherTool(element, category) {
-            element.classList.toggle('selected');
-            const input = document.getElementById(category + '-other');
-            if (element.classList.contains('selected')) { input.classList.add('show'); input.focus(); }
-            else { input.classList.remove('show'); input.value = ''; }
-        }
-
-        function selectFreq(element) {
-            document.querySelectorAll('.freq-option:not(.other-tool)').forEach(opt => opt.classList.remove('selected'));
-            element.classList.add('selected');
-        }
-
-        function toggleCheckbox(element) {
-            const wasSelected = element.classList.contains('selected');
-            element.classList.toggle('selected');
-            const isNowSelected = !wasSelected;
-            if (element.classList.contains('has-input')) {
-                const inp = element.querySelector('.other-input');
-                if (isNowSelected && inp) {
-                    setTimeout(() => inp.focus(), 50);
-                } else if (!isNowSelected && inp) {
-                    inp.value = '';
-                }
-            }
-        }
-
-        function selectRating(btn) {
-            const row = btn.closest('.rating-row');
-            const wasSelected = btn.classList.contains('selected');
-            row.querySelectorAll('.rating-btn').forEach(b => b.classList.remove('selected'));
-            if (!wasSelected) btn.classList.add('selected');
-        }
-
-        // ========== DYNAMIC INPUTS ==========
-        function addDynamicInput(containerId, maxInputs, prefix) {
-            const container = document.getElementById(containerId);
-            const inputs = container.querySelectorAll('.dynamic-input-row');
-            if (inputs.length < maxInputs) {
-                const newIndex = inputs.length + 1;
-                const newRow = document.createElement('div');
-                newRow.className = 'dynamic-input-row';
-                newRow.innerHTML = `
-                    <input type="text" class="dotted-input" placeholder="${prefix} ${newIndex}: .....................................................">
-                    <button class="remove-btn" onclick="removeDynamicInput(this)">×</button>
-                `;
-                container.appendChild(newRow);
-            }
-        }
-
-        function removeDynamicInput(btn) {
-            const container = btn.closest('.dynamic-inputs');
-            if (container.querySelectorAll('.dynamic-input-row').length > 1) {
-                btn.closest('.dynamic-input-row').remove();
-            }
-        }
-
-        // ===== Helper functions =====
-        function initOtherInputs() {
-            document.querySelectorAll('.option.has-input .other-input').forEach(function(inp) {
-                inp.addEventListener('click', function(e) { e.stopPropagation(); });
-                inp.addEventListener('mousedown', function(e) { e.stopPropagation(); });
+            bodyHTML += `<div class="checkbox-grid" style="margin-top:8px"><label class="option checkbox has-input" onclick="toggleCheckbox(this)"><span class="checkmark"></span><span class="option-title">อื่นๆ...</span><input type="text" class="other-input" placeholder="ระบุ..." onclick="event.stopPropagation()"></label></div>`;
+        } else {
+            bodyHTML = '<div class="checkbox-grid">';
+            cat.items.forEach(item => {
+                bodyHTML += `<label class="option checkbox" onclick="toggleCheckbox(this)"><span class="checkmark"></span><span class="option-title">${item}</span></label>`;
             });
+            bodyHTML += `<label class="option checkbox has-input" onclick="toggleCheckbox(this)"><span class="checkmark"></span><span class="option-title">อื่นๆ...</span><input type="text" class="other-input" placeholder="ระบุ..." onclick="event.stopPropagation()"></label></div>`;
         }
-        initOtherInputs();
+        div.innerHTML = `
+            <div class="collapsible-header" onclick="toggleCollapsible(this${useE2Grid ? ',true' : ''})">
+                <span class="arrow">▶</span>
+                <span class="cat-icon">${cat.icon}</span>
+                <span class="cat-label">${cat.label}</span>
+                <span class="cat-count">0 เลือก</span>
+                ${useSmartFilter ? '<span class="click-hint">คลิก</span>' : ''}
+            </div>
+            <div class="collapsible-body">${bodyHTML}</div>`;
+        container.appendChild(div);
+    });
+    if (useE2Grid) {
+        // Wrap categories in 2-column grid
+        const wrapper = document.createElement('div');
+        wrapper.className = 'e2-grid';
+        while (container.firstChild) wrapper.appendChild(container.firstChild);
+        container.appendChild(wrapper);
+    }
+}
 
-        function getCheckedFromContainer(container) {
-            if (!container) return [];
-            const items = [];
-            container.querySelectorAll('.option.checkbox.selected').forEach(function(el) {
-                const titleEl = el.querySelector('.option-title');
-                const title = titleEl ? titleEl.textContent.trim() : '';
-                if (!title.startsWith('อื่นๆ')) {
-                    if (title) items.push(title);
-                } else {
-                    const o = el.querySelector('.other-input');
-                    const val = o ? o.value.trim() : '';
-                    items.push(val ? 'อื่นๆ: ' + val : 'อื่นๆ (ไม่ระบุ)');
-                }
-            });
-            return items;
-        }
+function buildF1() {
+    const grid = document.getElementById('f1RatingGrid');
+    grid.innerHTML = '';
+    grid.className = 'f1-compact-grid';
+    F1_DATA.forEach(label => {
+        const row = document.createElement('div');
+        row.className = 'f1-compact-row';
+        row.innerHTML = `<span class="f1-compact-label">${label}</span><div class="f1-compact-btns">${[1,2,3,4,5].map(n=>`<button class="f1-compact-btn" onclick="selectRating(this)">${n}</button>`).join('')}</div>`;
+        grid.appendChild(row);
+    });
+    const otherRow = document.createElement('div');
+    otherRow.className = 'f1-compact-row';
+    otherRow.id = 'expectationOtherRow';
+    otherRow.style.gridColumn = '1 / -1';
+    otherRow.innerHTML = `<div class="f1-compact-label" style="display:flex;align-items:center;gap:6px"><span>อื่นๆ</span><input type="text" id="expectationOtherText" class="dotted-input" placeholder="โปรดระบุ..." style="flex:1;min-width:80px;font-size:0.75rem"></div><div class="f1-compact-btns">${[1,2,3,4,5].map(n=>`<button class="f1-compact-btn" onclick="selectRating(this)">${n}</button>`).join('')}</div>`;
+    grid.appendChild(otherRow);
+}
 
-        function collectDynamicInputs(containerId) {
-            const items = [];
-            document.querySelectorAll('#' + containerId + ' input').forEach(function(input) {
-                if (input.value.trim()) items.push(input.value.trim());
-            });
-            return items;
-        }
+function buildF2() {
+    const grid = document.getElementById('f2Grid');
+    grid.innerHTML = '';
+    F2_DATA.forEach(topic => {
+        grid.innerHTML += `<label class="option checkbox" onclick="toggleCheckbox(this)"><span class="checkmark"></span><span class="option-title">${topic}</span></label>`;
+    });
+    grid.innerHTML += `<label class="option checkbox has-input" onclick="toggleCheckbox(this)"><span class="checkmark"></span><span class="option-title">อื่นๆ...</span><input type="text" class="other-input" placeholder="ระบุ..." onclick="event.stopPropagation()"></label>`;
+}
 
-        function collectFormData() {
-            // ===== Section A =====
-            const name = document.getElementById('name').value.trim();
-            const position = document.getElementById('position').value.trim();
-            const currentProject = document.getElementById('currentProject').value.trim();
+// ═══════════════════════════════════════════════════════════════
+// SMART FILTER
+// ═══════════════════════════════════════════════════════════════
+function applySmartFilter() {
+    const tag = DEPT_TAGS[selectedDepartment] || '_ALL_';
+    document.querySelectorAll('.collapsible-category[data-filter]').forEach(cat => {
+        // V5: Clear all filter classes first
+        cat.classList.remove('dept-relevant', 'filter-dimmed', 'filter-locked');
 
-            const deptRadio = document.querySelector('input[name="department"]:checked');
-            const department = deptRadio ? deptRadio.value : '';
-            const deptOtherEl = document.getElementById('deptOtherInput');
-            const departmentOther = deptOtherEl ? deptOtherEl.value.trim() : '';
+        // IT, ผู้บริหาร, อื่นๆ = _ALL_ → เห็นทุกหมวดปกติ ไม่จาง ไม่เรียงพิเศษ
+        if (tag === '_ALL_') return;
 
-            // ===== Section B =====
-            const levelEl = document.querySelector('.level-option.selected .level-badge');
-            const experienceLevel = levelEl
-                ? parseInt(levelEl.textContent.replace('L', '')) : null;
-
-            const toolsUsed = [];
-            document.querySelectorAll('.step[data-step="2"] .tool-option.selected').forEach(el => {
-                const t = el.textContent.trim();
-                if (!t.startsWith('อื่นๆ')) toolsUsed.push(t);
-            });
-            const toolsOther = document.getElementById('tools-other');
-            if (toolsOther && toolsOther.value.trim()) toolsUsed.push('อื่นๆ: ' + toolsOther.value.trim());
-
-            const freqEl = document.querySelector('.freq-option.selected:not(.other-tool)');
-            let usageFrequency = freqEl ? freqEl.textContent.trim() : '';
-            const freqOther = document.getElementById('freq-other');
-            if (freqOther && freqOther.value.trim()) {
-                usageFrequency = usageFrequency
-                    ? usageFrequency + ' / อื่นๆ: ' + freqOther.value.trim()
-                    : 'อื่นๆ: ' + freqOther.value.trim();
-            }
-
-            // ===== Helper =====
-            function getChecked(container) {
-                return getCheckedFromContainer(container);
-            }
-
-            // ===== Section C1 =====
-            const c1 = document.getElementById('c1Question');
-            const c1Cats = c1 ? c1.querySelectorAll('.work-category') : [];
-            const dailyWork = {
-                engineering:  getChecked(c1Cats[0]),
-                estimation:   getChecked(c1Cats[1]),
-                warehouse:    getChecked(c1Cats[2]),
-                accounting:   getChecked(c1Cats[3]),
-                admin:        getChecked(c1Cats[4])
-            };
-            const repeatWork = collectDynamicInputs('repeatWorkInputs');
-
-            // ===== Section D1 =====
-            const d1 = document.getElementById('d1Question');
-            const d1Cats = d1 ? d1.querySelectorAll('.work-category') : [];
-            const problems = {
-                dataSilo:     getChecked(d1Cats[0]),
-                document:     getChecked(d1Cats[1]),
-                procurement:  getChecked(d1Cats[2]),
-                siteData:     getChecked(d1Cats[3]),
-                security:     getChecked(d1Cats[4])
-            };
-
-            const painPoints = collectDynamicInputs('painPointInputs');
-            const aiHelpTop3 = [
-                document.getElementById('aiHelp1').value.trim(),
-                document.getElementById('aiHelp2').value.trim(),
-                document.getElementById('aiHelp3').value.trim()
-            ].filter(Boolean);
-
-            // ===== Section D4 =====
-            const d4 = document.getElementById('d4Question');
-            const d4Cats = d4 ? d4.querySelectorAll('.work-category') : [];
-            const interestedFeatures = {
-                document:       getChecked(d4Cats[0]),
-                estimation:     getChecked(d4Cats[1]),
-                projectTrack:   getChecked(d4Cats[2]),
-                warehouse:      getChecked(d4Cats[3]),
-                technical:      getChecked(d4Cats[4]),
-                communication:  getChecked(d4Cats[5])
-            };
-
-            // ===== Section E1 =====
-            const expectKeys = [
-                'understandAI', 'speedUpWork', 'analyzeData', 'promptEngineering',
-                'constructionAI', 'dataSecurity', 'reduceManual', 'aiForReport'
-            ];
-            const expectationsScore = {};
-            document.querySelectorAll('.step[data-step="5"] .rating-grid .rating-row').forEach((row, idx) => {
-                if (idx < expectKeys.length) {
-                    const sel = row.querySelector('.rating-btn.selected');
-                    expectationsScore[expectKeys[idx]] = sel ? parseInt(sel.textContent) : 0;
-                }
-            });
-            expectationsScore.otherTopic = document.getElementById('expectationOtherText').value.trim();
-            const otherRow = document.getElementById('expectationOtherRow');
-            const otherSel = otherRow ? otherRow.querySelector('.rating-btn.selected') : null;
-            expectationsScore.otherScore = otherSel ? parseInt(otherSel.textContent) : 0;
-
-            // ===== Section E2 =====
-            const e2Container = document.querySelector('.step[data-step="5"] .checkbox-grid');
-            const interestedTopics = e2Container ? getCheckedFromContainer(e2Container.closest('.question') || e2Container.parentElement) : [];
-
-            // ===== Section F =====
-            const keySuccess = collectDynamicInputs('keySuccessInputs');
-            const creativity = collectDynamicInputs('creativityInputs');
-            const concerns = document.getElementById('concerns').value.trim();
-            const speakerNotes = document.getElementById('speakerNotes').value.trim();
-
-            return {
-                timestamp: new Date().toISOString(),
-                name, position, currentProject,
-                department, departmentOther,
-                experienceLevel,
-                toolsUsed, usageFrequency,
-                dailyWork, repeatWork,
-                problems, painPoints, aiHelpTop3,
-                interestedFeatures,
-                expectationsScore, interestedTopics,
-                keySuccess, creativity, concerns, speakerNotes
-            };
-        }
-
-        // ========== RESET ==========
-        function resetSurvey() {
-            currentStep = 1;
-            document.getElementById('navButtons').style.display = 'flex';
-            document.querySelectorAll('input[type="text"]').forEach(i => i.value = '');
-            document.querySelectorAll('input[type="radio"]').forEach(i => i.checked = false);
-            document.querySelectorAll('textarea').forEach(ta => ta.value = '');
-            document.querySelectorAll('.selected').forEach(el => el.classList.remove('selected'));
-            document.querySelectorAll('.other-tool-input').forEach(i => { i.classList.remove('show'); i.value = ''; });
-            showStep(1);
-            updateStepIndicator();
-            updateProgress();
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-        }
-
-        // ========== SUBMIT ==========
-        async function submitSurvey() {
-            const data = collectFormData();
-
-            if (!data.name) {
-                alert('กรุณากรอกชื่อ-นามสกุล');
-                currentStep = 1; showStep(1); updateStepIndicator(); updateProgress();
-                return;
-            }
-            if (data.department === 'other' && !data.departmentOther) {
-                alert('กรุณาระบุแผนก');
-                document.getElementById('deptOtherInput').focus();
-                return;
-            }
-
-            const btn = document.getElementById('nextBtn');
-            btn.disabled = true;
-            btn.textContent = 'กำลังส่ง...';
-
+        const filterData = cat.dataset.filter;
+        let isRelevant = false;
+        if (filterData === '_SHARED_') {
+            isRelevant = true;
+        } else {
             try {
-                if (GOOGLE_SCRIPT_URL && GOOGLE_SCRIPT_URL !== 'YOUR_GOOGLE_SCRIPT_URL_HERE') {
-                    await fetch(GOOGLE_SCRIPT_URL, {
-                        method: 'POST',
-                        mode: 'no-cors',
-                        headers: { 'Content-Type': 'application/json' },
-                        body: JSON.stringify(data)
-                    });
-                }
-                console.log('Submitted:', data);
-                currentStep = totalSteps + 1;
-                showStep(currentStep);
-                updateProgress();
-
-            } catch (err) {
-                console.error(err);
-                alert('เกิดข้อผิดพลาด กรุณาลองใหม่อีกครั้ง');
-                btn.disabled = false;
-                btn.textContent = 'ส่ง ✓';
-            }
+                const tags = JSON.parse(filterData);
+                isRelevant = tags.includes(tag);
+            } catch(e) { isRelevant = true; }
         }
 
-        // ========== INIT ==========
-        showStep(1);
-        updateStepIndicator();
-        updateProgress();
-    </script>
+        if (isRelevant) {
+            // V5: แถบตรงแผนก → ชัด + ตีกรอบ + เลื่อนขึ้นบน
+            cat.classList.add('dept-relevant');
+        } else {
+            // V5: แถบไม่ตรงแผนก → จางแต่ยังกดได้ (ไม่ lock)
+            cat.classList.add('filter-dimmed');
+            // ยุบ dropdown (แต่ไม่ล้าง selection — กดเปิดเองได้)
+            const body = cat.querySelector('.collapsible-body');
+            const arrow = cat.querySelector('.arrow');
+            if (body) body.classList.remove('open');
+            if (arrow) arrow.classList.remove('open');
+        }
+    });
+}
+
+// ═══════════════════════════════════════════════════════════════
+// COLLAPSIBLE TOGGLE
+// ═══════════════════════════════════════════════════════════════
+function toggleCollapsible(header, accordion) {
+    const body = header.nextElementSibling;
+    const arrow = header.querySelector('.arrow');
+    const isOpen = body.classList.contains('open');
+    // Accordion mode: close all siblings first
+    if (accordion && !isOpen) {
+        const parent = header.closest('.e2-grid') || header.closest('.collapsible-category').parentElement;
+        if (parent) {
+            parent.querySelectorAll('.collapsible-body.open').forEach(b => {
+                b.classList.remove('open');
+                const a = b.previousElementSibling.querySelector('.arrow');
+                if (a) a.classList.remove('open');
+            });
+        }
+    }
+    body.classList.toggle('open');
+    arrow.classList.toggle('open');
+}
+
+function updateCatCount(cat) {
+    const count = cat.querySelectorAll('.option.checkbox.selected').length;
+    const badge = cat.querySelector('.cat-count');
+    if (badge) badge.textContent = count + ' เลือก';
+}
+
+// ═══════════════════════════════════════════════════════════════
+// NAVIGATION
+// ═══════════════════════════════════════════════════════════════
+function updateStepIndicator() {
+    const ind = document.getElementById('stepIndicator');
+    ind.innerHTML = '';
+    for (let i = 1; i <= totalSteps; i++) {
+        const dot = document.createElement('div');
+        dot.className = 'step-dot';
+        if (i < currentStep) dot.classList.add('completed');
+        if (i === currentStep) dot.classList.add('active');
+        ind.appendChild(dot);
+    }
+}
+function updateProgress() {
+    document.getElementById('progressBar').style.width = ((currentStep-1)/totalSteps*100)+'%';
+}
+function showStep(step) {
+    document.querySelectorAll('.step').forEach(s => s.style.display = 'none');
+    const el = document.querySelector(`.step[data-step="${step}"]`);
+    if (el) el.style.display = 'block';
+    document.getElementById('prevBtn').style.visibility = step === 1 ? 'hidden' : 'visible';
+    if (step === totalSteps) { document.getElementById('nextBtn').textContent = 'ส่ง ✓'; }
+    else if (step > totalSteps) { document.getElementById('navButtons').style.display = 'none'; }
+    else { document.getElementById('nextBtn').textContent = 'ถัดไป →'; }
+}
+function nextStep() {
+    if (currentStep === totalSteps) {
+        // V5: Confirm dialog before submit
+        if (confirm('ยืนยันการส่งแบบสอบถาม?\n\nกด OK เพื่อส่ง หรือ Cancel เพื่อกลับไปตรวจสอบ')) {
+            submitSurvey();
+        }
+    }
+    else if (currentStep < totalSteps) { currentStep++; showStep(currentStep); updateStepIndicator(); updateProgress(); window.scrollTo({top:0,behavior:'smooth'}); }
+}
+function prevStep() {
+    if (currentStep > 1) { currentStep--; showStep(currentStep); updateStepIndicator(); updateProgress(); window.scrollTo({top:0,behavior:'smooth'}); }
+}
+
+// ═══════════════════════════════════════════════════════════════
+// SELECTION HANDLERS
+// ═══════════════════════════════════════════════════════════════
+function selectDept(el, val) {
+    document.querySelectorAll('[name="department"]').forEach(inp => inp.closest('.option').classList.remove('selected'));
+    el.classList.add('selected');
+    el.querySelector('input[type="radio"]').checked = true;
+    selectedDepartment = val;
+    applySmartFilter();
+    if (val === 'other') setTimeout(() => document.getElementById('deptOtherInput').focus(), 100);
+}
+function selectOption(el, name) {
+    document.querySelectorAll(`[name="${name}"]`).forEach(inp => inp.closest('.option').classList.remove('selected'));
+    el.classList.add('selected');
+    el.querySelector('input[type="radio"]').checked = true;
+}
+function selectLevel(el) {
+    document.querySelectorAll('.level-option').forEach(o => o.classList.remove('selected'));
+    el.classList.add('selected');
+}
+function toggleCheckbox(el) {
+    el.classList.toggle('selected');
+    if (el.classList.contains('has-input')) {
+        const inp = el.querySelector('.other-input');
+        if (el.classList.contains('selected') && inp) setTimeout(()=>inp.focus(),50);
+        else if (inp) inp.value = '';
+    }
+    const cat = el.closest('.collapsible-category');
+    if (cat) updateCatCount(cat);
+}
+function selectRating(btn) {
+    const row = btn.closest('.rating-row') || btn.closest('.f1-compact-row');
+    const was = btn.classList.contains('selected');
+    row.querySelectorAll('.rating-btn,.f1-compact-btn').forEach(b => b.classList.remove('selected'));
+    if (!was) btn.classList.add('selected');
+}
+function selectFreq(el) {
+    document.querySelectorAll('.freq-option:not(.other-tool)').forEach(o => o.classList.remove('selected'));
+    el.classList.add('selected');
+}
+function toggleOtherTool(el, cat) {
+    el.classList.toggle('selected');
+    const inp = document.getElementById(cat+'-other');
+    if (el.classList.contains('selected')) { inp.classList.add('show'); inp.focus(); }
+    else { inp.classList.remove('show'); inp.value = ''; }
+}
+
+// ═══════════════════════════════════════════════════════════════
+// DYNAMIC INPUTS
+// ═══════════════════════════════════════════════════════════════
+function addDynamicInput(id, max, prefix) {
+    const c = document.getElementById(id);
+    const rows = c.querySelectorAll('.dynamic-input-row');
+    if (rows.length < max) {
+        const n = rows.length + 1;
+        const r = document.createElement('div');
+        r.className = 'dynamic-input-row';
+        r.innerHTML = `<input type="text" class="dotted-input" placeholder="${prefix} ${n}: ....................................................."><button class="remove-btn" onclick="removeDynamicInput(this)">×</button>`;
+        c.appendChild(r);
+    }
+}
+function removeDynamicInput(btn) {
+    const c = btn.closest('.dynamic-inputs');
+    if (c.querySelectorAll('.dynamic-input-row').length > 1) btn.closest('.dynamic-input-row').remove();
+}
+
+// ═══════════════════════════════════════════════════════════════
+// DATA COLLECTION
+// ═══════════════════════════════════════════════════════════════
+function getChecked(container) {
+    if (!container) return [];
+    const items = [];
+    container.querySelectorAll('.option.checkbox.selected').forEach(el => {
+        const t = el.querySelector('.option-title');
+        const title = t ? t.textContent.trim() : '';
+        if (!title.startsWith('อื่นๆ')) { if (title) items.push(title); }
+        else { const o = el.querySelector('.other-input'); items.push(o && o.value.trim() ? 'อื่นๆ: '+o.value.trim() : 'อื่นๆ (ไม่ระบุ)'); }
+    });
+    return items;
+}
+function collectDynamic(id) {
+    const items = [];
+    document.querySelectorAll('#'+id+' input').forEach(i => { if (i.value.trim()) items.push(i.value.trim()); });
+    return items;
+}
+function collectCategoryData(containerId) {
+    const result = {};
+    document.querySelectorAll('#'+containerId+' .collapsible-category').forEach((cat, idx) => {
+        const label = cat.querySelector('.cat-label').textContent.trim();
+        result[label] = getChecked(cat);
+    });
+    return result;
+}
+function collectFormData() {
+    const name = document.getElementById('name').value.trim();
+    const position = document.getElementById('position').value.trim();
+    const deptR = document.querySelector('input[name="department"]:checked');
+    const department = deptR ? deptR.value : '';
+    const departmentOther = (document.getElementById('deptOtherInput') || {}).value || '';
+    const locR = document.querySelector('input[name="location"]:checked');
+    const location = locR ? locR.value : '';
+    const locationOther = (document.getElementById('locationOtherInput') || {}).value || '';
+
+    // B
+    const dailyWork = collectCategoryData('b1Categories');
+    const repeatWork = collectDynamic('repeatWorkInputs');
+
+    // C
+    const problems = collectCategoryData('c1Categories');
+    const painPoints = collectDynamic('painPointInputs');
+    const aiHelpTop3 = [document.getElementById('aiHelp1').value.trim(), document.getElementById('aiHelp2').value.trim(), document.getElementById('aiHelp3').value.trim()].filter(Boolean);
+
+    // D
+    const keySuccess = collectDynamic('keySuccessInputs');
+    const creativity = collectDynamic('creativityInputs');
+    const concerns = document.getElementById('concerns').value.trim();
+    const speakerNotes = document.getElementById('speakerNotes').value.trim();
+
+    // E
+    const levelEl = document.querySelector('.level-option.selected .level-badge');
+    const experienceLevel = levelEl ? parseInt(levelEl.textContent.replace('L','')) : null;
+    const toolsUsed = collectCategoryData('e2Categories');
+    const freqEl = document.querySelector('.freq-option.selected:not(.other-tool)');
+    let usageFrequency = freqEl ? freqEl.textContent.trim() : '';
+    const freqO = document.getElementById('freq-other');
+    if (freqO && freqO.value.trim()) usageFrequency += (usageFrequency ? ' / อื่นๆ: ' : 'อื่นๆ: ') + freqO.value.trim();
+
+    // F
+    const expectationsScore = {};
+    document.querySelectorAll('#f1RatingGrid .rating-row').forEach((row, idx) => {
+        const sel = row.querySelector('.rating-btn.selected');
+        if (idx < F1_DATA.length) expectationsScore[F1_DATA[idx]] = sel ? parseInt(sel.textContent) : 0;
+    });
+    expectationsScore.otherTopic = (document.getElementById('expectationOtherText') || {}).value || '';
+    const oRow = document.getElementById('expectationOtherRow');
+    const oSel = oRow ? oRow.querySelector('.rating-btn.selected') : null;
+    expectationsScore.otherScore = oSel ? parseInt(oSel.textContent) : 0;
+
+    const f2Container = document.getElementById('f2Grid');
+    const interestedTopics = getChecked(f2Container ? f2Container.parentElement : null);
+
+    // G
+    const interestedFeatures = collectCategoryData('gCategories');
+
+    return {
+        timestamp: new Date().toISOString(),
+        name, position, department, departmentOther, location, locationOther,
+        dailyWork, repeatWork,
+        problems, painPoints, aiHelpTop3,
+        keySuccess, creativity, concerns, speakerNotes,
+        experienceLevel, toolsUsed, usageFrequency,
+        expectationsScore, interestedTopics,
+        interestedFeatures
+    };
+}
+
+// ═══════════════════════════════════════════════════════════════
+// RESET / SUBMIT
+// ═══════════════════════════════════════════════════════════════
+function resetSurvey() {
+    currentStep = 1;
+    selectedDepartment = '';
+    document.getElementById('navButtons').style.display = 'flex';
+    document.querySelectorAll('input[type="text"]').forEach(i => i.value = '');
+    document.querySelectorAll('input[type="radio"]').forEach(i => i.checked = false);
+    document.querySelectorAll('textarea').forEach(t => t.value = '');
+    document.querySelectorAll('.selected').forEach(el => el.classList.remove('selected'));
+    document.querySelectorAll('.other-tool-input').forEach(i => { i.classList.remove('show'); i.value=''; });
+    document.querySelectorAll('.collapsible-body').forEach(b => b.classList.remove('open'));
+    document.querySelectorAll('.arrow').forEach(a => a.classList.remove('open'));
+    document.querySelectorAll('.cat-count').forEach(c => c.textContent = '0 เลือก');
+    document.querySelectorAll('.collapsible-category').forEach(c => { c.classList.remove('filter-locked','filter-dimmed','dept-relevant'); });
+    showStep(1); updateStepIndicator(); updateProgress();
+    window.scrollTo({top:0,behavior:'smooth'});
+}
+
+async function submitSurvey() {
+    const data = collectFormData();
+    if (!data.name) { alert('กรุณากรอกชื่อ-นามสกุล'); currentStep=1; showStep(1); updateStepIndicator(); updateProgress(); return; }
+    if (data.department==='other' && !data.departmentOther) { alert('กรุณาระบุแผนก'); document.getElementById('deptOtherInput').focus(); return; }
+    const btn = document.getElementById('nextBtn');
+    btn.disabled = true; btn.textContent = 'กำลังส่ง...';
+    try {
+        if (GOOGLE_SCRIPT_URL && GOOGLE_SCRIPT_URL !== 'YOUR_GOOGLE_SCRIPT_URL_HERE') {
+            await fetch(GOOGLE_SCRIPT_URL, { method:'POST', mode:'no-cors', headers:{'Content-Type':'application/json'}, body:JSON.stringify(data) });
+        }
+        console.log('Submitted:', data);
+        currentStep = totalSteps + 1;
+        showStep(currentStep); updateProgress();
+    } catch(err) {
+        console.error(err);
+        alert('เกิดข้อผิดพลาด กรุณาลองใหม่อีกครั้ง');
+        btn.disabled = false; btn.textContent = 'ส่ง ✓';
+    }
+}
+
+// ═══════════════════════════════════════════════════════════════
+// INIT
+// ═══════════════════════════════════════════════════════════════
+buildCollapsibleCategories(B1_DATA, 'b1Categories', true, false);
+buildCollapsibleCategories(C1_DATA, 'c1Categories', true, false);
+buildCollapsibleCategories(E2_DATA, 'e2Categories', false, true);
+buildCollapsibleCategories(G_DATA, 'gCategories', true, false);
+buildF1();
+buildF2();
+showStep(1);
+updateStepIndicator();
+updateProgress();
+
+// Init other-input click handlers
+document.querySelectorAll('.option.has-input .other-input').forEach(inp => {
+    inp.addEventListener('click', e => e.stopPropagation());
+    inp.addEventListener('mousedown', e => e.stopPropagation());
+});
+
+// ═══════════════════════════════════════════════════════════════
+// V5: E2 SEARCH
+// ═══════════════════════════════════════════════════════════════
+function searchE2(query) {
+    const results = document.getElementById('e2SearchResults');
+    if (!query || query.length < 1) { results.classList.remove('show'); results.innerHTML = ''; return; }
+    const q = query.toLowerCase();
+    let html = '';
+    E2_DATA.forEach(cat => {
+        const allItems = cat.items || [];
+        allItems.forEach(item => {
+            if (item.toLowerCase().includes(q)) {
+                const isChecked = isE2ItemChecked(cat.label, item);
+                html += `<div class="e2-search-item ${isChecked?'checked':''}" onclick="toggleE2SearchItem(this,'${cat.label.replace(/'/g,"\\'")}','${item.replace(/'/g,"\\'")}')">
+                    <span class="cat-name">${cat.icon} ${cat.label}</span>
+                    <span class="item-name">${item}</span>
+                    <span class="item-check"></span>
+                </div>`;
+            }
+        });
+    });
+    if (html) { results.innerHTML = html; results.classList.add('show'); }
+    else { results.innerHTML = '<div style="padding:12px;text-align:center;color:#999;font-size:0.8rem">ไม่พบผลลัพธ์</div>'; results.classList.add('show'); }
+}
+
+function isE2ItemChecked(catLabel, itemText) {
+    const cats = document.querySelectorAll('#e2Categories .collapsible-category, #e2Categories .e2-grid .collapsible-category');
+    for (const cat of cats) {
+        const label = cat.querySelector('.cat-label');
+        if (label && label.textContent.trim() === catLabel) {
+            const opts = cat.querySelectorAll('.option.checkbox');
+            for (const opt of opts) {
+                const title = opt.querySelector('.option-title');
+                if (title && title.textContent.trim() === itemText && opt.classList.contains('selected')) return true;
+            }
+        }
+    }
+    return false;
+}
+
+function toggleE2SearchItem(el, catLabel, itemText) {
+    // Find and toggle the actual checkbox in E2
+    const cats = document.querySelectorAll('#e2Categories .collapsible-category, #e2Categories .e2-grid .collapsible-category');
+    for (const cat of cats) {
+        const label = cat.querySelector('.cat-label');
+        if (label && label.textContent.trim() === catLabel) {
+            const opts = cat.querySelectorAll('.option.checkbox');
+            for (const opt of opts) {
+                const title = opt.querySelector('.option-title');
+                if (title && title.textContent.trim() === itemText) {
+                    toggleCheckbox(opt);
+                    // Update search result appearance
+                    el.classList.toggle('checked');
+                    updateCatCount(cat);
+                    return;
+                }
+            }
+        }
+    }
+}
+
+// Close search results when clicking outside
+document.addEventListener('click', function(e) {
+    const wrap = document.querySelector('.e2-search-wrap');
+    if (wrap && !wrap.contains(e.target)) {
+        document.getElementById('e2SearchResults').classList.remove('show');
+    }
+});
+
+</script>
 </body>
 </html>
